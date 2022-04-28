@@ -8,12 +8,12 @@ enable_nat_gateway = false
 ecs_enable_execute_command = true
 
 public_dns_zones = {
-  "uat.tokenizer.pagopa.it" = {
+  "uat.tokenizer.pdv.pagopa.it" = {
     comment = "Personal data vault (Uat)"
   }
 }
 
-apigw_custom_domain_create = false
+apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
 
 # dynamodb
