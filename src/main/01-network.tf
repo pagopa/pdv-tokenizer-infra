@@ -148,39 +148,6 @@ module "vpc_endpoints" {
 
 }
 
-## VPC Peering
-/*
-resource "aws_vpc_peering_connection" "owner" {
-  count         = var.vpc_peering != null ? 1 : 0
-  vpc_id        = module.vpc.vpc_id
-  peer_vpc_id   = var.vpc_peering.peer_vpc_id
-  peer_owner_id = var.vpc_peering.peer_owner_id
-
-  requester {
-    allow_remote_vpc_dns_resolution = true
-  }
-
-  tags = {
-    Name = format("peer-to-%s", var.vpc_peering.peer_profile)
-  }
-}
-
-resource "null_resource" "vpc_peering" {
-  count = var.vpc_peering != null ? 1 : 0
-  triggers = {
-    cluster_instance_ids = aws_vpc_peering_connection.owner[0].id
-  }
-
-  provisioner "local-exec" {
-    command = "echo \"WARNING: Peering connection need to be accepted \" "
-  }
-}
-
-output "vpc_peering_status" {
-  value = try(aws_vpc_peering_connection.owner[0].accept_status, null)
-}
-
-*/
 data "aws_route_tables" "accepter" {
   vpc_id = module.vpc.vpc_id
 }
