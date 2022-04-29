@@ -59,6 +59,16 @@ variable "enable_nat_gateway" {
   default     = false
 }
 
+### VPC Peering
+variable "vpc_peering" {
+  type = object({
+    owner_connection_id = string
+    owner_cidr_block    = string
+  })
+  default     = null
+  description = "Vpc peering configuration"
+}
+
 ## Public Dns zones
 variable "public_dns_zones" {
   type        = map(any)

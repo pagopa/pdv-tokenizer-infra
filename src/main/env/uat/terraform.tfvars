@@ -4,6 +4,12 @@ environment = "uat"
 # Network
 enable_nat_gateway = false
 
+## Vpc peering
+vpc_peering = {
+  owner_connection_id = "pcx-01c148625db1c0c0e"
+  owner_cidr_block    = "10.0.0.0/16"
+}
+
 # Ecs
 ecs_enable_execute_command = true
 

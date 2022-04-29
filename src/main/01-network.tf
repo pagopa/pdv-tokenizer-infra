@@ -147,3 +147,14 @@ module "vpc_endpoints" {
   }
 
 }
+
+data "aws_route_tables" "accepter" {
+  vpc_id = module.vpc.vpc_id
+}
+
+resource "aws_route" "accepter" {
+  count                     = var.vpc_peering != null ? length(data.aws_route_tables.accepter.ids) : 0
+  route_table_id            = data.aws_route_tables.accepter.ids[count.index]
+  destination_cidr_block    = var.vpc_peering.owner_cidr_block
+  vpc_peering_connection_id = var.vpc_peering.owner_connection_id
+}
