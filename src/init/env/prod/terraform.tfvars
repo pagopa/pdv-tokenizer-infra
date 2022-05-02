@@ -4,6 +4,6 @@ tags = {
   "Environment" = "Prod"
   "Owner"       = "PagoPa"
   "Scope"       = "tfstate"
-  "Source"      = "https://github.com/pagopa/personal-data-vault-infra.git"
+  "Source"      = "https://github.com/pagopa/tokenizer-data-vault-infra"
   "name"        = "S3 Remote Terraform State Store"
 }
