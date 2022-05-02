@@ -21,7 +21,7 @@ public_dns_zones = {
   }
 }
 
-apigw_custom_domain_create = false
+apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
 
 # dynamodb
