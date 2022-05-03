@@ -21,29 +21,54 @@ public_dns_zones = {
   }
 }
 
+# Api Gateway 
+
 apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
+
+## Throttling 
+
+api_tokenizer_throttling = {
+  burst_limit = 5
+  rate_limit  = 100
+  method_throttle = [{
+    burst_limit = 5
+    path        = "/tokens/PUT"
+    rate_limit  = 65
+    },
+    {
+      burst_limit = 5
+      path        = "/tokens/{token}/pii/GET"
+      rate_limit  = 32
+    },
+    {
+      burst_limit = 5
+      path        = "/tokens/search/POST"
+      rate_limit  = 38
+    },
+  ]
+}
 
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = true
 
 
 ## table Token
-table_token_read_capacity  = 5
-table_token_write_capacity = 5
+table_token_read_capacity  = 20
+table_token_write_capacity = 50
 
 table_token_autoscaling_read = {
   scale_in_cooldown  = 50
   scale_out_cooldown = 40
-  target_value       = 45
-  max_capacity       = 10
+  target_value       = 40
+  max_capacity       = 50
 }
 
 table_token_autoscaling_write = {
   scale_in_cooldown  = 50
   scale_out_cooldown = 40
-  target_value       = 45
-  max_capacity       = 10
+  target_value       = 70
+  max_capacity       = 80
 }
 
 table_token_autoscling_indexes = {
