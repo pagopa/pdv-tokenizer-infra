@@ -19,8 +19,13 @@ public_dns_zones = {
   }
 }
 
+# Api Gateway
+
 apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
+
+api_keys_tokenizer = ["SELFCARE", "USERREGISTRY", "PNPF-DEV", "PNPF-UAT"]
+
 
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = false
