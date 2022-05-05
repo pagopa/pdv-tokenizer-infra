@@ -121,12 +121,12 @@ resource "aws_api_gateway_usage_plan_key" "tokenizer" {
 
 
 ## Mapping api tokenizer with apigw custom domain.
-resource "aws_api_gateway_base_path_mapping" "tokenizer" {
-  count       = var.apigw_custom_domain_create ? 1 : 0
-  api_id      = aws_api_gateway_rest_api.tokenizer.id
-  stage_name  = local.tokenizer_stage_name
-  domain_name = aws_api_gateway_domain_name.main[0].domain_name
-  base_path   = "tokenizer"
+resource "aws_apigatewayv2_api_mapping" "tokenizer" {
+  count           = var.apigw_custom_domain_create ? 1 : 0
+  api_id          = aws_api_gateway_rest_api.tokenizer.id
+  stage           = aws_api_gateway_stage.tokenizer.stage_name
+  domain_name     = aws_api_gateway_domain_name.main[0].domain_name
+  api_mapping_key = format("tokenizer/%s", aws_api_gateway_stage.tokenizer.stage_name)
 }
 
 ## WAF association
