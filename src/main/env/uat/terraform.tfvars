@@ -24,7 +24,7 @@ public_dns_zones = {
 apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
 
-api_keys_tokenizer = ["SELFCARE", "USERREGISTRY", "PNPF-DEV", "PNPF-UAT"]
+api_keys_tokenizer = ["SANDBOX", "SELFCARE-DEV", "SELFCARE-UAT", "USERREGISTRY", "PNPF-DEV", "PNPF-UAT"]
 
 
 # dynamodb
