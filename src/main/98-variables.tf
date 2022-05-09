@@ -89,6 +89,12 @@ variable "apigw_access_logs_enable" {
 
 }
 
+variable "apigw_data_trace_enabled" {
+  type        = bool
+  description = "Specifies whether data trace logging is enabled. It effects the log entries pushed to Amazon CloudWatch Logs."
+  default     = false
+}
+
 variable "api_keys_tokenizer" {
   type        = list(string)
   description = "Api keys allowed to call the tokenizer ms."
