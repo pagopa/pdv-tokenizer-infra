@@ -17,6 +17,8 @@ if [ -z "$env" ]; then
   exit 0
 fi
 
+export AWS_PROFILE=ppa-tokenizer-data-vault-${env}
+
 if echo "init plan apply refresh import output state taint destroy" | grep -w $action > /dev/null; then
   if [ $action = "init" ]; then
     terraform $action -backend-config="./env/$env/backend.tfvars" $other
