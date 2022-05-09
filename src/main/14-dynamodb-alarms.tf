@@ -55,3 +55,142 @@ module "dynamo_successful_request_latency" {
   ]
 }
 
+## Read capacity units
+module "dynamodb_read_capacity_units_limit_alarm" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  version = "~> 3.0"
+
+  alarm_name          = "dynamodb-read-capacity-units-"
+  actions_enabled     = var.env_short == "p" ? true : false
+  alarm_description   = "Alarm when read capacity reaches 80% of provisioned read capacity"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  threshold           = var.table_token_read_capacity - (var.table_token_read_capacity * 0.2)
+  period              = 60
+
+  namespace   = "AWS/DynamoDB"
+  metric_name = "ConsumedReadCapacityUnits"
+  statistic   = "Sum"
+
+  dimensions = {
+    "token" = {
+      TableName = local.dynamodb_table_token
+    },
+  }
+
+  alarm_actions = [aws_sns_topic.alarms.arn]
+}
+
+## Write capacity units
+module "dynamodb_write_capacity_units_limit_alarm" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  version = "~> 3.0"
+
+  alarm_name          = "dynamodb-write-capacity-units-"
+  actions_enabled     = var.env_short == "p" ? true : false
+  alarm_description   = "Alarm when write capacity reaches 80% of provisioned read capacity"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  threshold           = var.table_token_write_capacity - (var.table_token_write_capacity * 0.2)
+  period              = 60
+
+  namespace   = "AWS/DynamoDB"
+  metric_name = "ConsumedWriteCapacityUnits"
+  statistic   = "Sum"
+
+  dimensions = {
+    "token" = {
+      TableName = local.dynamodb_table_token
+    },
+  }
+
+  alarm_actions = [aws_sns_topic.alarms.arn]
+}
+
+### Global secondary index read capacity.
+module "gsi_index_read_capacity_units_limit_alarm" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  version = "~> 3.0"
+
+  alarm_name          = "read-capacity-units-"
+  actions_enabled     = var.env_short == "p" ? true : false
+  alarm_description   = "Alarm when read capacity reaches 80% of provisioned read capacity"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  threshold           = var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["read_max_capacity"] - (var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["read_max_capacity"] * 0.2)
+  period              = 60
+
+  namespace   = "AWS/DynamoDB"
+  metric_name = "ConsumedReadCapacityUnits"
+  statistic   = "Sum"
+
+  dimensions = {
+    "gsi_index" = {
+      GlobalSecondaryIndexName = local.dynamo_gsi_token_name
+    },
+  }
+
+  alarm_actions = [aws_sns_topic.alarms.arn]
+}
+
+### Global secondary write read capacity.
+module "gsi_index_write_capacity_units_limit_alarm" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  version = "~> 3.0"
+
+  alarm_name          = "write-capacity-units-"
+  actions_enabled     = var.env_short == "p" ? true : false
+  alarm_description   = "Alarm when read capacity reaches 80% of provisioned read capacity"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  threshold           = var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["write_max_capacity"] - (var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["write_max_capacity"] * 0.2)
+  period              = 60
+
+  namespace   = "AWS/DynamoDB"
+  metric_name = "ConsumedWriteCapacityUnits"
+  statistic   = "Sum"
+
+  dimensions = {
+    "gsi_index" = {
+      GlobalSecondaryIndexName = local.dynamo_gsi_token_name
+    },
+  }
+
+  alarm_actions = [aws_sns_topic.alarms.arn]
+}
+
+#ExceedingThroughput
+module "dynamodb_request_exceeding_throughput_alarm" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  version = "~> 3.0"
+
+  alarm_name          = "dynamodb-exceeding-throughput-"
+  actions_enabled     = var.env_short == "p" ? true : false
+  alarm_description   = "Alarm when my requests are exceeding provisioned throughput quotas of a table."
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  threshold           = 0
+  period              = 300
+  unit                = "Count"
+
+  namespace   = "AWS/DynamoDB"
+  metric_name = "ThrottledRequests"
+  statistic   = "Sum"
+
+  dimensions = {
+    "token-getitem" = {
+      TableName = local.dynamodb_table_token
+      Operation = "GetItem"
+    },
+    "token-query" = {
+      TableName = local.dynamodb_table_token
+      Operation = "Query"
+    },
+    "token-putitem" = {
+      TableName = local.dynamodb_table_token
+      Operation = "PutItem"
+    },
+  }
+
+  alarm_actions = [aws_sns_topic.alarms.arn]
+}
