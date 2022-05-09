@@ -65,7 +65,7 @@ module "dynamodb_read_capacity_units_limit_alarm" {
   alarm_description   = "Alarm when read capacity reaches 80% of provisioned read capacity"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
-  threshold           = var.table_person_read_capacity - (var.table_person_read_capacity * 0.2)
+  threshold           = var.table_token_read_capacity - (var.table_token_read_capacity * 0.2)
   period              = 60
 
   namespace   = "AWS/DynamoDB"
@@ -73,7 +73,7 @@ module "dynamodb_read_capacity_units_limit_alarm" {
   statistic   = "Sum"
 
   dimensions = {
-    "person" = {
+    "token" = {
       TableName = local.dynamodb_table_token
     },
   }
@@ -91,7 +91,7 @@ module "dynamodb_write_capacity_units_limit_alarm" {
   alarm_description   = "Alarm when write capacity reaches 80% of provisioned read capacity"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
-  threshold           = var.table_person_write_capacity - (var.table_person_write_capacity * 0.2)
+  threshold           = var.table_token_write_capacity - (var.table_token_write_capacity * 0.2)
   period              = 60
 
   namespace   = "AWS/DynamoDB"
@@ -99,7 +99,7 @@ module "dynamodb_write_capacity_units_limit_alarm" {
   statistic   = "Sum"
 
   dimensions = {
-    "person" = {
+    "token" = {
       TableName = local.dynamodb_table_token
     },
   }
@@ -186,7 +186,7 @@ module "dynamodb_request_exceeding_throughput_alarm" {
       TableName = local.dynamodb_table_token
       Operation = "Query"
     },
-    "person-putitem" = {
+    "token-putitem" = {
       TableName = local.dynamodb_table_token
       Operation = "PutItem"
     },
