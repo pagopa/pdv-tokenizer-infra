@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "project_name" {
   type        = string
   description = "Azure devops project name."
-  default     = "tokenizer-data-vault-infra"
+  default     = "tokenizer-data-vault-iac"
 }
 
 variable "iac" {
