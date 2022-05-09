@@ -27,14 +27,15 @@ apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
 
 ## Throttling 
-
-api_tokenizer_throttling = {
+tokenizer_plans = [{
+  key_name    = "SELFCARE"
   burst_limit = 5
   rate_limit  = 100
-  method_throttle = [{
-    burst_limit = 5
-    path        = "/tokens/PUT"
-    rate_limit  = 65
+  method_throttle = [
+    {
+      burst_limit = 5
+      path        = "/tokens/PUT"
+      rate_limit  = 65
     },
     {
       burst_limit = 5
@@ -47,7 +48,30 @@ api_tokenizer_throttling = {
       rate_limit  = 38
     },
   ]
-}
+  },
+  {
+    key_name    = "USERREGISTRY"
+    burst_limit = 5
+    rate_limit  = 100
+    method_throttle = [
+      {
+        burst_limit = 5
+        path        = "/tokens/PUT"
+        rate_limit  = 65
+      },
+      {
+        burst_limit = 5
+        path        = "/tokens/{token}/pii/GET"
+        rate_limit  = 32
+      },
+      {
+        burst_limit = 5
+        path        = "/tokens/search/POST"
+        rate_limit  = 38
+      },
+    ]
+  },
+]
 
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = true

@@ -95,31 +95,6 @@ variable "apigw_data_trace_enabled" {
   default     = false
 }
 
-variable "api_keys_tokenizer" {
-  type        = list(string)
-  description = "Api keys allowed to call the tokenizer ms."
-  default     = ["SELFCARE", "USERREGISTRY", ]
-}
-
-variable "api_tokenizer_throttling" {
-  type = object({
-    burst_limit = number
-    rate_limit  = number
-    method_throttle = list(object({
-      path        = string
-      burst_limit = number
-      rate_limit  = number
-    }))
-  })
-  default = {
-    burst_limit     = 5
-    rate_limit      = 10
-    method_throttle = []
-  }
-  description = "Api tokenizer plan rate limits."
-}
-
-
 ## ECR
 variable "ecr_keep_nr_images" {
   type        = number
@@ -245,6 +220,21 @@ variable "table_token_autoscaling_write" {
     max_capacity       = number
   })
   description = "Write autoscaling settings table token."
+}
+
+// We assume every plan has its own api key
+variable "tokenizer_plans" {
+  type = list(object({
+    key_name    = string
+    burst_limit = number
+    rate_limit  = number
+    method_throttle = list(object({
+      path        = string
+      burst_limit = number
+      rate_limit  = number
+    }))
+  }))
+  description = "Usage plan with its api key and rate limit."
 }
 
 variable "table_token_autoscling_indexes" {

@@ -24,7 +24,44 @@ public_dns_zones = {
 apigw_custom_domain_create = true
 apigw_access_logs_enable   = false
 
-api_keys_tokenizer = ["SANDBOX", "SELFCARE-DEV", "SELFCARE-UAT", "USERREGISTRY", "PNPF-DEV", "PNPF-UAT"]
+tokenizer_plans = [
+  {
+    key_name        = "SANDBOX"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
+    key_name        = "SELFCARE-DEV"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
+    key_name        = "USERREGISTRY"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
+    key_name        = "SELFCARE-UAT"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
+    key_name        = "PNPF-DEV"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
+    key_name        = "PNPF-UAT"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+]
 
 
 # dynamodb
