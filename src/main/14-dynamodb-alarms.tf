@@ -117,7 +117,7 @@ module "gsi_index_read_capacity_units_limit_alarm" {
   alarm_description   = "Alarm when read capacity reaches 80% of provisioned read capacity"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
-  threshold           = var.table_person_autoscling_indexes[local.dynamo_gsi_token_name]["read_max_capacity"] - (var.table_person_autoscling_indexes[local.dynamo_gsi_token_name]["read_max_capacity"] * 0.2)
+  threshold           = var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["read_max_capacity"] - (var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["read_max_capacity"] * 0.2)
   period              = 60
 
   namespace   = "AWS/DynamoDB"
@@ -143,7 +143,7 @@ module "gsi_index_write_capacity_units_limit_alarm" {
   alarm_description   = "Alarm when read capacity reaches 80% of provisioned read capacity"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
-  threshold           = var.table_person_autoscling_indexes[local.dynamo_gsi_token_name]["write_max_capacity"] - (var.table_person_autoscling_indexes[local.dynamo_gsi_token_name]["write_max_capacity"] * 0.2)
+  threshold           = var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["write_max_capacity"] - (var.table_token_autoscling_indexes[local.dynamo_gsi_token_name]["write_max_capacity"] * 0.2)
   period              = 60
 
   namespace   = "AWS/DynamoDB"
