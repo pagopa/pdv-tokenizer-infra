@@ -42,7 +42,7 @@ resource "aws_api_gateway_deployment" "tokenizer" {
 
 resource "aws_cloudwatch_log_group" "tokenizer" {
   name              = local.tokenizer_log_group_name
-  retention_in_days = 7
+  retention_in_days = var.apigw_execution_logs_retention
 
   tags = { Name = local.tokenizer_api_name }
 }

@@ -21,10 +21,13 @@ public_dns_zones = {
   }
 }
 
+ecs_logs_retention_days = 90
+
 # Api Gateway 
 
-apigw_custom_domain_create = true
-apigw_access_logs_enable   = false
+apigw_custom_domain_create     = true
+apigw_access_logs_enable       = false
+apigw_execution_logs_retention = 90
 
 ## Throttling 
 tokenizer_plans = [{
