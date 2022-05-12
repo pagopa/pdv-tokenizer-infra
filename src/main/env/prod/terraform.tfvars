@@ -21,6 +21,8 @@ public_dns_zones = {
   }
 }
 
+ecs_logs_retention_days = 90
+
 # Api Gateway 
 
 apigw_custom_domain_create     = true
