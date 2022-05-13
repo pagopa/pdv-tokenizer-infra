@@ -44,6 +44,30 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization_low" {
   ]
 }
 
+# Alarm
+resource "aws_cloudwatch_metric_alarm" "mem_utilization_high" {
+  count = length(local.service_ids)
+  alarm_name = format("%s-Mem-Utilization-High-%s", split("/", local.service_ids[count.index])[2],
+  var.ecs_as_threshold.mem_max)
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "MemoryUtilization"
+  namespace           = "AWS/ECS"
+  period              = "60"
+  statistic           = "Average"
+  threshold           = var.ecs_as_threshold.mem_max
+
+  dimensions = {
+    ClusterName = aws_ecs_cluster.ecs_cluster.name
+    ServiceName = split("/", local.service_ids[count.index])[2]
+  }
+
+  alarm_actions = [
+    #aws_appautoscaling_policy.app_up[count.index].arn,
+    aws_sns_topic.alarms.arn,
+  ]
+}
+
 resource "aws_appautoscaling_policy" "app_up" {
   count              = length(local.service_ids)
   name               = format("%s-scale-up", aws_ecs_cluster.ecs_cluster.name)
