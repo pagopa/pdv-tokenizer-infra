@@ -61,6 +61,18 @@ tokenizer_plans = [
     rate_limit      = 10
     method_throttle = []
   },
+  {
+    key_name        = "INTEROP-DEV"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
+    key_name        = "INTEROP-UAT"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
 ]
 
 
