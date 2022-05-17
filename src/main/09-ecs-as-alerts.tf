@@ -40,7 +40,6 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization_low" {
 
   alarm_actions = [
     aws_appautoscaling_policy.app_down[count.index].arn,
-    aws_sns_topic.alarms.arn,
   ]
 }
 
