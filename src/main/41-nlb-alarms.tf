@@ -4,7 +4,7 @@ module "nlb_unhealthy_unhealthy_targets_alarm" {
 
   count = length(module.nlb.target_group_names)
 
-  alarm_name          = "nlb-unhealthy-unhealthy-target-"
+  alarm_name          = "nlb-unhealthy-unhealthy-"
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_description   = "Alarm when an unhealthy count is greater than one in the target"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -18,7 +18,7 @@ module "nlb_unhealthy_unhealthy_targets_alarm" {
   statistic   = "Sum"
 
   dimensions = {
-    "target" = {
+    "${module.nlb.target_group_names[count.index]}" = {
       TargetGroup = module.nlb.target_group_names[count.index]
       LoadBalacer = module.nlb.lb_arn_suffix
     },
