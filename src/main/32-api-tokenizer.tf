@@ -283,7 +283,7 @@ module "api_tokenizer_low_latency_alarm" {
   statistic   = "Maximum"
 
   dimensions = {
-    "${local.user_registry_api_name}" = {
+    "${local.tokenizer_api_name}" = {
       ApiName = local.tokenizer_api_name
       Stage   = local.tokenizer_stage_name
     },
