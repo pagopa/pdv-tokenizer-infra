@@ -260,3 +260,35 @@ module "api_tokenizer_throttle_limit_alarm" {
     module.log_filter_throttle_limit_tokenizer
   ]
 }
+
+locals {
+  latency_threshold = 2000
+}
+
+module "api_tokenizer_low_latency_alarm" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  version = "~> 3.0"
+
+  actions_enabled     = var.env_short == "p" ? true : false
+  alarm_name          = "low-latency-"
+  alarm_description   = format("The Api responds in more than %s ms.", local.latency_threshold)
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  threshold           = local.latency_threshold
+  period              = 300
+  unit                = "Count"
+  datapoints_to_alarm = 1
+
+  namespace   = "AWS/ApiGateway"
+  metric_name = "Latency"
+  statistic   = "Maximum"
+
+  dimensions = {
+    "${local.tokenizer_api_name}" = {
+      ApiName = local.tokenizer_api_name
+      Stage   = local.tokenizer_stage_name
+    },
+  }
+
+  alarm_actions = [aws_sns_topic.alarms.arn]
+}
