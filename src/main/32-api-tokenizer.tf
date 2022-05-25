@@ -17,6 +17,7 @@ resource "aws_api_gateway_rest_api" "tokenizer" {
         {
           list_key_to_name = join(",", local.list_tokenizer_key_to_name)
       }))
+      responses = file("./api/ms_user_registry/status_code_mapping.tpl.json")
     }
   )
 
