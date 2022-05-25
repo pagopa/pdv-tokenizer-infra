@@ -18,6 +18,7 @@
 |------|--------|---------|
 | <a name="module_api_tokenizer_4xx_error_alarm"></a> [api\_tokenizer\_4xx\_error\_alarm](#module\_api\_tokenizer\_4xx\_error\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 | <a name="module_api_tokenizer_5xx_error_alarm"></a> [api\_tokenizer\_5xx\_error\_alarm](#module\_api\_tokenizer\_5xx\_error\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
+| <a name="module_api_tokenizer_low_latency_alarm"></a> [api\_tokenizer\_low\_latency\_alarm](#module\_api\_tokenizer\_low\_latency\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 | <a name="module_api_tokenizer_throttle_limit_alarm"></a> [api\_tokenizer\_throttle\_limit\_alarm](#module\_api\_tokenizer\_throttle\_limit\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
 | <a name="module_dn_zone"></a> [dn\_zone](#module\_dn\_zone) | terraform-aws-modules/route53/aws//modules/zones | ~> 2.0 |
 | <a name="module_dynamo_successful_request_latency"></a> [dynamo\_successful\_request\_latency](#module\_dynamo\_successful\_request\_latency) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
