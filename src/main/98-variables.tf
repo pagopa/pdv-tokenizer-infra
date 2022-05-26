@@ -107,6 +107,19 @@ variable "apigw_execution_logs_retention" {
   description = "Api gateway exection logs retention (days)"
 }
 
+## Web acl config
+variable "web_acl_visibility_config" {
+  type = object({
+    cloudwatch_metrics_enabled = bool
+    sampled_requests_enabled   = bool
+  })
+  default = {
+    cloudwatch_metrics_enabled = false
+    sampled_requests_enabled   = false
+  }
+  description = "Cloudwatch metric eneble for web acl rules."
+}
+
 ## ECR
 variable "ecr_keep_nr_images" {
   type        = number
