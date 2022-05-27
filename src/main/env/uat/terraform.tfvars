@@ -38,6 +38,12 @@ tokenizer_plans = [
     method_throttle = []
   },
   {
+    key_name        = "IOSIGN"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
     key_name        = "USERREGISTRY"
     burst_limit     = 5
     rate_limit      = 10
