@@ -75,6 +75,12 @@ variable "public_dns_zones" {
   description = "Route53 Hosted Zone"
 }
 
+variable "dns_record_ttl" {
+  type        = number
+  description = "Dns record ttl (in sec)"
+  default     = 86400 # 24 hours
+}
+
 ## Api Gateway
 variable "apigw_custom_domain_create" {
   type        = bool
@@ -99,6 +105,19 @@ variable "apigw_execution_logs_retention" {
   type        = number
   default     = 7
   description = "Api gateway exection logs retention (days)"
+}
+
+## Web acl config
+variable "web_acl_visibility_config" {
+  type = object({
+    cloudwatch_metrics_enabled = bool
+    sampled_requests_enabled   = bool
+  })
+  default = {
+    cloudwatch_metrics_enabled = false
+    sampled_requests_enabled   = false
+  }
+  description = "Cloudwatch metric eneble for web acl rules."
 }
 
 ## ECR
