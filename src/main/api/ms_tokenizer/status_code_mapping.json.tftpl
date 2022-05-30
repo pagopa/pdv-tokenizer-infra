@@ -1,5 +1,8 @@
 "200" : {
     "statusCode" : "200"
+    "responseTemplates" : {
+      "application/json" : "#set($token =$input.json('$.token')) { "token: $token }"
+ },
   },
   "404" : {
     "statusCode" : "404"

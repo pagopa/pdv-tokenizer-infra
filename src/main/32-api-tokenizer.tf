@@ -9,15 +9,15 @@ resource "aws_api_gateway_rest_api" "tokenizer" {
   name           = local.tokenizer_api_name
   api_key_source = "HEADER"
 
-  body = templatefile("./api/ms_tokenizer/api-docs.tpl.json",
+  body = templatefile("./api/ms_tokenizer/api-docs.json.tftpl",
     {
       uri           = format("http://%s", module.nlb.lb_dns_name),
       connection_id = aws_api_gateway_vpc_link.apigw.id
-      write_request_template = chomp(templatefile("./api/velocity_request_template_write.tpl",
+      request_template = chomp(templatefile("./api/request_template.tftpl",
         {
           list_key_to_name = join(",", local.list_tokenizer_key_to_name)
       }))
-      responses = file("./api/ms_tokenizer/status_code_mapping.tpl.json")
+      responses = file("./api/ms_tokenizer/status_code_mapping.json.tftpl")
     }
   )
 
