@@ -41,8 +41,7 @@ resource "aws_cloudwatch_query_definition" "ecs_provisioned_throughput_exception
   name = "ECS/Count Provisioned Throughput"
 
   log_group_names = [
-    aws_cloudwatch_log_group.ecs_person.name,
-    aws_cloudwatch_log_group.ecs_user_registry.name,
+    aws_cloudwatch_log_group.ecs_tokenizer.name,
   ]
   query_string = file("./cloudwatch-query/count-provisioned-throughput-exceeded.sql")
 }
