@@ -1,0 +1,21 @@
+"200" : {
+    "statusCode" : "200"
+  },
+  "404" : {
+    "statusCode" : "404"
+  },
+  "400" : {
+    "statusCode" : "400"
+  },
+  "401" : {
+    "statusCode" : "401"
+  },
+  "403" : {
+    "statusCode" : "403"
+  },
+  "409" : {
+    "statusCode" : "409"
+  },
+  "429" : {
+    "statusCode" : "429"
+  }

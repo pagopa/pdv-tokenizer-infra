@@ -1,5 +1,6 @@
 locals {
-  apigw_name = format("%s-apigw-vpc-lik", local.project)
+  apigw_name  = format("%s-apigw-vpc-lik", local.project)
+  webacl_name = format("%s-webacl", local.project)
 }
 
 resource "aws_api_gateway_vpc_link" "apigw" {
@@ -18,12 +19,101 @@ resource "aws_wafv2_web_acl" "main" {
   scope       = "REGIONAL"
 
   visibility_config {
-    cloudwatch_metrics_enabled = true
-    metric_name                = "apiWebACL"
-    sampled_requests_enabled   = true
+    cloudwatch_metrics_enabled = var.web_acl_visibility_config.cloudwatch_metrics_enabled
+    metric_name                = local.webacl_name
+    sampled_requests_enabled   = var.web_acl_visibility_config.sampled_requests_enabled
   }
   default_action {
     allow {}
+  }
+
+  rule {
+    name     = "IpReputationList"
+    priority = 1
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesAmazonIpReputationList"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = var.web_acl_visibility_config.cloudwatch_metrics_enabled
+      metric_name                = local.webacl_name
+      sampled_requests_enabled   = var.web_acl_visibility_config.sampled_requests_enabled
+    }
+  }
+
+
+  rule {
+    name     = "CommonRuleSet"
+    priority = 2
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = var.web_acl_visibility_config.cloudwatch_metrics_enabled
+      metric_name                = local.webacl_name
+      sampled_requests_enabled   = var.web_acl_visibility_config.sampled_requests_enabled
+    }
+  }
+
+  rule {
+    name     = "KnownBadInputsRuleSet"
+    priority = 3
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesKnownBadInputsRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = var.web_acl_visibility_config.cloudwatch_metrics_enabled
+      metric_name                = local.webacl_name
+      sampled_requests_enabled   = var.web_acl_visibility_config.sampled_requests_enabled
+    }
+  }
+
+  rule {
+    name     = "SQLiRuleSet"
+    priority = 4
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesSQLiRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = var.web_acl_visibility_config.cloudwatch_metrics_enabled
+      metric_name                = local.webacl_name
+      sampled_requests_enabled   = var.web_acl_visibility_config.sampled_requests_enabled
+    }
   }
 
   tags = { Name = format("%s-webacl", local.project) }

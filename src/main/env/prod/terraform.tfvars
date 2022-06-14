@@ -98,6 +98,13 @@ tokenizer_plans = [{
   },
 ]
 
+## Web ACL
+
+web_acl_visibility_config = {
+  cloudwatch_metrics_enabled = true
+  sampled_requests_enabled   = true
+}
+
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = true
 
