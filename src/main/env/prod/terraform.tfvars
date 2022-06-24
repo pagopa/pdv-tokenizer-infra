@@ -23,6 +23,11 @@ public_dns_zones = {
 
 ecs_logs_retention_days = 90
 
+
+# App
+ms_tokenizer_enable_single_line_stack_trace_logging = true
+
+
 # Api Gateway 
 
 apigw_custom_domain_create     = true
