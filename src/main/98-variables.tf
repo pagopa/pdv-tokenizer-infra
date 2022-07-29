@@ -199,12 +199,11 @@ variable "ms_tokenizer_enable_confidential_filter" {
   description = "Enable a filter to avoid logging confidential data"
 }
 
-variable "ms_user_registry_log_level" {
-  type        = string
-  default     = "DEBUG"
-  description = "Log level micro service user registry"
+variable "ms_tokenizer_enable_single_line_stack_trace_logging" {
+  type        = bool
+  default     = false
+  description = "Enable logging stack trace in a single line"
 }
-
 
 
 # Dynamodb 

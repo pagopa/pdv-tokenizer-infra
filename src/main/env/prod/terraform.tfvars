@@ -23,6 +23,11 @@ public_dns_zones = {
 
 ecs_logs_retention_days = 90
 
+
+# App
+ms_tokenizer_enable_single_line_stack_trace_logging = true
+
+
 # Api Gateway 
 
 apigw_custom_domain_create     = true
@@ -32,6 +37,28 @@ apigw_execution_logs_retention = 90
 ## Throttling 
 tokenizer_plans = [{
   key_name    = "SELFCARE"
+  burst_limit = 5
+  rate_limit  = 100
+  method_throttle = [
+    {
+      burst_limit = 5
+      path        = "/tokens/PUT"
+      rate_limit  = 65
+    },
+    {
+      burst_limit = 5
+      path        = "/tokens/{token}/pii/GET"
+      rate_limit  = 32
+    },
+    {
+      burst_limit = 5
+      path        = "/tokens/search/POST"
+      rate_limit  = 38
+    },
+  ]
+  },
+  {
+  key_name    = "INTEROP"
   burst_limit = 5
   rate_limit  = 100
   method_throttle = [
