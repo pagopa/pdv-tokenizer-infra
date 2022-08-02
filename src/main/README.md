@@ -32,6 +32,7 @@
 | <a name="module_metric_alarms"></a> [metric\_alarms](#module\_metric\_alarms) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
 | <a name="module_nlb"></a> [nlb](#module\_nlb) | terraform-aws-modules/alb/aws |  |
 | <a name="module_nlb_unhealthy_unhealthy_targets_alarm"></a> [nlb\_unhealthy\_unhealthy\_targets\_alarm](#module\_nlb\_unhealthy\_unhealthy\_targets\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
+| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git?ref=v1.0.0 |  |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 3.14.0 |
 | <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints |  |
 | <a name="module_webacl_count_alarm"></a> [webacl\_count\_alarm](#module\_webacl\_count\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
@@ -157,6 +158,7 @@
 | <a name="input_ecs_enable_execute_command"></a> [ecs\_enable\_execute\_command](#input\_ecs\_enable\_execute\_command) | Specifies whether to enable Amazon ECS Exec for the tasks within the service. | `bool` | `false` | no |
 | <a name="input_ecs_logs_retention_days"></a> [ecs\_logs\_retention\_days](#input\_ecs\_logs\_retention\_days) | Specifies the number of days you want to retain log events in the specified log group. | `number` | `7` | no |
 | <a name="input_enable_nat_gateway"></a> [enable\_nat\_gateway](#input\_enable\_nat\_gateway) | Enable/Create nat gateway | `bool` | `false` | no |
+| <a name="input_enable_sentinel_logs"></a> [enable\_sentinel\_logs](#input\_enable\_sentinel\_logs) | Create all resources required to sento logs to azure sentinel. | `bool` | `false` | no |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | Evnironment short. | `string` | `"d"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment | `string` | `"dev"` | no |
 | <a name="input_ms_tokenizer_enable_confidential_filter"></a> [ms\_tokenizer\_enable\_confidential\_filter](#input\_ms\_tokenizer\_enable\_confidential\_filter) | Enable a filter to avoid logging confidential data | `bool` | `false` | no |
@@ -164,6 +166,8 @@
 | <a name="input_ms_tokenizer_log_level"></a> [ms\_tokenizer\_log\_level](#input\_ms\_tokenizer\_log\_level) | Log level micro service tokenizer | `string` | `"DEBUG"` | no |
 | <a name="input_ms_tokenizer_rest_client_log_level"></a> [ms\_tokenizer\_rest\_client\_log\_level](#input\_ms\_tokenizer\_rest\_client\_log\_level) | Rest client log level micro service tokenizer | `string` | `"FULL"` | no |
 | <a name="input_replica_count"></a> [replica\_count](#input\_replica\_count) | Number of task replica | `number` | `1` | no |
+| <a name="input_sentinel_servcie_account_id"></a> [sentinel\_servcie\_account\_id](#input\_sentinel\_servcie\_account\_id) | Microsoft Sentinel's service account ID for AWS. | `string` | `"197857026523"` | no |
+| <a name="input_sentinel_workspace_id"></a> [sentinel\_workspace\_id](#input\_sentinel\_workspace\_id) | Sentinel workspece id | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(any)` | <pre>{<br>  "CreatedBy": "Terraform"<br>}</pre> | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | VPC cidr. | `string` | `"10.1.0.0/16"` | no |
 | <a name="input_vpc_internal_subnets_cidr"></a> [vpc\_internal\_subnets\_cidr](#input\_vpc\_internal\_subnets\_cidr) | Internal subnets list of cidr. Mainly for private endpoints | `list(string)` | <pre>[<br>  "10.1.201.0/24",<br>  "10.1.202.0/24",<br>  "10.1.203.0/24"<br>]</pre> | no |
