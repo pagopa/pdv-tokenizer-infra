@@ -58,26 +58,26 @@ tokenizer_plans = [{
   ]
   },
   {
-  key_name    = "INTEROP"
-  burst_limit = 5
-  rate_limit  = 100
-  method_throttle = [
-    {
-      burst_limit = 5
-      path        = "/tokens/PUT"
-      rate_limit  = 65
-    },
-    {
-      burst_limit = 5
-      path        = "/tokens/{token}/pii/GET"
-      rate_limit  = 32
-    },
-    {
-      burst_limit = 5
-      path        = "/tokens/search/POST"
-      rate_limit  = 38
-    },
-  ]
+    key_name    = "INTEROP"
+    burst_limit = 5
+    rate_limit  = 100
+    method_throttle = [
+      {
+        burst_limit = 5
+        path        = "/tokens/PUT"
+        rate_limit  = 65
+      },
+      {
+        burst_limit = 5
+        path        = "/tokens/{token}/pii/GET"
+        rate_limit  = 32
+      },
+      {
+        burst_limit = 5
+        path        = "/tokens/search/POST"
+        rate_limit  = 38
+      },
+    ]
   },
   {
     key_name    = "USERREGISTRY"
@@ -286,6 +286,9 @@ dynamodb_alarms = [{
     statistic   = "Maximum"
   },
 ]
+
+enable_sentinel_logs  = true
+sentinel_workspace_id = "a6cbd2fb-37c2-4f23-bc46-311585b62a52"
 
 tags = {
   CreatedBy   = "Terraform"
