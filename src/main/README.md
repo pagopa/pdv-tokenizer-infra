@@ -196,6 +196,8 @@
 | <a name="output_nlb_hostname"></a> [nlb\_hostname](#output\_nlb\_hostname) | NLB |
 | <a name="output_public_dns_servers"></a> [public\_dns\_servers](#output\_public\_dns\_servers) | n/a |
 | <a name="output_public_dns_zone_name"></a> [public\_dns\_zone\_name](#output\_public\_dns\_zone\_name) | Dns |
+| <a name="output_sentinel_queue_url"></a> [sentinel\_queue\_url](#output\_sentinel\_queue\_url) | n/a |
+| <a name="output_sentinel_role_arn"></a> [sentinel\_role\_arn](#output\_sentinel\_role\_arn) | sentinel |
 | <a name="output_tokenizer_api_ids"></a> [tokenizer\_api\_ids](#output\_tokenizer\_api\_ids) | n/a |
 | <a name="output_tokenizer_api_keys"></a> [tokenizer\_api\_keys](#output\_tokenizer\_api\_keys) | n/a |
 | <a name="output_tokenizerinvoke_url"></a> [tokenizerinvoke\_url](#output\_tokenizerinvoke\_url) | n/a |
