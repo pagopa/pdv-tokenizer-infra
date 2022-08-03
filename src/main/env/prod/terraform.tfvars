@@ -287,7 +287,7 @@ dynamodb_alarms = [{
   },
 ]
 
-enable_sentinel_logs  = true
+enable_sentinel_logs  = false
 sentinel_workspace_id = "a6cbd2fb-37c2-4f23-bc46-311585b62a52"
 
 tags = {
