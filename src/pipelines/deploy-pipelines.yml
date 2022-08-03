@@ -77,6 +77,13 @@ stages:
                     CONNECTION: "AWS Uat"
                     ENVIRONMENT: uat
                     WORKINGDIR: "src/main"
+                - task: AWSCLI@1
+                  inputs:
+                    awsCredentials: 'AWS Uat'
+                    regionName: 'eu-south-1'
+                    awsCommand: 'apigateway'
+                    awsSubCommand: 'get-export'
+                    awsArguments: '--parameters extensions="documentation" --rest-api-id caua6hkaob --stage-name v1 --export-type oas30 docs.json'
 
   # PROD
   - stage: plan_PROD
