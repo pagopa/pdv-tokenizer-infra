@@ -62,3 +62,34 @@ resource "aws_iam_role_policy" "cloudwatch" {
 }
 EOF
 }
+
+# Create API Gateway Role
+resource "aws_iam_role" "s3_api_gateyway_role" {
+  name = "s3-api-gateyway-role"
+
+  # Create Trust Policy for API Gateway
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+} 
+  EOF
+}
+
+data "aws_iam_policy" "s3_full_access" {
+  name = "AmazonS3FullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
+  role       = aws_iam_role.s3_api_gateyway_role.name
+  policy_arn = data.aws_iam_policy.s3_full_access.arn
+}
