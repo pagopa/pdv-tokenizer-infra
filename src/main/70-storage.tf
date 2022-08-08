@@ -1,5 +1,5 @@
 locals {
-  openapidocs_bucket_name = format("%s%sapidocs", var.app_name, var.env_short)
+  openapidocs_bucket_name = format("%s%sapis", var.app_name, var.env_short)
 }
 
 
