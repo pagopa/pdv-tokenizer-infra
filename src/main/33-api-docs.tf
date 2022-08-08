@@ -8,18 +8,16 @@ data "aws_api_gateway_export" "tokenizer" {
 }
 
 resource "aws_s3_object" "openapi_tokenizer" {
-  key                = "openapi.json"
-  acl                = "public-read"
-  bucket             = aws_s3_bucket.openapidocs.bucket
-  content            = data.aws_api_gateway_export.tokenizer.body
-  bucket_key_enabled = true
-  content_encoding   = "utf-8"
-  content_type       = "application/json"
+  key              = "openapi.json"
+  bucket           = aws_s3_bucket.openapidocs.bucket
+  content          = data.aws_api_gateway_export.tokenizer.body
+  content_encoding = "utf-8"
+  content_type     = "application/json"
 }
 
 resource "aws_api_gateway_rest_api" "openapi_tokenizer" {
   name        = format("%s-openapi", local.project)
-  description = "API S3 Integration for apen api documentation."
+  description = "Openapi tokenizer documentation."
 }
 
 resource "aws_api_gateway_resource" "folder" {
