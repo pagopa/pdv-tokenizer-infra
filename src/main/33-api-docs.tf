@@ -18,7 +18,7 @@ resource "aws_s3_object" "openapi_tokenizer" {
 }
 
 resource "aws_api_gateway_rest_api" "openapi_tokenizer" {
-  name        = format("%s-tokenizer-openapi", local.project)
+  name        = format("%s-openapi", local.project)
   description = "API S3 Integration for apen api documentation."
 }
 
@@ -87,8 +87,36 @@ resource "aws_api_gateway_integration_response" "openapi_tokenizer_integration_2
 }
 
 
-resource "aws_api_gateway_deployment" "openapi_tokenizer_deployment" {
+resource "aws_api_gateway_deployment" "openapi_tokenizer" {
   depends_on  = [aws_api_gateway_integration.openapi_tokenizer_integration]
   rest_api_id = aws_api_gateway_rest_api.openapi_tokenizer.id
-  stage_name  = "v1"
+
+}
+
+resource "aws_api_gateway_stage" "openapi_tokenizer" {
+  deployment_id      = aws_api_gateway_deployment.openapi_tokenizer.id
+  rest_api_id        = aws_api_gateway_rest_api.openapi_tokenizer.id
+  stage_name         = "v1"
+  cache_cluster_size = 0.5
+}
+
+resource "aws_api_gateway_method_settings" "openapi_tokenizer" {
+  rest_api_id = aws_api_gateway_rest_api.openapi_tokenizer.id
+  stage_name  = aws_api_gateway_stage.openapi_tokenizer.stage_name
+  method_path = "*/*"
+
+  settings {
+    caching_enabled        = true
+    throttling_rate_limit  = 10
+    throttling_burst_limit = 2
+  }
+}
+
+## Mapping openapi with custom domain .
+resource "aws_apigatewayv2_api_mapping" "openapi_tokrnizer" {
+  count           = var.apigw_custom_domain_create ? 1 : 0
+  api_id          = aws_api_gateway_rest_api.openapi_tokenizer.id
+  stage           = aws_api_gateway_stage.openapi_tokenizer.stage_name
+  domain_name     = aws_api_gateway_domain_name.main[0].domain_name
+  api_mapping_key = "docs"
 }

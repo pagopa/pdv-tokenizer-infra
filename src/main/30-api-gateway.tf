@@ -86,7 +86,7 @@ resource "aws_iam_role" "s3_api_gateyway_role" {
 }
 
 data "aws_iam_policy" "s3_full_access" {
-  name = "AmazonS3FullAccess"
+  name = "AmazonS3ReadOnlyAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
