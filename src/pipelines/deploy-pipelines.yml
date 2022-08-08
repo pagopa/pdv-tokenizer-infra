@@ -76,7 +76,7 @@ stages:
                   parameters:
                     CONNECTION: "AWS Uat"
                     ENVIRONMENT: uat
-                    WORKINGDIR: "src/main"
+                    WORKINGDIR: "src/main"      
 
   # PROD
   - stage: plan_PROD
