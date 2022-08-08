@@ -49,8 +49,10 @@ output "api_gateway_endpoint" {
 }
 
 output "openapi_endpoint" {
-  value = var.apigw_custom_domain_create ? format("https://%s/tokenizerapidocs/%s",
-  aws_api_gateway_domain_name.main[0].domain_name, aws_s3_object.openapi_tokenizer.key) : ""
+  value = var.apigw_custom_domain_create ? format("https://%s/%s/%s",
+    aws_api_gateway_domain_name.main[0].domain_name,
+    aws_s3_object.openapi_tokenizer.bucket_name,
+  aws_s3_object.openapi_tokenizer.key, ) : ""
 }
 
 

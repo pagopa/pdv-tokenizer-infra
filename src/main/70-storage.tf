@@ -5,7 +5,8 @@ locals {
 
 # S3 bucket for website.
 resource "aws_s3_bucket" "openapidocs" {
-  bucket = local.openapidocs_bucket_name
+  bucket        = local.openapidocs_bucket_name
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_acl" "openapidocs" {
