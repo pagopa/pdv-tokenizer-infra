@@ -38,7 +38,7 @@ resource "aws_route53_record" "main" {
   zone_id = module.dn_zone.route53_zone_zone_id[keys(var.public_dns_zones)[0]]
   name    = aws_api_gateway_domain_name.main[0].domain_name
   type    = "A"
-  ttl     = var.dns_record_ttl
+  # ttl     = var.dns_record_ttl
   alias {
     name                   = aws_api_gateway_domain_name.main[0].regional_domain_name
     zone_id                = aws_api_gateway_domain_name.main[0].regional_zone_id
