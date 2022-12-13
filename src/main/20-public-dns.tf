@@ -29,13 +29,19 @@ resource "aws_api_gateway_domain_name" "main" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  security_policy = "TLS_1_2"
 }
 
 resource "aws_route53_record" "main" {
   count   = var.apigw_custom_domain_create ? 1 : 0
   zone_id = module.dn_zone.route53_zone_zone_id[keys(var.public_dns_zones)[0]]
   name    = aws_api_gateway_domain_name.main[0].domain_name
-  type    = "CNAME"
-  records = [aws_api_gateway_domain_name.main[0].regional_domain_name]
-  ttl     = var.dns_record_ttl
+  type    = "A"
+  # ttl     = var.dns_record_ttl
+  alias {
+    name                   = aws_api_gateway_domain_name.main[0].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.main[0].regional_zone_id
+    evaluate_target_health = true
+  }
 }
