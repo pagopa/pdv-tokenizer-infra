@@ -164,24 +164,24 @@ table_token_read_capacity  = 20
 table_token_write_capacity = 50
 
 table_token_autoscaling_read = {
-  scale_in_cooldown  = 50
+  scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 40
-  max_capacity       = 50
+  target_value       = 70 # target utilisation %
+  max_capacity       = 250
 }
 
 table_token_autoscaling_write = {
-  scale_in_cooldown  = 50
+  scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 70
+  target_value       = 70 # target utilisation %
   max_capacity       = 80
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
-    read_max_capacity  = 30
-    read_min_capacity  = 10
-    write_max_capacity = 30
+    read_max_capacity  = 250
+    read_min_capacity  = 20
+    write_max_capacity = 50
     write_min_capacity = 10
   }
 }
