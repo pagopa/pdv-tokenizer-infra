@@ -29,6 +29,9 @@ resource "aws_appautoscaling_policy" "ecs_policy_memory" {
   service_namespace  = aws_appautoscaling_target.ecs_target[count.index].service_namespace
 
   target_tracking_scaling_policy_configuration {
+
+    scale_in_cooldown  = var.ecs_autoscaling.scale_in_cooldown
+    scale_out_cooldown = var.ecs_autoscaling.scale_out_cooldown
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"
     }
