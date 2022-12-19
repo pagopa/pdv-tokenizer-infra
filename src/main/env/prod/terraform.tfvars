@@ -14,15 +14,14 @@ vpc_peering = {
 
 # Ecs
 ecs_enable_execute_command = true
+replica_count              = 2
+ecs_logs_retention_days    = 90
 
 public_dns_zones = {
   "tokenizer.pdv.pagopa.it" = {
     comment = "Personal data vault (Prod)"
   }
 }
-
-ecs_logs_retention_days = 90
-
 
 # App
 ms_tokenizer_enable_single_line_stack_trace_logging = true
