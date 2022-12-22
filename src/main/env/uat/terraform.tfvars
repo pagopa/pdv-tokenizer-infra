@@ -73,6 +73,13 @@ tokenizer_plans = [
     method_throttle = []
   },
   {
+    # Piattaforma Notifiche Persone Giuridiche
+    key_name        = "PNPG"
+    burst_limit     = 5
+    rate_limit      = 10
+    method_throttle = []
+  },
+  {
     key_name        = "INTEROP-DEV"
     burst_limit     = 5
     rate_limit      = 10
