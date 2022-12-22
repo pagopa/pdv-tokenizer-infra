@@ -159,7 +159,7 @@ tokenizer_plans = [{
       {
         burst_limit = 5
         path        = "/tokens/{token}/pii/GET"
-        rate_limit  = 32
+        rate_limit  = 100
       },
       {
         burst_limit = 5
