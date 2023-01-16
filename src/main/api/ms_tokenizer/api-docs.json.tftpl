@@ -149,7 +149,7 @@
     "/tokens/{token}/pii" : {
       "get" : {
         "x-amazon-apigateway-integration": {
-          "type": "HTTP_PROXY",
+          "type": "HTTP",
           "httpMethod": "GET",
           "uri": "${uri}/tokens/{token}/pii",
           "connectionType": "VPC_LINK",
