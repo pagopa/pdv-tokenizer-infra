@@ -3,14 +3,14 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.10.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.27.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.10.0 |
-| <a name="provider_aws.eu-central-1"></a> [aws.eu-central-1](#provider\_aws.eu-central-1) | >= 4.10.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.27.0 |
+| <a name="provider_aws.eu-central-1"></a> [aws.eu-central-1](#provider\_aws.eu-central-1) | >= 4.27.0 |
 
 ## Modules
 
@@ -71,6 +71,7 @@
 | [aws_appautoscaling_target.ecs_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource |
 | [aws_cloudhsm_v2_cluster.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudhsm_v2_cluster) | resource |
 | [aws_cloudhsm_v2_hsm.hsm1](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudhsm_v2_hsm) | resource |
+| [aws_cloudwatch_dashboard.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_dashboard) | resource |
 | [aws_cloudwatch_log_group.ecs_tokenizer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_cloudwatch_log_group.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_cloudwatch_metric_alarm.cpu_utilization_high](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
@@ -174,7 +175,7 @@
 | <a name="input_dynamodb_region_replication_enable"></a> [dynamodb\_region\_replication\_enable](#input\_dynamodb\_region\_replication\_enable) | Enable dyamodb deplicaton in a secondary region. | `bool` | `false` | no |
 | <a name="input_ecr_keep_nr_images"></a> [ecr\_keep\_nr\_images](#input\_ecr\_keep\_nr\_images) | Number of images to keep. | `number` | `10` | no |
 | <a name="input_ecs_as_threshold"></a> [ecs\_as\_threshold](#input\_ecs\_as\_threshold) | ECS Tasks autoscaling settings. | <pre>object({<br>    cpu_min = number<br>    cpu_max = number<br>    mem_min = number<br>    mem_max = number<br>  })</pre> | <pre>{<br>  "cpu_max": 80,<br>  "cpu_min": 20,<br>  "mem_max": 80,<br>  "mem_min": 60<br>}</pre> | no |
-| <a name="input_ecs_autoscaling"></a> [ecs\_autoscaling](#input\_ecs\_autoscaling) | ECS Service autoscaling. | <pre>object({<br>    max_capacity = number<br>    min_capacity = number<br>  })</pre> | <pre>{<br>  "max_capacity": 3,<br>  "min_capacity": 1<br>}</pre> | no |
+| <a name="input_ecs_autoscaling"></a> [ecs\_autoscaling](#input\_ecs\_autoscaling) | ECS Service autoscaling. | <pre>object({<br>    max_capacity       = number<br>    min_capacity       = number<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>  })</pre> | <pre>{<br>  "max_capacity": 3,<br>  "min_capacity": 1,<br>  "scale_in_cooldown": 180,<br>  "scale_out_cooldown": 40<br>}</pre> | no |
 | <a name="input_ecs_enable_execute_command"></a> [ecs\_enable\_execute\_command](#input\_ecs\_enable\_execute\_command) | Specifies whether to enable Amazon ECS Exec for the tasks within the service. | `bool` | `false` | no |
 | <a name="input_ecs_logs_retention_days"></a> [ecs\_logs\_retention\_days](#input\_ecs\_logs\_retention\_days) | Specifies the number of days you want to retain log events in the specified log group. | `number` | `7` | no |
 | <a name="input_enable_nat_gateway"></a> [enable\_nat\_gateway](#input\_enable\_nat\_gateway) | Enable/Create nat gateway | `bool` | `false` | no |
