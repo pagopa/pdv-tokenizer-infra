@@ -374,7 +374,7 @@
             "x": 0,
             "type": "log",
             "properties": {
-                "query": "SOURCE 'API-Gateway-Execution-Logs_lhtshsi81h/v1' | fields @timestamp, @message\n| parse @message \"Plan ID *,\" as plan\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
+                "query": "SOURCE 'API-Gateway-Execution-Logs_${tokenizer_api_id}/${tokenizer_api_state_name}' | fields @timestamp, @message\n| parse @message \"Plan ID *,\" as plan\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
                 "region": "eu-south-1",
                 "stacked": false,
                 "view": "table",
@@ -383,7 +383,7 @@
         },
         {
             "height": 4,
-            "width": 16,
+            "width": 18,
             "y": 7,
             "x": 6,
             "type": "metric",
@@ -429,7 +429,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "markdown": "## Plans & IDs\nList of plans with ids\n \n%{ for k in keys(tokenizer_api_ids) ~}* **${k}**: ${tokenizer_api_ids[k]} \n%{ endfor ~}"
+                "markdown": "## Plans & IDs\nList of plans with ids\n \n%{ for k in keys(tokenizer_api_plan_ids) ~}* **${k}**: ${tokenizer_api_plan_ids[k]} \n%{ endfor ~}"
             }
         }
     ]

@@ -61,7 +61,7 @@ output "tokenizer_api_keys" {
 }
 
 output "tokenizer_api_ids" {
-  value = local.tokenizer_api_ids
+  value = local.tokenizer_api_plan_ids
 }
 
 

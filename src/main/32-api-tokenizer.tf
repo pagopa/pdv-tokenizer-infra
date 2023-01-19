@@ -138,7 +138,7 @@ resource "aws_wafv2_web_acl_association" "tokenizer" {
 }
 
 locals {
-  tokenizer_api_ids = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan_key.tokenizer[k].id }
+  tokenizer_api_plan_ids = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan_key.tokenizer[k].id }
 }
 
 
