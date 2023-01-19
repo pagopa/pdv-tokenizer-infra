@@ -55,6 +55,15 @@ output "openapi_endpoint" {
   aws_s3_object.openapi_tokenizer.key, ) : ""
 }
 
+output "tokenizer_api_keys" {
+  value     = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan_key.tokenizer[k].value }
+  sensitive = true
+}
+
+output "tokenizer_api_ids" {
+  value = local.tokenizer_api_plan_ids
+}
+
 
 # cloud hsm
 output "cloudhsm_cluster_id" {
