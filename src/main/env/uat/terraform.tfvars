@@ -13,6 +13,18 @@ vpc_peering = {
 # Ecs
 ecs_enable_execute_command = true
 
+replica_count           = 2
+ecs_logs_retention_days = 90
+
+ecs_autoscaling = {
+  max_capacity       = 5
+  min_capacity       = 2
+  scale_in_cooldown  = 180
+  scale_out_cooldown = 40
+}
+
+# Public DNS Zone.
+
 public_dns_zones = {
   "uat.tokenizer.pdv.pagopa.it" = {
     comment = "Personal data vault (Uat)"
