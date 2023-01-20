@@ -94,13 +94,13 @@ tokenizer_plans = [
   {
     key_name        = "IDPAY-DEV"
     burst_limit     = 50
-    rate_limit      = 100
+    rate_limit      = 150
     method_throttle = []
   },
   {
     key_name        = "IDPAY-UAT"
     burst_limit     = 50
-    rate_limit      = 100
+    rate_limit      = 150
     method_throttle = []
   },
 ]
@@ -111,28 +111,28 @@ dynamodb_point_in_time_recovery_enabled = false
 
 
 ## table Token
-table_token_read_capacity  = 5
-table_token_write_capacity = 5
+table_token_read_capacity  = 20
+table_token_write_capacity = 50
 
 table_token_autoscaling_read = {
-  scale_in_cooldown  = 50
+  scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 45
-  max_capacity       = 10
+  target_value       = 70 # target utilisation %
+  max_capacity       = 250
 }
 
 table_token_autoscaling_write = {
-  scale_in_cooldown  = 50
+  scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 45
-  max_capacity       = 10
+  target_value       = 70 # target utilisation %
+  max_capacity       = 80
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
-    read_max_capacity  = 30
-    read_min_capacity  = 10
-    write_max_capacity = 30
+    read_max_capacity  = 250
+    read_min_capacity  = 20
+    write_max_capacity = 50
     write_min_capacity = 10
   }
 }
