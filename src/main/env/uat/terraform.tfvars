@@ -13,6 +13,18 @@ vpc_peering = {
 # Ecs
 ecs_enable_execute_command = true
 
+replica_count           = 2
+ecs_logs_retention_days = 90
+
+ecs_autoscaling = {
+  max_capacity       = 5
+  min_capacity       = 2
+  scale_in_cooldown  = 180
+  scale_out_cooldown = 40
+}
+
+# Public DNS Zone.
+
 public_dns_zones = {
   "uat.tokenizer.pdv.pagopa.it" = {
     comment = "Personal data vault (Uat)"
@@ -94,13 +106,13 @@ tokenizer_plans = [
   {
     key_name        = "IDPAY-DEV"
     burst_limit     = 50
-    rate_limit      = 100
+    rate_limit      = 150
     method_throttle = []
   },
   {
     key_name        = "IDPAY-UAT"
     burst_limit     = 50
-    rate_limit      = 100
+    rate_limit      = 150
     method_throttle = []
   },
 ]
@@ -111,28 +123,28 @@ dynamodb_point_in_time_recovery_enabled = false
 
 
 ## table Token
-table_token_read_capacity  = 5
-table_token_write_capacity = 5
+table_token_read_capacity  = 20
+table_token_write_capacity = 50
 
 table_token_autoscaling_read = {
-  scale_in_cooldown  = 50
+  scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 45
-  max_capacity       = 10
+  target_value       = 70 # target utilisation %
+  max_capacity       = 250
 }
 
 table_token_autoscaling_write = {
-  scale_in_cooldown  = 50
+  scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 45
-  max_capacity       = 10
+  target_value       = 70 # target utilisation %
+  max_capacity       = 80
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
-    read_max_capacity  = 30
-    read_min_capacity  = 10
-    write_max_capacity = 30
+    read_max_capacity  = 250
+    read_min_capacity  = 20
+    write_max_capacity = 50
     write_min_capacity = 10
   }
 }
