@@ -277,6 +277,6 @@ tags = {
   CreatedBy   = "Terraform"
   Environment = "Uat"
   Owner       = "Tokenizer Data Vault"
-  Source      = "https://github.com/pagopa/tokenizer-data-vault-infra"
+  Source      = "https://github.com/pagopa/pdv-tokenizer-infra"
   CostCenter  = "TS310 - PAGAMENTI e SERVIZI"
 }

@@ -14,7 +14,7 @@ variable "iac" {
   default = {
     repository = {
       organization    = "pagopa"
-      name            = "tokenizer-data-vault-infra"
+      name            = "pdv-tokenizer-infra"
       branch_name     = "refs/heads/main"
       pipelines_path  = "src/pipelines"
       yml_prefix_name = null
