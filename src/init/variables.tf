@@ -10,6 +10,12 @@ variable "environment" {
   default     = "Uat"
 }
 
+variable "github_repository" {
+  type        = string
+  description = "Infrastructure github repository."
+  default     = "pagopa/pdv-tokenizer-infra"
+}
+
 
 variable "tags" {
   type = map(any)
