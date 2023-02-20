@@ -92,18 +92,6 @@ resource "aws_iam_user" "iac" {
   tags = var.tags
 }
 
-resource "aws_iam_access_key" "iac" {
-  user = aws_iam_user.iac.name
-}
-
-## TODO: check whether it's possibile to assign less power
-resource "aws_iam_user_group_membership" "iac" {
-  user = aws_iam_user.iac.name
-
-  groups = [
-    aws_iam_group.admins.name,
-  ]
-}
 
 data "aws_caller_identity" "current" {}
 
