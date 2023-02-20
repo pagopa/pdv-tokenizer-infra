@@ -212,6 +212,7 @@
 | <a name="output_ecs_definition_task_revision"></a> [ecs\_definition\_task\_revision](#output\_ecs\_definition\_task\_revision) | n/a |
 | <a name="output_ecs_task_definition_tokenizer_arn"></a> [ecs\_task\_definition\_tokenizer\_arn](#output\_ecs\_task\_definition\_tokenizer\_arn) | n/a |
 | <a name="output_ecs_task_definition_tokenizer_revision"></a> [ecs\_task\_definition\_tokenizer\_revision](#output\_ecs\_task\_definition\_tokenizer\_revision) | n/a |
+| <a name="output_github_ecs_deploy_role_arn"></a> [github\_ecs\_deploy\_role\_arn](#output\_github\_ecs\_deploy\_role\_arn) | github action role. |
 | <a name="output_nlb_hostname"></a> [nlb\_hostname](#output\_nlb\_hostname) | NLB |
 | <a name="output_openapi_endpoint"></a> [openapi\_endpoint](#output\_openapi\_endpoint) | n/a |
 | <a name="output_public_dns_servers"></a> [public\_dns\_servers](#output\_public\_dns\_servers) | n/a |

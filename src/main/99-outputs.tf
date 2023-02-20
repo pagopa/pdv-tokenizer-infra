@@ -91,3 +91,8 @@ output "sentinel_role_arn" {
 output "sentinel_queue_url" {
   value = try(module.sentinel[0].sentinel_queue_url, null)
 }
+
+# github action role.
+output "github_ecs_deploy_role_arn" {
+  value = aws_iam_role.githubecsdeploy.arn
+}
