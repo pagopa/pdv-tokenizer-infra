@@ -161,6 +161,23 @@ resource "aws_iam_group_policy_attachment" "deny_secrets_devops" {
   policy_arn = aws_iam_policy.deny_secrets_devops.arn
 }
 
+resource "aws_iam_policy" "deploy_ecs" {
+  name        = "PagoPaECSDeploy"
+  description = "Policy to allow deploy on ECS."
+
+  policy = templatefile(
+    "./iam_policies/deploy-ecs.json.tpl",
+    {
+      account_id            = data.aws_caller_identity.current.account_id
+      execute_task_role_arn = aws_iam_role.ecs_execution_task.arn
+    }
+  )
+}
+
+data "aws_iam_policy" "ec2_ecr_full_access" {
+  name = "AmazonEC2ContainerRegistryFullAccess"
+}
+
 ## Deploy with github action
 resource "aws_iam_role" "githubecsdeploy" {
   name        = "GitHubDeployECS"
