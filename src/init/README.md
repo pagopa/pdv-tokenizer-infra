@@ -50,5 +50,3 @@ No modules.
 |------|-------------|
 | <a name="output_backend_bucket_name"></a> [backend\_bucket\_name](#output\_backend\_bucket\_name) | n/a |
 | <a name="output_dynamodb_lock_table"></a> [dynamodb\_lock\_table](#output\_dynamodb\_lock\_table) | n/a |
-| <a name="output_iac_access_key"></a> [iac\_access\_key](#output\_iac\_access\_key) | n/a |
-| <a name="output_iac_access_key_secret"></a> [iac\_access\_key\_secret](#output\_iac\_access\_key\_secret) | n/a |
