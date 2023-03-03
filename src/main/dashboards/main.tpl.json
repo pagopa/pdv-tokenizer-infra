@@ -1,0 +1,436 @@
+{
+    "widgets": [
+        {
+            "height": 6,
+            "width": 6,
+            "y": 1,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/ApiGateway", "Count", "ApiName", "${tokenizer_api_name}", "Stage", "v1" ]
+                ],
+                "period": 300,
+                "stat": "Sum",
+                "region": "eu-south-1",
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "Api calls"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 1,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "ANOMALY_DETECTION_BAND(m1, 2)", "label": "AnomalyDetection", "id": "e1" } ],
+                    [ "AWS/ApiGateway", "Latency", "ApiName", "${tokenizer_api_name}", "Stage", "v1", { "id": "m1" } ]
+                ],
+                "period": 300,
+                "stat": "Average",
+                "region": "eu-south-1",
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "Latency (ms)"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 1,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ApiGateway", "5XXError", "ApiName", "${tokenizer_api_name}" ],
+                    [ ".", "4XXError", ".", "." ]
+                ],
+                "region": "eu-south-1"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 1,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/NetworkELB", "UnHealthyHostCount", "TargetGroup", "${nlb_target_arn_suffix}", "LoadBalancer", "${nlb_arn_suffix}" ],
+                    [ ".", "HealthyHostCount", ".", ".", ".", "." ]
+                ],
+                "region": "eu-south-1",
+                "period": 300,
+                "title": "Backend target health status"
+            }
+        },
+        {
+            "height": 1,
+            "width": 24,
+            "y": 11,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "## Backend (ECS Fargate)\n"
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 12,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "ANOMALY_DETECTION_BAND(m1, 2)", "label": "AnomalyDetection", "id": "e1", "region": "eu-south-1" } ],
+                    [ "AWS/ECS", "CPUUtilization", "ServiceName", "${ecs_tokenizer_service}", "ClusterName", "${ecs_cluster_name}", { "stat": "Minimum", "id": "m1" } ],
+                    [ "...", { "stat": "Maximum", "id": "m2" } ],
+                    [ "...", { "id": "m3" } ]
+                ],
+                "period": 300,
+                "region": "eu-south-1",
+                "stacked": false,
+                "title": "CPU utilization",
+                "view": "timeSeries",
+                "stat": "Average"
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 12,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "ANOMALY_DETECTION_BAND(m1, 2)", "label": "AnomalyDetection", "id": "e1" } ],
+                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "${ecs_tokenizer_service}", "ClusterName", "${ecs_cluster_name}", { "stat": "Minimum", "id": "m1" } ],
+                    [ "...", { "stat": "Maximum", "id": "m2" } ],
+                    [ "...", { "id": "m3" } ]
+                ],
+                "period": 300,
+                "region": "eu-south-1",
+                "stacked": false,
+                "title": "Memory utilization",
+                "view": "timeSeries",
+                "stat": "Average"
+            }
+        },
+        {
+            "height": 1,
+            "width": 24,
+            "y": 18,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "## Database (Dynamodb)\n"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 19,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020" } ],
+                    [ ".", "ConsumedReadCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
+                ],
+                "title": "Read usage (average units/second)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Average",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 19,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "Token", "Operation", "GetItem", { "color": "#0073BB" } ],
+                    [ "...", "Scan", { "color": "#FF7F0F", "visible": false } ],
+                    [ "...", "Query", { "color": "#2DA02D" } ],
+                    [ "...", "BatchGetItem", { "color": "#9468BD", "visible": false } ]
+                ],
+                "title": "Read throttled requests (count)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Sum",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 19,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "title": "Write usage (average units/second)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Average",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020" } ],
+                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
+                ],
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 19,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "Token", "Operation", "PutItem", { "color": "#0073BB" } ],
+                    [ "...", "UpdateItem", { "color": "#FF7F0F" } ],
+                    [ "...", "DeleteItem", { "color": "#2DA02D" } ],
+                    [ "...", "BatchWriteItem", { "color": "#9468BD", "visible": false } ]
+                ],
+                "title": "Write throttled requests (count)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Sum",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 26,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "title": "Read usage (average units/second)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Average",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token", { "label": "Provisioned", "color": "#E02020" } ],
+                    [ ".", "ConsumedReadCapacityUnits", ".", ".", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "region": "eu-south-1", "color": "#0073BB" } ]
+                ],
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 1,
+            "width": 24,
+            "y": 25,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "### Index: gsi_token"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 26,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "title": "Read throttled events (count)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Sum",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "metrics": [
+                    [ "AWS/DynamoDB", "ReadThrottleEvents", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token" ]
+                ],
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 26,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "title": "Write usage (average units/second)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Average",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token", { "label": "Provisioned", "color": "#E02020" } ],
+                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "region": "eu-south-1", "color": "#0073BB" } ]
+                ],
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 26,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "title": "Write throttled events (count)",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "stat": "Sum",
+                "period": 60,
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    }
+                },
+                "metrics": [
+                    [ "AWS/DynamoDB", "WriteThrottleEvents", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token" ]
+                ],
+                "start": "-PT3H",
+                "end": "P0D"
+            }
+        },
+        {
+            "height": 1,
+            "width": 24,
+            "y": 0,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "## Api Tokenizer \n"
+            }
+        },
+        {
+            "height": 4,
+            "width": 6,
+            "y": 7,
+            "x": 0,
+            "type": "log",
+            "properties": {
+                "query": "SOURCE 'API-Gateway-Execution-Logs_${tokenizer_api_id}/${tokenizer_api_state_name}' | fields @timestamp, @message\n| parse @message \"Plan ID *.\" as plan\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
+                "region": "eu-south-1",
+                "stacked": false,
+                "view": "table",
+                "title": "Count rate limit exceeded by plan"
+            }
+        },
+        {
+            "height": 4,
+            "width": 18,
+            "y": 7,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/WAFV2", "CountedRequests", "Region", "eu-south-1", "Rule", "IpReputationList", "WebACL", "${waf_web_acl}" ],
+                    [ "...", "CommonRuleSet", ".", "." ],
+                    [ "...", "KnownBadInputsRuleSet", ".", "." ],
+                    [ "...", "SQLiRuleSet", ".", "." ],
+                    [ "...", "ALL", ".", ".", { "visible": false } ],
+                    [ ".", "AllowedRequests", ".", ".", ".", "${waf_web_acl}", ".", ".", { "visible": false } ]
+                ],
+                "stat": "Sum",
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-south-1",
+                "title": "Web Acl Rule violation count ",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "period": 300
+            }
+        },
+        {
+            "height": 3,
+            "width": 12,
+            "y": 32,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "# Useful links\n \n*  [AWS Status Page](https://health.aws.amazon.com/health/status).\n* [Confluence HOWTO Page](https://pagopa.atlassian.net/wiki/spaces/usrreg/pages/509511125/HOWTO)"
+            }
+        },
+        {
+            "type": "text",
+            "x": 12,
+            "y": 32,
+            "width": 6,
+            "height": 6,
+            "properties": {
+                "markdown": "## Plans & IDs\nList of plans with ids\n \n%{ for k in keys(tokenizer_api_plan_ids) ~}* **${k}**: ${tokenizer_api_plan_ids[k]} \n%{ endfor ~}"
+            }
+        }
+    ]
+}

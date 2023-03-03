@@ -321,6 +321,11 @@ variable "sentinel_workspace_id" {
 
 }
 
+variable "github_tokenizer_repo" {
+  type        = string
+  description = "Github repository allowed to run action for ECS deploy."
+  default     = "pagopa/pdv-ms-tokenizer"
+}
 
 variable "tags" {
   type = map(any)

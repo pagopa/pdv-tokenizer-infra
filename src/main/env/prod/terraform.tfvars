@@ -17,6 +17,16 @@ ecs_enable_execute_command = true
 replica_count              = 2
 ecs_logs_retention_days    = 90
 
+ecs_autoscaling = {
+  max_capacity       = 5
+  min_capacity       = 2
+  scale_in_cooldown  = 180
+  scale_out_cooldown = 40
+}
+
+
+# Public DNS Zone 
+
 public_dns_zones = {
   "tokenizer.pdv.pagopa.it" = {
     comment = "Personal data vault (Prod)"
@@ -345,6 +355,6 @@ tags = {
   CreatedBy   = "Terraform"
   Environment = "Prod"
   Owner       = "Tokenizer Data Vault"
-  Source      = "https://github.com/pagopa/tokenizer-data-vault-infra"
+  Source      = "https://github.com/pagopa/pdv-tokenizer-infra"
   CostCenter  = "TS310 - PAGAMENTI e SERVIZI"
 }

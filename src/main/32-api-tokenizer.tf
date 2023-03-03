@@ -137,15 +137,10 @@ resource "aws_wafv2_web_acl_association" "tokenizer" {
   resource_arn = "arn:aws:apigateway:${var.aws_region}::/restapis/${aws_api_gateway_rest_api.tokenizer.id}/stages/${aws_api_gateway_stage.tokenizer.stage_name}"
 }
 
-
-output "tokenizer_api_keys" {
-  value     = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan_key.tokenizer[k].value }
-  sensitive = true
+locals {
+  tokenizer_api_plan_ids = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan.tokenizer[k].id }
 }
 
-output "tokenizer_api_ids" {
-  value = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan_key.tokenizer[k].id }
-}
 
 /*
 //The API Gateway endpoint
