@@ -48,10 +48,11 @@ resource "aws_cloudwatch_log_group" "tokenizer" {
   tags = { Name = local.tokenizer_api_name }
 }
 resource "aws_api_gateway_stage" "tokenizer" {
-  deployment_id      = aws_api_gateway_deployment.tokenizer.id
-  rest_api_id        = aws_api_gateway_rest_api.tokenizer.id
-  stage_name         = local.tokenizer_stage_name
-  cache_cluster_size = 0.5 #why is this needed ?
+  deployment_id         = aws_api_gateway_deployment.tokenizer.id
+  rest_api_id           = aws_api_gateway_rest_api.tokenizer.id
+  stage_name            = local.tokenizer_stage_name
+  cache_cluster_size    = 0.5 #why is this needed ?
+  documentation_version = aws_api_gateway_documentation_version.main.version
 
   dynamic "access_log_settings" {
     for_each = var.apigw_access_logs_enable ? ["dymmy"] : []
