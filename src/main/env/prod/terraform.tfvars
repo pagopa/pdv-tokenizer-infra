@@ -181,7 +181,7 @@ tokenizer_plans = [{
   {
     key_name        = "IDPAY"
     burst_limit     = 50
-    rate_limit      = 150
+    rate_limit      = 300
     method_throttle = []
   },
 ]
