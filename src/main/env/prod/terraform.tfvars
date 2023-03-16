@@ -184,6 +184,12 @@ tokenizer_plans = [{
     rate_limit      = 300
     method_throttle = []
   },
+  {
+    key_name        = "IOSIGN"
+    burst_limit     = 50
+    rate_limit      = 200
+    method_throttle = []
+  },
 ]
 
 ## Web ACL
