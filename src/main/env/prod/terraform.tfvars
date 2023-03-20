@@ -45,9 +45,10 @@ apigw_execution_logs_retention = 90
 
 ## Throttling 
 tokenizer_plans = [{
-  key_name    = "SELFCARE"
-  burst_limit = 5
-  rate_limit  = 100
+  key_name        = "SELFCARE"
+  burst_limit     = 5
+  rate_limit      = 200
+  additional_keys = ["INTEROP"]
   method_throttle = [
     {
       burst_limit = 5
@@ -67,9 +68,10 @@ tokenizer_plans = [{
   ]
   },
   {
-    key_name    = "INTEROP"
-    burst_limit = 5
-    rate_limit  = 100
+    key_name        = "USERREGISTRY"
+    burst_limit     = 5
+    rate_limit      = 100
+    additional_keys = []
     method_throttle = [
       {
         burst_limit = 5
@@ -89,31 +91,10 @@ tokenizer_plans = [{
     ]
   },
   {
-    key_name    = "USERREGISTRY"
-    burst_limit = 5
-    rate_limit  = 100
-    method_throttle = [
-      {
-        burst_limit = 5
-        path        = "/tokens/PUT"
-        rate_limit  = 65
-      },
-      {
-        burst_limit = 5
-        path        = "/tokens/{token}/pii/GET"
-        rate_limit  = 32
-      },
-      {
-        burst_limit = 5
-        path        = "/tokens/search/POST"
-        rate_limit  = 38
-      },
-    ]
-  },
-  {
-    key_name    = "TEST"
-    burst_limit = 5
-    rate_limit  = 100
+    key_name        = "TEST"
+    burst_limit     = 5
+    rate_limit      = 100
+    additional_keys = []
     method_throttle = [
       {
         burst_limit = 5
@@ -134,9 +115,10 @@ tokenizer_plans = [{
   },
   {
     # Piattaforma notifiche
-    key_name    = "PNPF"
-    burst_limit = 5
-    rate_limit  = 100
+    key_name        = "PNPF"
+    burst_limit     = 5
+    rate_limit      = 100
+    additional_keys = []
     method_throttle = [
       {
         burst_limit = 5
@@ -157,9 +139,10 @@ tokenizer_plans = [{
   },
   {
     # Piattaforma notifiche persone giuridiche.
-    key_name    = "PNPG"
-    burst_limit = 5
-    rate_limit  = 100
+    key_name        = "PNPG"
+    burst_limit     = 5
+    rate_limit      = 100
+    additional_keys = []
     method_throttle = [
       {
         burst_limit = 5
@@ -182,12 +165,14 @@ tokenizer_plans = [{
     key_name        = "IDPAY"
     burst_limit     = 50
     rate_limit      = 300
+    additional_keys = []
     method_throttle = []
   },
   {
     key_name        = "IOSIGN"
     burst_limit     = 50
     rate_limit      = 200
+    additional_keys = []
     method_throttle = []
   },
 ]
