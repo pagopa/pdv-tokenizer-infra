@@ -124,7 +124,7 @@ resource "aws_api_gateway_usage_plan_key" "tokenizer" {
 
 resource "aws_api_gateway_usage_plan_key" "tokenizer_additional" {
   for_each      = { for k in local.additional_keys : k.key => k }
-  key_id        = aws_api_gateway_api_key.main[each.key].id
+  key_id        = aws_api_gateway_api_key.additional[each.key].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.tokenizer[each.value.plan].id
 }
