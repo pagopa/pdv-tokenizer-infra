@@ -1,10 +1,3 @@
-locals {
-  tokenizer_api_name         = format("%s-tokenizer-api", local.project)
-  tokenizer_stage_name       = "v1"
-  list_tokenizer_key_to_name = [for n in var.tokenizer_plans : "'${aws_api_gateway_api_key.main[n.key_name].id}':'${n.key_name}'"]
-  tokenizer_log_group_name   = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.tokenizer.id}/${local.tokenizer_stage_name}"
-}
-
 resource "aws_api_gateway_rest_api" "tokenizer" {
   name           = local.tokenizer_api_name
   api_key_source = "HEADER"

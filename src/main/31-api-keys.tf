@@ -1,16 +1,3 @@
-locals {
-  api_key_list = { for k in var.tokenizer_plans : k.key_name => k }
-
-  additional_keys = flatten([for k in var.tokenizer_plans :
-    [for a in k.additional_keys :
-      {
-        "key" : a
-        "plan" : k.key_name
-    }]
-  ])
-
-}
-
 resource "aws_api_gateway_api_key" "main" {
   for_each = local.api_key_list
   name     = each.key
