@@ -21,4 +21,8 @@ locals {
 
   tokenizer_log_group_name = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.tokenizer.id}/${local.tokenizer_stage_name}"
 
+  tokenizer_api_plan_ids = merge(
+    { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan.tokenizer[k].id },
+    { for k in local.additional_keys : k.key => aws_api_gateway_usage_plan.tokenizer[k.plan].id },
+  )
 }
