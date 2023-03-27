@@ -88,6 +88,7 @@ tokenizer_plans = [
     key_name        = "PNPF-UAT"
     burst_limit     = 10
     rate_limit      = 300
+    additional_keys = []
     method_throttle = []
   },
   {
@@ -95,18 +96,7 @@ tokenizer_plans = [
     key_name        = "PNPG"
     burst_limit     = 10
     rate_limit      = 300
-    method_throttle = []
-  },
-  {
-    key_name        = "INTEROP-DEV"
-    burst_limit     = 5
-    rate_limit      = 10
-    method_throttle = []
-  },
-  {
-    key_name        = "INTEROP-UAT"
-    burst_limit     = 5
-    rate_limit      = 10
+    additional_keys = []
     method_throttle = []
   },
   {
