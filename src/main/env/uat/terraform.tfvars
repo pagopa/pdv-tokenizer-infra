@@ -80,15 +80,15 @@ tokenizer_plans = [
   },
   {
     key_name        = "PNPF-UAT"
-    burst_limit     = 5
-    rate_limit      = 10
+    burst_limit     = 10
+    rate_limit      = 300
     method_throttle = []
   },
   {
     # Piattaforma Notifiche Persone Giuridiche
     key_name        = "PNPG"
-    burst_limit     = 5
-    rate_limit      = 10
+    burst_limit     = 10
+    rate_limit      = 300
     method_throttle = []
   },
   {
