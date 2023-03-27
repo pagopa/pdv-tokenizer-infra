@@ -116,50 +116,16 @@ tokenizer_plans = [{
   {
     # Piattaforma notifiche
     key_name        = "PNPF"
-    burst_limit     = 5
-    rate_limit      = 100
-    additional_keys = []
-    method_throttle = [
-      {
-        burst_limit = 5
-        path        = "/tokens/PUT"
-        rate_limit  = 65
-      },
-      {
-        burst_limit = 5
-        path        = "/tokens/{token}/pii/GET"
-        rate_limit  = 32
-      },
-      {
-        burst_limit = 5
-        path        = "/tokens/search/POST"
-        rate_limit  = 38
-      },
-    ]
+    burst_limit     = 50
+    rate_limit      = 300
+    method_throttle = []
   },
   {
     # Piattaforma notifiche persone giuridiche.
     key_name        = "PNPG"
-    burst_limit     = 5
-    rate_limit      = 100
-    additional_keys = []
-    method_throttle = [
-      {
-        burst_limit = 5
-        path        = "/tokens/PUT"
-        rate_limit  = 65
-      },
-      {
-        burst_limit = 5
-        path        = "/tokens/{token}/pii/GET"
-        rate_limit  = 100
-      },
-      {
-        burst_limit = 5
-        path        = "/tokens/search/POST"
-        rate_limit  = 38
-      },
-    ]
+    burst_limit     = 50
+    rate_limit      = 300
+    method_throttle = []
   },
   {
     key_name        = "IDPAY"
