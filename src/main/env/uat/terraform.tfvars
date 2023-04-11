@@ -95,6 +95,7 @@ tokenizer_plans = [
     key_name        = "PNPF-CERT"
     burst_limit     = 10
     rate_limit      = 300
+    additional_keys = []
     method_throttle = []
   },
   {
