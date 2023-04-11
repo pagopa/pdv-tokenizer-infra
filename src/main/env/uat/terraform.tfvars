@@ -92,6 +92,12 @@ tokenizer_plans = [
     method_throttle = []
   },
   {
+    key_name        = "PNPF-CERT"
+    burst_limit     = 10
+    rate_limit      = 300
+    method_throttle = []
+  },
+  {
     # Piattaforma Notifiche Persone Giuridiche
     key_name        = "PNPG"
     burst_limit     = 10
