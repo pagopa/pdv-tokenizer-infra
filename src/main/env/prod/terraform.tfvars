@@ -118,6 +118,7 @@ tokenizer_plans = [{
     key_name        = "PNPF"
     burst_limit     = 50
     rate_limit      = 300
+    additional_keys = []
     method_throttle = []
   },
   {
@@ -125,6 +126,7 @@ tokenizer_plans = [{
     key_name        = "PNPG"
     burst_limit     = 50
     rate_limit      = 300
+    additional_keys = []
     method_throttle = []
   },
   {
@@ -139,12 +141,6 @@ tokenizer_plans = [{
     burst_limit     = 50
     rate_limit      = 200
     additional_keys = []
-    method_throttle = []
-  },
-  {
-    key_name        = "IOSIGN"
-    burst_limit     = 50
-    rate_limit      = 200
     method_throttle = []
   },
 ]
