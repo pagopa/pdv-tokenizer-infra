@@ -120,6 +120,14 @@ tokenizer_plans = [
     additional_keys = []
     method_throttle = []
   },
+  ## PagoPa Ecommerce
+  {
+    key_name        = "PPAECOM"
+    burst_limit     = 50
+    rate_limit      = 100
+    additional_keys = []
+    method_throttle = []
+  },
 ]
 
 
