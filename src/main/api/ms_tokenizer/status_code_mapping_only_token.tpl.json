@@ -1,0 +1,27 @@
+"200" : {
+    "statusCode" : "200",
+    "responseTemplates" : {
+      "application/json" : "#set($token =$input.json('$.token')) {\"token\": $token }"
+    }
+  },
+  "404" : {
+    "statusCode" : "404"
+  },
+  "400" : {
+    "statusCode" : "400"
+  },
+  "401" : {
+    "statusCode" : "401"
+  },
+  "403" : {
+    "statusCode" : "403"
+  },
+  "409" : {
+    "statusCode" : "409"
+  },
+  "429" : {
+    "statusCode" : "429"
+  },
+  "500" : {
+    "statusCode" : "500"
+  }

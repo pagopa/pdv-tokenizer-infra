@@ -1,8 +1,3 @@
-locals {
-  task_tokenizer_name    = format("%s-task-tokenizer", local.project)
-  service_tokenizer_name = format("%s-service-tokenizer", local.project)
-}
-
 resource "aws_cloudwatch_log_group" "ecs_tokenizer" {
   name = format("ecs/%s", local.task_tokenizer_name)
 

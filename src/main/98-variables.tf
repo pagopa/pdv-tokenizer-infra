@@ -257,9 +257,10 @@ variable "table_token_autoscaling_write" {
 // We assume every plan has its own api key
 variable "tokenizer_plans" {
   type = list(object({
-    key_name    = string
-    burst_limit = number
-    rate_limit  = number
+    key_name        = string
+    burst_limit     = number
+    rate_limit      = number
+    additional_keys = list(string)
     method_throttle = list(object({
       path        = string
       burst_limit = number

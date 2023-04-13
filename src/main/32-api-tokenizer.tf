@@ -1,10 +1,3 @@
-locals {
-  tokenizer_api_name         = format("%s-tokenizer-api", local.project)
-  tokenizer_stage_name       = "v1"
-  list_tokenizer_key_to_name = [for n in var.tokenizer_plans : "'${aws_api_gateway_api_key.main[n.key_name].id}':'${n.key_name}'"]
-  tokenizer_log_group_name   = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.tokenizer.id}/${local.tokenizer_stage_name}"
-}
-
 resource "aws_api_gateway_rest_api" "tokenizer" {
   name           = local.tokenizer_api_name
   api_key_source = "HEADER"
@@ -17,7 +10,8 @@ resource "aws_api_gateway_rest_api" "tokenizer" {
         {
           list_key_to_name = join(",", local.list_tokenizer_key_to_name)
       }))
-      responses = file("./api/ms_tokenizer/status_code_mapping.json.tftpl")
+      responses            = file("./api/ms_tokenizer/status_code_mapping.tpl.json")
+      responses_only_token = file("./api/ms_tokenizer/status_code_mapping_only_token.tpl.json")
     }
   )
 
@@ -122,6 +116,17 @@ resource "aws_api_gateway_usage_plan_key" "tokenizer" {
   usage_plan_id = aws_api_gateway_usage_plan.tokenizer[each.key].id
 }
 
+resource "aws_api_gateway_usage_plan_key" "tokenizer_additional" {
+  for_each      = { for k in local.additional_keys : k.key => k }
+  key_id        = aws_api_gateway_api_key.additional[each.key].id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.tokenizer[each.value.plan].id
+
+  depends_on = [
+    aws_api_gateway_api_key.additional
+  ]
+}
+
 
 ## Mapping api tokenizer with apigw custom domain.
 resource "aws_apigatewayv2_api_mapping" "tokenizer" {
@@ -137,11 +142,6 @@ resource "aws_wafv2_web_acl_association" "tokenizer" {
   web_acl_arn  = aws_wafv2_web_acl.main.arn
   resource_arn = "arn:aws:apigateway:${var.aws_region}::/restapis/${aws_api_gateway_rest_api.tokenizer.id}/stages/${aws_api_gateway_stage.tokenizer.stage_name}"
 }
-
-locals {
-  tokenizer_api_plan_ids = { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan.tokenizer[k].id }
-}
-
 
 /*
 //The API Gateway endpoint
