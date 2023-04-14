@@ -18,10 +18,10 @@ replica_count              = 2
 ecs_logs_retention_days    = 90
 
 ecs_autoscaling = {
-  max_capacity       = 5
-  min_capacity       = 2
-  scale_in_cooldown  = 180
-  scale_out_cooldown = 40
+  max_capacity       = 10
+  min_capacity       = 3
+  scale_in_cooldown  = 900
+  scale_out_cooldown = 60
 }
 
 
