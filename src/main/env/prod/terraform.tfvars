@@ -18,6 +18,7 @@ replica_count              = 2
 ecs_logs_retention_days    = 90
 
 ms_tokenizer_enable_confidential_filter = true
+ms_tokenizer_log_level                  = "INFO"
 
 ecs_autoscaling = {
   max_capacity       = 5
