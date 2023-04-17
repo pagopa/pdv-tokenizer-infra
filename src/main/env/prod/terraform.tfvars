@@ -14,7 +14,7 @@ vpc_peering = {
 
 # Ecs
 ecs_enable_execute_command = true
-replica_count              = 2
+replica_count              = 3
 ecs_logs_retention_days    = 90
 
 ms_tokenizer_enable_confidential_filter = true
