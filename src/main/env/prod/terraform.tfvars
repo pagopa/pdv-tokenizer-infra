@@ -21,10 +21,10 @@ ms_tokenizer_enable_confidential_filter = true
 ms_tokenizer_log_level                  = "INFO"
 
 ecs_autoscaling = {
-  max_capacity       = 5
-  min_capacity       = 2
-  scale_in_cooldown  = 180
-  scale_out_cooldown = 40
+  max_capacity       = 10
+  min_capacity       = 3
+  scale_in_cooldown  = 900
+  scale_out_cooldown = 60
 }
 
 
