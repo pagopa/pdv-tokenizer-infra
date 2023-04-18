@@ -161,7 +161,6 @@
 | <a name="input_table_token_autoscaling_write"></a> [table\_token\_autoscaling\_write](#input\_table\_token\_autoscaling\_write) | Write autoscaling settings table token. | <pre>object({<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>    target_value       = number<br>    max_capacity       = number<br>  })</pre> | n/a | yes |
 | <a name="input_table_token_autoscling_indexes"></a> [table\_token\_autoscling\_indexes](#input\_table\_token\_autoscling\_indexes) | Autoscaling gsi configurations | `any` | n/a | yes |
 | <a name="input_table_token_read_capacity"></a> [table\_token\_read\_capacity](#input\_table\_token\_read\_capacity) | Table token read capacity. | `number` | n/a | yes |
-| <a name="input_table_token_stream_enabled"></a> [table\_token\_stream\_enabled](#input\_table\_token\_stream\_enabled) | Enable Streams | `bool` | n/a | yes |
 | <a name="input_table_token_write_capacity"></a> [table\_token\_write\_capacity](#input\_table\_token\_write\_capacity) | Table token read capacity. | `number` | n/a | yes |
 | <a name="input_tokenizer_plans"></a> [tokenizer\_plans](#input\_tokenizer\_plans) | Usage plan with its api key and rate limit. | <pre>list(object({<br>    key_name        = string<br>    burst_limit     = number<br>    rate_limit      = number<br>    additional_keys = list(string)<br>    method_throttle = list(object({<br>      path        = string<br>      burst_limit = number<br>      rate_limit  = number<br>    }))<br>  }))</pre> | n/a | yes |
 | <a name="input_apigw_access_logs_enable"></a> [apigw\_access\_logs\_enable](#input\_apigw\_access\_logs\_enable) | Enable api gateway access logs | `bool` | `false` | no |
@@ -175,6 +174,7 @@
 | <a name="input_create_cloudhsm"></a> [create\_cloudhsm](#input\_create\_cloudhsm) | Create cloudhsm cluster to enctypt dynamodb tables | `bool` | `false` | no |
 | <a name="input_dns_record_ttl"></a> [dns\_record\_ttl](#input\_dns\_record\_ttl) | Dns record ttl (in sec) | `number` | `86400` | no |
 | <a name="input_dynamodb_point_in_time_recovery_enabled"></a> [dynamodb\_point\_in\_time\_recovery\_enabled](#input\_dynamodb\_point\_in\_time\_recovery\_enabled) | Enable dynamodb point in time recovery | `bool` | `false` | no |
+| <a name="input_dynamodb_region_replication_enable"></a> [dynamodb\_region\_replication\_enable](#input\_dynamodb\_region\_replication\_enable) | Enable dyamodb deplicaton in a secondary region. | `bool` | `false` | no |
 | <a name="input_ecr_keep_nr_images"></a> [ecr\_keep\_nr\_images](#input\_ecr\_keep\_nr\_images) | Number of images to keep. | `number` | `10` | no |
 | <a name="input_ecs_as_threshold"></a> [ecs\_as\_threshold](#input\_ecs\_as\_threshold) | ECS Tasks autoscaling settings. | <pre>object({<br>    cpu_min = number<br>    cpu_max = number<br>    mem_min = number<br>    mem_max = number<br>  })</pre> | <pre>{<br>  "cpu_max": 80,<br>  "cpu_min": 20,<br>  "mem_max": 80,<br>  "mem_min": 60<br>}</pre> | no |
 | <a name="input_ecs_autoscaling"></a> [ecs\_autoscaling](#input\_ecs\_autoscaling) | ECS Service autoscaling. | <pre>object({<br>    max_capacity       = number<br>    min_capacity       = number<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>  })</pre> | <pre>{<br>  "max_capacity": 3,<br>  "min_capacity": 1,<br>  "scale_in_cooldown": 180,<br>  "scale_out_cooldown": 40<br>}</pre> | no |
@@ -192,6 +192,7 @@
 | <a name="input_replica_count"></a> [replica\_count](#input\_replica\_count) | Number of task replica | `number` | `1` | no |
 | <a name="input_sentinel_servcie_account_id"></a> [sentinel\_servcie\_account\_id](#input\_sentinel\_servcie\_account\_id) | Microsoft Sentinel's service account ID for AWS. | `string` | `"197857026523"` | no |
 | <a name="input_sentinel_workspace_id"></a> [sentinel\_workspace\_id](#input\_sentinel\_workspace\_id) | Sentinel workspece id | `string` | `null` | no |
+| <a name="input_table_token_stream_enabled"></a> [table\_token\_stream\_enabled](#input\_table\_token\_stream\_enabled) | Enable Streams | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(any)` | <pre>{<br>  "CreatedBy": "Terraform"<br>}</pre> | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | VPC cidr. | `string` | `"10.1.0.0/16"` | no |
 | <a name="input_vpc_internal_subnets_cidr"></a> [vpc\_internal\_subnets\_cidr](#input\_vpc\_internal\_subnets\_cidr) | Internal subnets list of cidr. Mainly for private endpoints | `list(string)` | <pre>[<br>  "10.1.201.0/24",<br>  "10.1.202.0/24",<br>  "10.1.203.0/24"<br>]</pre> | no |
@@ -211,6 +212,7 @@
 | <a name="output_clouthsm_hsm_eni_ip"></a> [clouthsm\_hsm\_eni\_ip](#output\_clouthsm\_hsm\_eni\_ip) | n/a |
 | <a name="output_dynamodb_table_token_arn"></a> [dynamodb\_table\_token\_arn](#output\_dynamodb\_table\_token\_arn) | n/a |
 | <a name="output_dynamodb_table_token_id"></a> [dynamodb\_table\_token\_id](#output\_dynamodb\_table\_token\_id) | n/a |
+| <a name="output_dynamodb_table_token_stream_arn"></a> [dynamodb\_table\_token\_stream\_arn](#output\_dynamodb\_table\_token\_stream\_arn) | n/a |
 | <a name="output_ecs_definition_task_arn"></a> [ecs\_definition\_task\_arn](#output\_ecs\_definition\_task\_arn) | # ecs |
 | <a name="output_ecs_definition_task_revision"></a> [ecs\_definition\_task\_revision](#output\_ecs\_definition\_task\_revision) | n/a |
 | <a name="output_ecs_task_definition_tokenizer_arn"></a> [ecs\_task\_definition\_tokenizer\_arn](#output\_ecs\_task\_definition\_tokenizer\_arn) | n/a |

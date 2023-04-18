@@ -28,6 +28,10 @@ output "dynamodb_table_token_id" {
   value = module.dynamodb_table_token.dynamodb_table_id
 }
 
+output "dynamodb_table_token_stream_arn" {
+  value = var.table_token_stream_enabled ? module.dynamodb_table_token.dynamodb_table_stream_arn : null
+}
+
 # Dns
 output "public_dns_zone_name" {
   value = module.dn_zone.route53_zone_name
