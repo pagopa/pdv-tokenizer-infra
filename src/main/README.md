@@ -103,8 +103,11 @@
 | [aws_iam_role.apigw](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.ecs_execution_task](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.githubecsdeploy](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.pipe](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.s3_api_gateyway_role](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.source](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.target](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role_policy) | resource |
 | [aws_iam_role_policy_attachment.deploy_ec2_ecr_full_access](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.deploy_ecs](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.ecsTaskExecutionRole_policy](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/iam_role_policy_attachment) | resource |
@@ -117,6 +120,7 @@
 | [aws_kms_alias.dynamo_db_replica](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/kms_alias) | resource |
 | [aws_kms_key.dynamo_db](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/kms_key) | resource |
 | [aws_kms_key.dynamo_db_replica](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/kms_key) | resource |
+| [aws_pipes_pipe.token](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/pipes_pipe) | resource |
 | [aws_route.accepter](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/route) | resource |
 | [aws_route53_record.cert_validation](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/route53_record) | resource |
 | [aws_route53_record.main](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/route53_record) | resource |
@@ -132,6 +136,7 @@
 | [aws_security_group_rule.task_hsm](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/security_group_rule) | resource |
 | [aws_sns_topic.alarms](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_subscription.alarms_email](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/sns_topic_subscription) | resource |
+| [aws_sqs_queue.target](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/sqs_queue) | resource |
 | [aws_wafv2_web_acl.main](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/wafv2_web_acl) | resource |
 | [aws_wafv2_web_acl_association.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/resources/wafv2_web_acl_association) | resource |
 | [aws_api_gateway_export.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/4.59.0/docs/data-sources/api_gateway_export) | data source |
