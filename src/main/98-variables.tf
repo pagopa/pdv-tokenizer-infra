@@ -211,12 +211,6 @@ variable "ms_tokenizer_enable_single_line_stack_trace_logging" {
 
 
 # Dynamodb 
-variable "dynamodb_region_replication_enable" {
-  type        = bool
-  description = "Enable dyamodb deplicaton in a secondary region."
-  default     = false
-}
-
 variable "dynamodb_point_in_time_recovery_enabled" {
   type        = bool
   description = "Enable dynamodb point in time recovery"
@@ -252,6 +246,12 @@ variable "table_token_autoscaling_write" {
     max_capacity       = number
   })
   description = "Write autoscaling settings table token."
+}
+
+variable "table_token_stream_enabled" {
+  type        = bool
+  description = "Enable Streams"
+  defautl     = false
 }
 
 // We assume every plan has its own api key

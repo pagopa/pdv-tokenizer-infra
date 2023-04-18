@@ -11,13 +11,14 @@ module "dynamodb_table_token" {
   name                           = local.dynamodb_table_token
   hash_key                       = "PK"
   range_key                      = "SK"
-  stream_enabled                 = var.dynamodb_region_replication_enable
-  stream_view_type               = var.dynamodb_region_replication_enable ? "NEW_AND_OLD_IMAGES" : null
+  stream_enabled                 = var.table_token_stream_enabled
+  stream_view_type               = var.table_token_stream_enabled ? "NEW_IMAGE" : null
   point_in_time_recovery_enabled = var.dynamodb_point_in_time_recovery_enabled
   billing_mode                   = "PROVISIONED"
   autoscaling_enabled            = true
   read_capacity                  = var.table_token_read_capacity
   write_capacity                 = var.table_token_write_capacity
+
 
   attributes = [
     {
