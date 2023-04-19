@@ -1,4 +1,7 @@
 resource "aws_iam_role" "pipe" {
+
+  name = "toke-pipe-role"
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = {
@@ -18,6 +21,9 @@ resource "aws_iam_role" "pipe" {
 
 
 resource "aws_iam_role_policy" "source" {
+
+  name = "AllowPipeConsumeStream"
+
   role = aws_iam_role.pipe.id
   policy = jsonencode({
     Version = "2012-10-17"
@@ -34,14 +40,26 @@ resource "aws_iam_role_policy" "source" {
           module.dynamodb_table_token.dynamodb_table_stream_arn
         ]
       },
+      {
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:Encrypt",
+        ],
+        Resource = [
+          aws_kms_alias.dynamo_db.target_key_arn
+        ]
+      },
     ]
   })
 }
 
-
 resource "aws_sqs_queue" "target" {}
 
 resource "aws_iam_role_policy" "target" {
+
+  name = "AllowPipeWriteSQS"
+
   role = aws_iam_role.pipe.id
   policy = jsonencode({
     Version = "2012-10-17"
