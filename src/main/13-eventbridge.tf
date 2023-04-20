@@ -1,6 +1,6 @@
 resource "aws_iam_role" "pipe" {
-
-  name = "pipe-tokens-role"
+  count = var.create_event_bridge_pipe ? 1 : 0
+  name  = "pipe-tokens-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -21,10 +21,10 @@ resource "aws_iam_role" "pipe" {
 
 
 resource "aws_iam_role_policy" "source" {
+  count = var.create_event_bridge_pipe ? 1 : 0
+  name  = "AllowPipeConsumeStream"
 
-  name = "AllowPipeConsumeStream"
-
-  role = aws_iam_role.pipe.id
+  role = aws_iam_role.pipe[0].id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -63,7 +63,7 @@ resource "aws_iam_role_policy" "target" {
   count = var.create_event_bridge_pipe ? 1 : 0
   name  = "AllowPipeWriteSQS"
 
-  role = aws_iam_role.pipe.id
+  role = aws_iam_role.pipe[0].id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -84,7 +84,7 @@ resource "aws_pipes_pipe" "token" {
   count      = var.create_event_bridge_pipe ? 1 : 0
   depends_on = [aws_iam_role_policy.source, aws_iam_role_policy.target]
   name       = format("pipe-%s-tokens", var.env_short)
-  role_arn   = aws_iam_role.pipe.arn
+  role_arn   = aws_iam_role.pipe[0].arn
   source     = module.dynamodb_table_token.dynamodb_table_stream_arn
   target     = aws_sqs_queue.target[0].arn
 
