@@ -261,6 +261,14 @@ variable "table_token_stream_enabled" {
   default     = false
 }
 
+# Event bridge
+
+variable "create_event_bridge_pipe" {
+  type        = bool
+  description = "Create event bridge pipe."
+  default     = false
+}
+
 // We assume every plan has its own api key
 variable "tokenizer_plans" {
   type = list(object({

@@ -164,6 +164,9 @@ table_token_autoscling_indexes = {
   }
 }
 
+## Event bridge
+create_event_bridge_pipe = true
+
 ## alarms
 dynamodb_alarms = [{
   actions_enabled     = true

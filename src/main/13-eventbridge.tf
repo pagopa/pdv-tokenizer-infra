@@ -55,7 +55,8 @@ resource "aws_iam_role_policy" "source" {
 }
 
 resource "aws_sqs_queue" "target" {
-  name = format("queue-%s-tokens", var.env_short)
+  count = var.create_event_bridge_pipe ? 1 : 0
+  name  = format("queue-%s-tokens", var.env_short)
 }
 
 resource "aws_iam_role_policy" "target" {
@@ -72,7 +73,7 @@ resource "aws_iam_role_policy" "target" {
           "sqs:SendMessage",
         ],
         Resource = [
-          aws_sqs_queue.target.arn,
+          aws_sqs_queue.target[0].arn,
         ]
       },
     ]
@@ -80,11 +81,12 @@ resource "aws_iam_role_policy" "target" {
 }
 
 resource "aws_pipes_pipe" "token" {
+  count      = var.create_event_bridge_pipe ? 1 : 0
   depends_on = [aws_iam_role_policy.source, aws_iam_role_policy.target]
   name       = format("pipe-%s-tokens", var.env_short)
   role_arn   = aws_iam_role.pipe.arn
   source     = module.dynamodb_table_token.dynamodb_table_stream_arn
-  target     = aws_sqs_queue.target.arn
+  target     = aws_sqs_queue.target[0].arn
 
   source_parameters {}
   target_parameters {}
