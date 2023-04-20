@@ -139,6 +139,8 @@ dynamodb_point_in_time_recovery_enabled = false
 table_token_read_capacity  = 20
 table_token_write_capacity = 50
 
+table_token_stream_enabled = true
+
 table_token_autoscaling_read = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
@@ -161,6 +163,9 @@ table_token_autoscling_indexes = {
     write_min_capacity = 10
   }
 }
+
+## Event bridge
+create_event_bridge_pipe = true
 
 ## alarms
 dynamodb_alarms = [{
