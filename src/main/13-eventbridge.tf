@@ -1,6 +1,6 @@
 resource "aws_iam_role" "pipe" {
 
-  name = "toke-pipe-role"
+  name = "pipe-tokens-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -54,7 +54,9 @@ resource "aws_iam_role_policy" "source" {
   })
 }
 
-resource "aws_sqs_queue" "target" {}
+resource "aws_sqs_queue" "target" {
+  name = format("queue-%s-tokens", var.env_short)
+}
 
 resource "aws_iam_role_policy" "target" {
 
@@ -79,7 +81,7 @@ resource "aws_iam_role_policy" "target" {
 
 resource "aws_pipes_pipe" "token" {
   depends_on = [aws_iam_role_policy.source, aws_iam_role_policy.target]
-  name       = "token-pipe"
+  name       = format("pipe-%s-tokens", var.env_short)
   role_arn   = aws_iam_role.pipe.arn
   source     = module.dynamodb_table_token.dynamodb_table_stream_arn
   target     = aws_sqs_queue.target.arn
