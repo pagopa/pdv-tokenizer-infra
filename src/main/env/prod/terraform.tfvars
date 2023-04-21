@@ -27,6 +27,8 @@ ecs_autoscaling = {
   scale_out_cooldown = 60
 }
 
+enable_container_insights = true
+
 
 # Public DNS Zone 
 
