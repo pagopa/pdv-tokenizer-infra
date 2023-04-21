@@ -209,6 +209,12 @@ variable "ms_tokenizer_enable_single_line_stack_trace_logging" {
   description = "Enable logging stack trace in a single line"
 }
 
+variable "enable_container_insights" {
+  type        = bool
+  description = "Enable container insight in ECS cluster"
+  default     = false
+}
+
 
 # Dynamodb 
 

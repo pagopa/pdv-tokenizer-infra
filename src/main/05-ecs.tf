@@ -2,6 +2,12 @@
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = format("%s-ecs-cluster", local.project)
   tags = { Name = format("%s-ecs", local.project) }
+
+  setting {
+    name  = "containerInsights"
+    value = var.enable_container_insights ? "enabled" : "diabled"
+  }
+
 }
 
 locals {
