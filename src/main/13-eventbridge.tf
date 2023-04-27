@@ -88,6 +88,26 @@ resource "aws_pipes_pipe" "token" {
   source     = module.dynamodb_table_token.dynamodb_table_stream_arn
   target     = aws_sqs_queue.target[0].arn
 
-  source_parameters {}
+  source_parameters {
+    filter_criteria {
+      filter {
+        pattern = jsonencode({
+          dynamodb = {
+            Keys = {
+              SK = {
+                S = [
+                  {
+                    anything-but = "GLOBAL"
+                  },
+                ]
+              }
+            }
+          }
+        })
+      }
+    }
+  }
+
+
   target_parameters {}
 }
