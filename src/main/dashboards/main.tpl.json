@@ -66,6 +66,7 @@
                     [ "AWS/NetworkELB", "UnHealthyHostCount", "TargetGroup", "${nlb_target_arn_suffix}", "LoadBalancer", "${nlb_arn_suffix}" ],
                     [ ".", "HealthyHostCount", ".", ".", ".", "." ]
                 ],
+                "stat": "Sum",
                 "region": "eu-south-1",
                 "period": 300,
                 "title": "Backend target health status"
