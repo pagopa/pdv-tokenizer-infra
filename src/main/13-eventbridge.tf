@@ -112,6 +112,7 @@ resource "aws_pipes_pipe" "token" {
     input_template = <<-EOT
 {
     "eventID": <$.eventID>, 
+    "eventName": <$.eventName>, 
     "SK": <$.dynamodb.NewImage.SK.S>,
     "globalToken": <$.dynamodb.NewImage.globalToken.S>,
     "token": <$.dynamodb.NewImage.token.S>
