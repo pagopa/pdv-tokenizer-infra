@@ -108,6 +108,14 @@ resource "aws_pipes_pipe" "token" {
     }
   }
 
-
-  target_parameters {}
+  target_parameters {
+    input_template = <<-EOT
+{
+    "eventID": <$.eventID>, 
+    "SK": <$.dynamodb.NewImage.SK.S>,
+    "globalToken": <$.dynamodb.NewImage.globalToken.S>,
+    "token": <$.dynamodb.NewImage.token.S>
+}
+EOT
+  }
 }
