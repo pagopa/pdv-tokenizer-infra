@@ -146,6 +146,12 @@ variable "container_port_tokenizer" {
   default     = 8080
 }
 
+variable "tokenizer_image_version" {
+  type        = string
+  description = "Image version in task definition"
+  default     = "latest"
+}
+
 variable "replica_count" {
   type        = number
   description = "Number of task replica"

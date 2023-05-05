@@ -15,7 +15,9 @@ resource "aws_ecs_task_definition" "tokenizer" {
 [
   {
     "name": "${local.project}-container",
-    "image": "${aws_ecr_repository.main[0].repository_url}:latest",
+    "image": "${aws_ecr_repository.main[0].repository_url}:${var.tokenizer_image_version}",
+    "cpu": 256,
+    "memory": 512,
     "entryPoint": [],
     "essential": true,
     "logConfiguration": {
@@ -58,8 +60,8 @@ resource "aws_ecs_task_definition" "tokenizer" {
         "value": "${var.ms_tokenizer_enable_single_line_stack_trace_logging}"
       }
     ],
-    "cpu": 256,
-    "memory": 512,
+    "cpu": 1024,
+    "memory": 2048,
     "networkMode": "awsvpc"
   }
 ]
