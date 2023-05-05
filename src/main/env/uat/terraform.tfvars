@@ -15,6 +15,7 @@ ecs_enable_execute_command = true
 
 replica_count           = 2
 ecs_logs_retention_days = 90
+tokenizer_image_version = "851cd421296e00c50bb5ff792e73b97483c11920"
 
 ecs_autoscaling = {
   max_capacity       = 5
