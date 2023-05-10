@@ -146,7 +146,6 @@ variable "container_port_tokenizer" {
   default     = 8080
 }
 
-
 variable "tokenizer_image_version" {
   type        = string
   description = "Image version in task definition"
@@ -164,7 +163,6 @@ variable "tokenizer_container_memory" {
   description = "Container memory quota."
   default     = 512
 }
-
 
 variable "replica_count" {
   type        = number
