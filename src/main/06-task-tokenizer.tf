@@ -15,7 +15,9 @@ resource "aws_ecs_task_definition" "tokenizer" {
 [
   {
     "name": "${local.project}-container",
-    "image": "${aws_ecr_repository.main[0].repository_url}:latest",
+    "image": "${aws_ecr_repository.main[0].repository_url}:${var.tokenizer_image_version}",
+    "cpu": ${var.tokenizer_container_cpu},
+    "memory": ${var.tokenizer_container_memory},
     "entryPoint": [],
     "essential": true,
     "logConfiguration": {
