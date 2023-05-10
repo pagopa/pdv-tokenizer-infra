@@ -176,14 +176,14 @@ table_token_write_capacity = 50
 table_token_autoscaling_read = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 70 # target utilisation %
+  target_value       = 50 # target utilisation %
   max_capacity       = 250
 }
 
 table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 70 # target utilisation %
+  target_value       = 50 # target utilisation %
   max_capacity       = 80
 }
 
