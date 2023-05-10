@@ -152,6 +152,18 @@ variable "tokenizer_image_version" {
   default     = "latest"
 }
 
+variable "tokenizer_container_cpu" {
+  type        = number
+  description = "Container cpu quota."
+  default     = 256
+}
+
+variable "tokenizer_container_memory" {
+  type        = number
+  description = "Container memory quota."
+  default     = 512
+}
+
 variable "replica_count" {
   type        = number
   description = "Number of task replica"

@@ -201,6 +201,8 @@
 | <a name="input_sentinel_workspace_id"></a> [sentinel\_workspace\_id](#input\_sentinel\_workspace\_id) | Sentinel workspece id | `string` | `null` | no |
 | <a name="input_table_token_stream_enabled"></a> [table\_token\_stream\_enabled](#input\_table\_token\_stream\_enabled) | Enable Streams | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(any)` | <pre>{<br>  "CreatedBy": "Terraform"<br>}</pre> | no |
+| <a name="input_tokenizer_container_cpu"></a> [tokenizer\_container\_cpu](#input\_tokenizer\_container\_cpu) | Container cpu quota. | `number` | `256` | no |
+| <a name="input_tokenizer_container_memory"></a> [tokenizer\_container\_memory](#input\_tokenizer\_container\_memory) | Container memory quota. | `number` | `512` | no |
 | <a name="input_tokenizer_image_version"></a> [tokenizer\_image\_version](#input\_tokenizer\_image\_version) | Image version in task definition | `string` | `"latest"` | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | VPC cidr. | `string` | `"10.1.0.0/16"` | no |
 | <a name="input_vpc_internal_subnets_cidr"></a> [vpc\_internal\_subnets\_cidr](#input\_vpc\_internal\_subnets\_cidr) | Internal subnets list of cidr. Mainly for private endpoints | `list(string)` | <pre>[<br>  "10.1.201.0/24",<br>  "10.1.202.0/24",<br>  "10.1.203.0/24"<br>]</pre> | no |

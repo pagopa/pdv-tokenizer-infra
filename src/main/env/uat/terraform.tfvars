@@ -13,13 +13,15 @@ vpc_peering = {
 # Ecs
 ecs_enable_execute_command = true
 
-replica_count           = 2
-ecs_logs_retention_days = 90
-tokenizer_image_version = "851cd421296e00c50bb5ff792e73b97483c11920"
+replica_count              = 3
+ecs_logs_retention_days    = 90
+tokenizer_image_version    = "851cd421296e00c50bb5ff792e73b97483c11920"
+tokenizer_container_cpu    = 1024
+tokenizer_container_memory = 2040
 
 ecs_autoscaling = {
-  max_capacity       = 5
-  min_capacity       = 2
+  max_capacity       = 6
+  min_capacity       = 3
   scale_in_cooldown  = 900 # 15 min  
   scale_out_cooldown = 60
 }
@@ -119,7 +121,7 @@ tokenizer_plans = [
   {
     key_name        = "IDPAY-UAT"
     burst_limit     = 50
-    rate_limit      = 150
+    rate_limit      = 300
     additional_keys = []
     method_throttle = []
   },
@@ -147,23 +149,23 @@ table_token_stream_enabled = true
 table_token_autoscaling_read = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 70 # target utilisation %
+  target_value       = 50 # target utilisation %
   max_capacity       = 250
 }
 
 table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
-  target_value       = 70 # target utilisation %
-  max_capacity       = 80
+  target_value       = 50 # target utilisation %
+  max_capacity       = 600
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
     read_max_capacity  = 250
     read_min_capacity  = 20
-    write_max_capacity = 50
-    write_min_capacity = 10
+    write_max_capacity = 600
+    write_min_capacity = 300
   }
 }
 
