@@ -60,7 +60,7 @@ resource "aws_ecs_task_definition" "tokenizer" {
         "value": "${var.ms_tokenizer_enable_single_line_stack_trace_logging}"
       }
     ],
-    "cpu": ${var.tokenizer_container_cpu}
+    "cpu": ${var.tokenizer_container_cpu},
     "memory": ${var.tokenizer_container_memory},
     "networkMode": "awsvpc"
   }
