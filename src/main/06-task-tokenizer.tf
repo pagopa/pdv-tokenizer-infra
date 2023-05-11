@@ -67,8 +67,8 @@ resource "aws_ecs_task_definition" "tokenizer" {
 
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  memory                   = var.tokenizer_container_memory
   cpu                      = var.tokenizer_container_cpu
+  memory                   = var.tokenizer_container_memory
   execution_role_arn       = aws_iam_role.ecs_execution_task.arn
   task_role_arn            = aws_iam_role.ecs_execution_task.arn
 
