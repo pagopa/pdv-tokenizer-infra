@@ -8,7 +8,7 @@
             "type": "metric",
             "properties": {
                 "metrics": [
-                    [ "AWS/ApiGateway", "Count", "ApiName", "tokenizer-p-tokenizer-api", "Stage", "v1" ]
+                    [ "AWS/ApiGateway", "Count", "ApiName", "tokenizer-u-tokenizer-api", "Stage", "v1" ]
                 ],
                 "period": 300,
                 "stat": "Sum",
@@ -27,7 +27,7 @@
             "properties": {
                 "metrics": [
                     [ { "expression": "ANOMALY_DETECTION_BAND(m1, 2)", "label": "AnomalyDetection", "id": "e1" } ],
-                    [ "AWS/ApiGateway", "Latency", "ApiName", "tokenizer-p-tokenizer-api", "Stage", "v1", { "id": "m1" } ]
+                    [ "AWS/ApiGateway", "Latency", "ApiName", "tokenizer-u-tokenizer-api", "Stage", "v1", { "id": "m1" } ]
                 ],
                 "period": 300,
                 "stat": "Average",
@@ -44,13 +44,17 @@
             "x": 12,
             "type": "metric",
             "properties": {
+                "metrics": [
+                    [ "AWS/ApiGateway", "5XXError", "ApiName", "tokenizer-u-tokenizer-api", { "region": "eu-south-1" } ],
+                    [ ".", "4XXError", ".", ".", { "region": "eu-south-1" } ]
+                ],
                 "view": "timeSeries",
                 "stacked": false,
-                "metrics": [
-                    [ "AWS/ApiGateway", "5XXError", "ApiName", "tokenizer-p-tokenizer-api" ],
-                    [ ".", "4XXError", ".", "." ]
-                ],
-                "region": "eu-south-1"
+                "region": "eu-south-1",
+                "period": 300,
+                "stat": "Maximum",
+                "start": "-PT72H",
+                "end": "P0D"
             }
         },
         {
@@ -60,15 +64,16 @@
             "x": 18,
             "type": "metric",
             "properties": {
+                "metrics": [
+                    [ "AWS/NetworkELB", "UnHealthyHostCount", "TargetGroup", "targetgroup/tokenizer-u-tokenizer/e42b3a3e3c31749e", "LoadBalancer", "net/tokenizer-u-nlb/63e5a0a1a5a8c188", { "region": "eu-south-1" } ],
+                    [ ".", "HealthyHostCount", ".", ".", ".", ".", { "region": "eu-south-1" } ]
+                ],
                 "view": "timeSeries",
                 "stacked": false,
-                "metrics": [
-                    [ "AWS/NetworkELB", "UnHealthyHostCount", "TargetGroup", "targetgroup/tokenizer-p-tokenizer/f2494fedb14d3eba", "LoadBalancer", "net/tokenizer-p-nlb/094463a88e36e754" ],
-                    [ ".", "HealthyHostCount", ".", ".", ".", "." ]
-                ],
                 "region": "eu-south-1",
                 "period": 300,
-                "title": "Backend target health status"
+                "title": "Backend target health status",
+                "stat": "Maximum"
             }
         },
         {
@@ -90,7 +95,7 @@
             "properties": {
                 "metrics": [
                     [ { "expression": "ANOMALY_DETECTION_BAND(m1, 2)", "label": "AnomalyDetection", "id": "e1", "region": "eu-south-1" } ],
-                    [ "AWS/ECS", "CPUUtilization", "ServiceName", "tokenizer-p-service-tokenizer", "ClusterName", "tokenizer-p-ecs-cluster", { "stat": "Minimum", "id": "m1" } ],
+                    [ "AWS/ECS", "CPUUtilization", "ServiceName", "tokenizer-u-service-tokenizer", "ClusterName", "tokenizer-u-ecs-cluster", { "stat": "Minimum", "id": "m1" } ],
                     [ "...", { "stat": "Maximum", "id": "m2" } ],
                     [ "...", { "id": "m3" } ]
                 ],
@@ -111,7 +116,7 @@
             "properties": {
                 "metrics": [
                     [ { "expression": "ANOMALY_DETECTION_BAND(m1, 2)", "label": "AnomalyDetection", "id": "e1" } ],
-                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "tokenizer-p-service-tokenizer", "ClusterName", "tokenizer-p-ecs-cluster", { "stat": "Minimum", "id": "m1" } ],
+                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "tokenizer-u-service-tokenizer", "ClusterName", "tokenizer-u-ecs-cluster", { "stat": "Minimum", "id": "m1" } ],
                     [ "...", { "stat": "Maximum", "id": "m2" } ],
                     [ "...", { "id": "m3" } ]
                 ],
@@ -374,7 +379,7 @@
             "x": 0,
             "type": "log",
             "properties": {
-                "query": "SOURCE 'API-Gateway-Execution-Logs_lhtshsi81h/v1' | fields @timestamp, @message\n| parse @message \"Plan ID *,\" as plan\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
+                "query": "SOURCE 'API-Gateway-Execution-Logs_ojls4fyovc/v1' | fields @timestamp, @message\n| parse @message /Plan ID (?<plan>[^,\\.]+)[,\\.]/\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
                 "region": "eu-south-1",
                 "stacked": false,
                 "view": "table",
@@ -383,18 +388,18 @@
         },
         {
             "height": 4,
-            "width": 16,
+            "width": 18,
             "y": 7,
             "x": 6,
             "type": "metric",
             "properties": {
                 "metrics": [
-                    [ "AWS/WAFV2", "CountedRequests", "Region", "eu-south-1", "Rule", "IpReputationList", "WebACL", "tokenizer-p-webacl" ],
+                    [ "AWS/WAFV2", "CountedRequests", "Region", "eu-south-1", "Rule", "IpReputationList", "WebACL", "tokenizer-u-webacl" ],
                     [ "...", "CommonRuleSet", ".", "." ],
                     [ "...", "KnownBadInputsRuleSet", ".", "." ],
                     [ "...", "SQLiRuleSet", ".", "." ],
                     [ "...", "ALL", ".", ".", { "visible": false } ],
-                    [ ".", "AllowedRequests", ".", ".", ".", "tokenizer-p-webacl", ".", ".", { "visible": false } ]
+                    [ ".", "AllowedRequests", ".", ".", ".", "tokenizer-u-webacl", ".", ".", { "visible": false } ]
                 ],
                 "stat": "Sum",
                 "view": "timeSeries",
@@ -419,7 +424,7 @@
             "x": 0,
             "type": "text",
             "properties": {
-                "markdown": "# Useful links\n \n*  [AWS Status Paga](https://health.aws.amazon.com/health/status).\n* [Confluence HOWTO Page](https://pagopa.atlassian.net/wiki/spaces/usrreg/pages/509511125/HOWTO)"
+                "markdown": "# Useful links\n \n*  [AWS Status Page](https://health.aws.amazon.com/health/status).\n* [Confluence HOWTO Page](https://pagopa.atlassian.net/wiki/spaces/usrreg/pages/509511125/HOWTO)"
             }
         },
         {
@@ -429,7 +434,7 @@
             "x": 12,
             "type": "text",
             "properties": {
-                "markdown": "\n## Plans\nList of Plans and Ids for the namespaces\n \n* CloudWatch \n* Dashboards \n"
+                "markdown": "## Plans & IDs\nList of plans with ids\n \n* **IDPAY-DEV**: vw2uxt \n* **IDPAY-UAT**: dq2v1u \n* **INTEROP-DEV**: bzftqr \n* **INTEROP-UAT**: g6sarb \n* **IOSIGN**: vot7ou \n* **PNPF-CERT**: uckm2w \n* **PNPF-DEV**: x66umc \n* **PNPF-UAT**: 3sca6u \n* **PNPG**: s89v22 \n* **PPAECOM**: qwe8f8 \n* **SANDBOX**: neri6v \n* **SELFCARE-DEV**: bzftqr \n* **SELFCARE-UAT**: g6sarb \n* **USERREGISTRY**: bx9i35 \n"
             }
         }
     ]
