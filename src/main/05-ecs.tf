@@ -42,7 +42,7 @@ resource "aws_appautoscaling_policy" "ecs_policy_memory" {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"
     }
 
-    target_value = 50
+    target_value = 70
   }
 }
 
