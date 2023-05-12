@@ -50,6 +50,7 @@
                     [ "AWS/ApiGateway", "5XXError", "ApiName", "${tokenizer_api_name}" ],
                     [ ".", "4XXError", ".", "." ]
                 ],
+                "stat": "Maximum",
                 "region": "eu-south-1"
             }
         },
@@ -66,6 +67,7 @@
                     [ "AWS/NetworkELB", "UnHealthyHostCount", "TargetGroup", "${nlb_target_arn_suffix}", "LoadBalancer", "${nlb_arn_suffix}" ],
                     [ ".", "HealthyHostCount", ".", ".", ".", "." ]
                 ],
+                "stat": "Maximum",
                 "region": "eu-south-1",
                 "period": 300,
                 "title": "Backend target health status"
