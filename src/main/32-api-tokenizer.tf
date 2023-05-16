@@ -190,13 +190,13 @@ module "api_tokenizer_5xx_error_alarm" {
 
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_name          = "high-5xx-rate-"
-  alarm_description   = "Api tokenizer error rate has exceeded 5%"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 20
-  threshold           = 5
+  alarm_description   = "Api tokenizer error rate has exceeded 0%"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  threshold           = 0
   period              = 300
   unit                = "Count"
-  datapoints_to_alarm = 2
+  datapoints_to_alarm = 1
 
   namespace   = "AWS/ApiGateway"
   metric_name = "5XXError"
