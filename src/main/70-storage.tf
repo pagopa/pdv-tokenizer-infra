@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "openapidocs" {
 
 resource "aws_s3_bucket_acl" "openapidocs" {
   bucket = aws_s3_bucket.openapidocs.id
-  acl    = "private"
+  acl    = ""
 }
 
 resource "aws_s3_bucket_policy" "openapidocs" {
