@@ -191,6 +191,7 @@
 | <a name="input_enable_sentinel_logs"></a> [enable\_sentinel\_logs](#input\_enable\_sentinel\_logs) | Create all resources required to sento logs to azure sentinel. | `bool` | `false` | no |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | Evnironment short. | `string` | `"d"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment | `string` | `"dev"` | no |
+| <a name="input_event_bridge_desired_state"></a> [event\_bridge\_desired\_state](#input\_event\_bridge\_desired\_state) | Event bridge pipe desired state. | `string` | `"RUNNING"` | no |
 | <a name="input_github_tokenizer_repo"></a> [github\_tokenizer\_repo](#input\_github\_tokenizer\_repo) | Github repository allowed to run action for ECS deploy. | `string` | `"pagopa/pdv-ms-tokenizer"` | no |
 | <a name="input_ms_tokenizer_enable_confidential_filter"></a> [ms\_tokenizer\_enable\_confidential\_filter](#input\_ms\_tokenizer\_enable\_confidential\_filter) | Enable a filter to avoid logging confidential data | `bool` | `false` | no |
 | <a name="input_ms_tokenizer_enable_single_line_stack_trace_logging"></a> [ms\_tokenizer\_enable\_single\_line\_stack\_trace\_logging](#input\_ms\_tokenizer\_enable\_single\_line\_stack\_trace\_logging) | Enable logging stack trace in a single line | `bool` | `false` | no |

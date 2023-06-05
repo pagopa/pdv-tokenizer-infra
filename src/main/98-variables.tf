@@ -293,6 +293,16 @@ variable "create_event_bridge_pipe" {
   default     = false
 }
 
+variable "event_bridge_desired_state" {
+  type        = string
+  description = "Event bridge pipe desired state."
+  default     = "RUNNING"
+  validation {
+    condition     = contains(["RUNNING", "STOPPED"], var.event_bridge_desired_state)
+    error_message = "Desired state can be RUNNIG or STOPPED."
+  }
+}
+
 // We assume every plan has its own api key
 variable "tokenizer_plans" {
   type = list(object({
