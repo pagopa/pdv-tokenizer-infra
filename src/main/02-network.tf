@@ -1,6 +1,6 @@
 module "vpc" {
   source                = "terraform-aws-modules/vpc/aws"
-  version               = "3.14.0"
+  version               = "5.0.0"
   name                  = format("%s-vpc", local.project)
   cidr                  = var.vpc_cidr
   azs                   = var.azs
@@ -11,8 +11,11 @@ module "vpc" {
   intra_subnets         = var.vpc_internal_subnets_cidr
   enable_nat_gateway    = var.enable_nat_gateway
 
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_hostnames          = true
+  enable_dns_support            = true
+  map_public_ip_on_launch       = true
+  manage_default_security_group = false
+  manage_default_network_acl    = false
 
 }
 
