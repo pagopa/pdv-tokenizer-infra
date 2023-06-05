@@ -157,20 +157,21 @@ table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 600
+  max_capacity       = 80
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
     read_max_capacity  = 250
     read_min_capacity  = 20
-    write_max_capacity = 600
-    write_min_capacity = 300
+    write_max_capacity = 50
+    write_min_capacity = 10
   }
 }
 
 ## Event bridge
-create_event_bridge_pipe = true
+create_event_bridge_pipe   = true
+event_bridge_desired_state = "STOPPED"
 
 ## alarms
 dynamodb_alarms = [{
