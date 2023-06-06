@@ -142,7 +142,7 @@ dynamodb_point_in_time_recovery_enabled = false
 
 ## table Token
 table_token_read_capacity  = 20
-table_token_write_capacity = 50
+table_token_write_capacity = 200
 
 table_token_stream_enabled = true
 
@@ -150,22 +150,22 @@ table_token_autoscaling_read = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 250
+  max_capacity       = 300
 }
 
 table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 200
+  max_capacity       = 300
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
     read_max_capacity  = 250
     read_min_capacity  = 20
-    write_max_capacity = 200
-    write_min_capacity = 50
+    write_max_capacity = 300
+    write_min_capacity = 200
   }
 }
 
