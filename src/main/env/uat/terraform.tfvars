@@ -157,15 +157,15 @@ table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 80
+  max_capacity       = 200
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
     read_max_capacity  = 250
     read_min_capacity  = 20
-    write_max_capacity = 50
-    write_min_capacity = 10
+    write_max_capacity = 200
+    write_min_capacity = 50
   }
 }
 
