@@ -59,6 +59,31 @@ resource "aws_sqs_queue" "target" {
   name  = format("queue-%s-tokens", var.env_short)
 }
 
+resource "aws_sqs_queue_policy" "target" {
+  count     = var.create_event_bridge_pipe && length(var.sqs_consumer_principals) > 0 ? 1 : 0
+  queue_url = aws_sqs_queue.target[0].id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          "AWS" : [
+            var.sqs_consumer_principals
+          ]
+        },
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+        ],
+        Resource = [
+          aws_sqs_queue.target[0].arn,
+        ]
+      },
+    ]
+  })
+}
+
 resource "aws_iam_role_policy" "target" {
   count = var.create_event_bridge_pipe ? 1 : 0
   name  = "AllowPipeWriteSQS"

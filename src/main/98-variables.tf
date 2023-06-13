@@ -303,6 +303,12 @@ variable "event_bridge_desired_state" {
   }
 }
 
+variable "sqs_consumer_principals" {
+  type        = list(string)
+  description = "AWS iam that can read from the sqs queue."
+  default     = []
+}
+
 // We assume every plan has its own api key
 variable "tokenizer_plans" {
   type = list(object({
