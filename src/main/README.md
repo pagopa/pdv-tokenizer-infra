@@ -137,6 +137,7 @@
 | [aws_sns_topic.alarms](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_subscription.alarms_email](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sns_topic_subscription) | resource |
 | [aws_sqs_queue.target](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sqs_queue) | resource |
+| [aws_sqs_queue_policy.target](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sqs_queue_policy) | resource |
 | [aws_wafv2_web_acl.main](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/wafv2_web_acl) | resource |
 | [aws_wafv2_web_acl_association.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/wafv2_web_acl_association) | resource |
 | [aws_api_gateway_export.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/api_gateway_export) | data source |
@@ -200,6 +201,7 @@
 | <a name="input_replica_count"></a> [replica\_count](#input\_replica\_count) | Number of task replica | `number` | `1` | no |
 | <a name="input_sentinel_servcie_account_id"></a> [sentinel\_servcie\_account\_id](#input\_sentinel\_servcie\_account\_id) | Microsoft Sentinel's service account ID for AWS. | `string` | `"197857026523"` | no |
 | <a name="input_sentinel_workspace_id"></a> [sentinel\_workspace\_id](#input\_sentinel\_workspace\_id) | Sentinel workspece id | `string` | `null` | no |
+| <a name="input_sqs_consumer_principals"></a> [sqs\_consumer\_principals](#input\_sqs\_consumer\_principals) | AWS iam that can read from the sqs queue. | `list(string)` | `[]` | no |
 | <a name="input_table_token_stream_enabled"></a> [table\_token\_stream\_enabled](#input\_table\_token\_stream\_enabled) | Enable Streams | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(any)` | <pre>{<br>  "CreatedBy": "Terraform"<br>}</pre> | no |
 | <a name="input_tokenizer_container_cpu"></a> [tokenizer\_container\_cpu](#input\_tokenizer\_container\_cpu) | Container cpu quota. | `number` | `256` | no |
