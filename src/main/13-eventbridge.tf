@@ -68,17 +68,13 @@ resource "aws_sqs_queue_policy" "target" {
       {
         Effect = "Allow"
         Principal = {
-          "AWS" : [
-            var.sqs_consumer_principals
-          ]
+          AWS = var.sqs_consumer_principals
         },
         Action = [
           "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
+          "sqs:DeleteMessage"
         ],
-        Resource = [
-          aws_sqs_queue.target[0].arn,
-        ]
+        Resource = aws_sqs_queue.target[0].arn
       },
     ]
   })
