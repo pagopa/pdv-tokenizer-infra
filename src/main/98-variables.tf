@@ -293,6 +293,22 @@ variable "create_event_bridge_pipe" {
   default     = false
 }
 
+variable "event_bridge_desired_state" {
+  type        = string
+  description = "Event bridge pipe desired state."
+  default     = "RUNNING"
+  validation {
+    condition     = contains(["RUNNING", "STOPPED"], var.event_bridge_desired_state)
+    error_message = "Desired state can be RUNNIG or STOPPED."
+  }
+}
+
+variable "sqs_consumer_principals" {
+  type        = list(string)
+  description = "AWS iam that can read from the sqs queue."
+  default     = []
+}
+
 // We assume every plan has its own api key
 variable "tokenizer_plans" {
   type = list(object({

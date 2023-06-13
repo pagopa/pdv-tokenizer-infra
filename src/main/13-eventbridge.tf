@@ -59,6 +59,27 @@ resource "aws_sqs_queue" "target" {
   name  = format("queue-%s-tokens", var.env_short)
 }
 
+resource "aws_sqs_queue_policy" "target" {
+  count     = var.create_event_bridge_pipe && length(var.sqs_consumer_principals) > 0 ? 1 : 0
+  queue_url = aws_sqs_queue.target[0].id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = var.sqs_consumer_principals
+        },
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage"
+        ],
+        Resource = aws_sqs_queue.target[0].arn
+      },
+    ]
+  })
+}
+
 resource "aws_iam_role_policy" "target" {
   count = var.create_event_bridge_pipe ? 1 : 0
   name  = "AllowPipeWriteSQS"
@@ -81,12 +102,13 @@ resource "aws_iam_role_policy" "target" {
 }
 
 resource "aws_pipes_pipe" "token" {
-  count      = var.create_event_bridge_pipe ? 1 : 0
-  depends_on = [aws_iam_role_policy.source, aws_iam_role_policy.target]
-  name       = format("pipe-%s-tokens", var.env_short)
-  role_arn   = aws_iam_role.pipe[0].arn
-  source     = module.dynamodb_table_token.dynamodb_table_stream_arn
-  target     = aws_sqs_queue.target[0].arn
+  count         = var.create_event_bridge_pipe ? 1 : 0
+  depends_on    = [aws_iam_role_policy.source, aws_iam_role_policy.target]
+  name          = format("pipe-%s-tokens", var.env_short)
+  role_arn      = aws_iam_role.pipe[0].arn
+  source        = module.dynamodb_table_token.dynamodb_table_stream_arn
+  target        = aws_sqs_queue.target[0].arn
+  desired_state = var.event_bridge_desired_state
 
   source_parameters {
     filter_criteria {
