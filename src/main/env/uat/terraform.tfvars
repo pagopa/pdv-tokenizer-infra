@@ -85,7 +85,7 @@ tokenizer_plans = [
   {
     key_name        = "PNPF-DEV"
     burst_limit     = 5
-    rate_limit      = 10
+    rate_limit      = 300
     additional_keys = []
     method_throttle = []
   },
