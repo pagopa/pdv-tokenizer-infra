@@ -116,9 +116,10 @@ module "webacl_count_alarm" {
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_description   = "Alarm when webacl count greater than 10"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 1
+  evaluation_periods  = 3
+  datapoints_to_alarm = 3
   threshold           = 10
-  period              = 60
+  period              = 300
   unit                = "Count"
 
   namespace   = "AWS/WAFV2"
