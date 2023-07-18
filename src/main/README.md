@@ -9,8 +9,8 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | = 5.0.0 |
-| <a name="provider_aws.eu-central-1"></a> [aws.eu-central-1](#provider\_aws.eu-central-1) | = 5.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.0.0 |
+| <a name="provider_aws.eu-central-1"></a> [aws.eu-central-1](#provider\_aws.eu-central-1) | 5.0.0 |
 
 ## Modules
 
@@ -24,17 +24,17 @@
 | <a name="module_dynamo_successful_request_latency"></a> [dynamo\_successful\_request\_latency](#module\_dynamo\_successful\_request\_latency) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
 | <a name="module_dynamodb_read_capacity_units_limit_alarm"></a> [dynamodb\_read\_capacity\_units\_limit\_alarm](#module\_dynamodb\_read\_capacity\_units\_limit\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 | <a name="module_dynamodb_request_exceeding_throughput_alarm"></a> [dynamodb\_request\_exceeding\_throughput\_alarm](#module\_dynamodb\_request\_exceeding\_throughput\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
-| <a name="module_dynamodb_table_token"></a> [dynamodb\_table\_token](#module\_dynamodb\_table\_token) | terraform-aws-modules/dynamodb-table/aws |  |
+| <a name="module_dynamodb_table_token"></a> [dynamodb\_table\_token](#module\_dynamodb\_table\_token) | terraform-aws-modules/dynamodb-table/aws | n/a |
 | <a name="module_dynamodb_write_capacity_units_limit_alarm"></a> [dynamodb\_write\_capacity\_units\_limit\_alarm](#module\_dynamodb\_write\_capacity\_units\_limit\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 | <a name="module_gsi_index_read_capacity_units_limit_alarm"></a> [gsi\_index\_read\_capacity\_units\_limit\_alarm](#module\_gsi\_index\_read\_capacity\_units\_limit\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 | <a name="module_gsi_index_write_capacity_units_limit_alarm"></a> [gsi\_index\_write\_capacity\_units\_limit\_alarm](#module\_gsi\_index\_write\_capacity\_units\_limit\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 | <a name="module_log_filter_throttle_limit_tokenizer"></a> [log\_filter\_throttle\_limit\_tokenizer](#module\_log\_filter\_throttle\_limit\_tokenizer) | terraform-aws-modules/cloudwatch/aws//modules/log-metric-filter | ~> 3.0 |
 | <a name="module_metric_alarms"></a> [metric\_alarms](#module\_metric\_alarms) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
-| <a name="module_nlb"></a> [nlb](#module\_nlb) | terraform-aws-modules/alb/aws |  |
+| <a name="module_nlb"></a> [nlb](#module\_nlb) | terraform-aws-modules/alb/aws | n/a |
 | <a name="module_nlb_unhealthy_unhealthy_targets_alarm"></a> [nlb\_unhealthy\_unhealthy\_targets\_alarm](#module\_nlb\_unhealthy\_unhealthy\_targets\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
-| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git?ref=v1.0.1 |  |
+| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git | v1.0.1 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.0.0 |
-| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints |  |
+| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints | n/a |
 | <a name="module_webacl_count_alarm"></a> [webacl\_count\_alarm](#module\_webacl\_count\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 
 ## Resources
