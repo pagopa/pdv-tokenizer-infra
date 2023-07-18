@@ -188,7 +188,6 @@ module "api_tokenizer_5xx_error_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
   version = "~> 3.0"
 
-  actions_enabled     = var.env_short == "p" ? true : false
   alarm_name          = "high-5xx-rate-"
   alarm_description   = "Api tokenizer error rate has exceeded 0%"
   comparison_operator = "GreaterThanThreshold"
