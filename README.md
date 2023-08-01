@@ -1,3 +1,6 @@
+![Terraform Apply Workflow](https://github.com/pagopa/pdv-tokenizer-infra/actions/workflows/terraform-plan.yml/badge.svg)
+![Terraform Plan Workflow](https://github.com/pagopa/pdv-tokenizer-infra/actions/workflows/terraform-apply.yml/badge.svg)
+![Release Workflow](https://github.com/pagopa/pdv-tokenizer-infra/actions/workflows/release.yml/badge.svg)
 ## Requirements
 
 No requirements.
