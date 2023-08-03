@@ -5,13 +5,12 @@ environment = "dev"
 enable_nat_gateway = false
 
 ## Vpc peering
-vpc_peering = null
-/*
+
 vpc_peering = {
-  owner_connection_id = "todo"
+  owner_connection_id = "pcx-04c79d8e79c830aff"
   owner_cidr_block    = "10.0.0.0/16"
 }
-*/
+
 
 # Ecs
 ecs_enable_execute_command = true
@@ -224,7 +223,7 @@ dynamodb_alarms = [{
 
 tags = {
   CreatedBy   = "Terraform"
-  Environment = "Uat"
+  Environment = "Dev"
   Owner       = "Tokenizer Data Vault"
   Source      = "https://github.com/pagopa/pdv-tokenizer-infra"
   CostCenter  = "TS310 - PAGAMENTI e SERVIZI"
