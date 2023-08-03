@@ -27,5 +27,7 @@ resource "aws_route53_record" "cert_validation" {
   ttl             = 3600 # 1h
   type            = each.value.type
   zone_id         = module.dn_zone.route53_zone_zone_id[keys(var.public_dns_zones)[0]]
+
+  #depends_on = [ aws_route53_record.main ]
 }
 
