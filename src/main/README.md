@@ -138,6 +138,7 @@
 | [aws_security_group_rule.task_hsm](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/security_group_rule) | resource |
 | [aws_sns_topic.alarms](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_subscription.alarms_email](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sns_topic_subscription) | resource |
+| [aws_sns_topic_subscription.alarms_opsgenie](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sns_topic_subscription) | resource |
 | [aws_sqs_queue.target](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sqs_queue) | resource |
 | [aws_sqs_queue_policy.target](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sqs_queue_policy) | resource |
 | [aws_wafv2_web_acl.main](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/wafv2_web_acl) | resource |
@@ -163,7 +164,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_dynamodb_alarms"></a> [dynamodb\_alarms](#input\_dynamodb\_alarms) | # Alarms | <pre>list(<br>    object({<br>      actions_enabled     = bool<br>      alarm_name          = string<br>      alarm_description   = string<br>      comparison_operator = string<br>      evaluation_periods  = number<br>      datapoints_to_alarm = number<br>      threshold           = number<br>      period              = number<br>      unit                = string<br>      namespace           = string<br>      metric_name         = string<br>      statistic           = string<br>  }))</pre> | n/a | yes |
+| <a name="input_dynamodb_alarms"></a> [dynamodb\_alarms](#input\_dynamodb\_alarms) | n/a | <pre>list(<br>    object({<br>      actions_enabled     = bool<br>      alarm_name          = string<br>      alarm_description   = string<br>      comparison_operator = string<br>      evaluation_periods  = number<br>      datapoints_to_alarm = number<br>      threshold           = number<br>      period              = number<br>      unit                = string<br>      namespace           = string<br>      metric_name         = string<br>      statistic           = string<br>  }))</pre> | n/a | yes |
 | <a name="input_public_dns_zones"></a> [public\_dns\_zones](#input\_public\_dns\_zones) | Route53 Hosted Zone | `map(any)` | n/a | yes |
 | <a name="input_table_token_autoscaling_read"></a> [table\_token\_autoscaling\_read](#input\_table\_token\_autoscaling\_read) | Read autoscaling settings table token. | <pre>object({<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>    target_value       = number<br>    max_capacity       = number<br>  })</pre> | n/a | yes |
 | <a name="input_table_token_autoscaling_write"></a> [table\_token\_autoscaling\_write](#input\_table\_token\_autoscaling\_write) | Write autoscaling settings table token. | <pre>object({<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>    target_value       = number<br>    max_capacity       = number<br>  })</pre> | n/a | yes |
@@ -191,6 +192,7 @@
 | <a name="input_ecs_logs_retention_days"></a> [ecs\_logs\_retention\_days](#input\_ecs\_logs\_retention\_days) | Specifies the number of days you want to retain log events in the specified log group. | `number` | `7` | no |
 | <a name="input_enable_container_insights"></a> [enable\_container\_insights](#input\_enable\_container\_insights) | Enable container insight in ECS cluster | `bool` | `false` | no |
 | <a name="input_enable_nat_gateway"></a> [enable\_nat\_gateway](#input\_enable\_nat\_gateway) | Enable/Create nat gateway | `bool` | `false` | no |
+| <a name="input_enable_opsgenie"></a> [enable\_opsgenie](#input\_enable\_opsgenie) | Send alarm via opsgenie. | `bool` | `false` | no |
 | <a name="input_enable_sentinel_logs"></a> [enable\_sentinel\_logs](#input\_enable\_sentinel\_logs) | Create all resources required to sento logs to azure sentinel. | `bool` | `false` | no |
 | <a name="input_env_short"></a> [env\_short](#input\_env\_short) | Evnironment short. | `string` | `"d"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment | `string` | `"dev"` | no |
