@@ -57,7 +57,6 @@ tokenizer_plans = [
     method_throttle = []
   },
   # Github Action Key for Integration Testing
-
   {
     key_name        = "GITHUB-KEY"
     burst_limit     = 20
