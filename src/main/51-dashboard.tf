@@ -13,6 +13,8 @@ resource "aws_cloudwatch_dashboard" "main" {
       tokenizer_api_plan_ids   = local.tokenizer_api_plan_ids
       tokenizer_api_id         = aws_api_gateway_rest_api.tokenizer.id
       tokenizer_api_state_name = aws_api_gateway_stage.tokenizer.stage_name
+      runbook_title            = local.runbook_title
+      runbook_url              = local.runbook_url
     }
   )
 }
