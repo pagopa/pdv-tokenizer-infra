@@ -271,7 +271,7 @@ module "api_tokenizer_low_latency_alarm" {
   evaluation_periods  = 2
   threshold           = local.latency_threshold
   period              = 300
-  unit                = "Count"
+  # unit                = "Count"
   datapoints_to_alarm = 1
 
   namespace   = "AWS/ApiGateway"
