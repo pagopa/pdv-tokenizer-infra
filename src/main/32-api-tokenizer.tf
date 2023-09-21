@@ -257,7 +257,7 @@ module "api_tokenizer_throttle_limit_alarm" {
 }
 
 locals {
-  latency_threshold = 2000
+  latency_threshold = 300 # ms
 }
 
 module "api_tokenizer_low_latency_alarm" {
@@ -268,15 +268,15 @@ module "api_tokenizer_low_latency_alarm" {
   alarm_name          = "low-latency-"
   alarm_description   = format("The Api responds in more than %s ms.", local.latency_threshold)
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 1
+  evaluation_periods  = 2
   threshold           = local.latency_threshold
   period              = 300
   unit                = "Count"
-  datapoints_to_alarm = 1
+  datapoints_to_alarm = 10
 
   namespace   = "AWS/ApiGateway"
   metric_name = "Latency"
-  statistic   = "Maximum"
+  statistic   = "Average"
 
   dimensions = {
     "${local.tokenizer_api_name}" = {
