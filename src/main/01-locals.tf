@@ -25,4 +25,11 @@ locals {
     { for k in keys(local.api_key_list) : k => aws_api_gateway_usage_plan.tokenizer[k].id },
     { for k in local.additional_keys : k.key => aws_api_gateway_usage_plan.tokenizer[k.plan].id },
   )
+
+  runbook_title = "Runbook"
+  runbook_url   = "https://pagopa.atlassian.net/wiki/spaces/usrreg/pages/696615213/Runbook+-+PDV+Troubleshooting"
+  runbook_link = format("<a href='%s'>%s</a>",
+    local.runbook_url, local.runbook_title
+  )
+
 }

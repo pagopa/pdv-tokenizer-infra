@@ -161,7 +161,7 @@ module "api_tokenizer_4xx_error_alarm" {
 
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_name          = "high-4xx-rate-"
-  alarm_description   = "Api tokenizer error rate has exceeded 5%"
+  alarm_description   = "Api tokenizer error rate has exceeded 5% ${local.runbook_link}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
   threshold           = 200
@@ -189,7 +189,7 @@ module "api_tokenizer_5xx_error_alarm" {
   version = "~> 3.0"
 
   alarm_name          = "high-5xx-rate-"
-  alarm_description   = "Api tokenizer error rate has exceeded 0%"
+  alarm_description   = "Api tokenizer error rate has exceeded 0% ${local.runbook_link}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 3
   threshold           = 0

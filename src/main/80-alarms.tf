@@ -30,4 +30,10 @@ resource "aws_sns_topic_subscription" "alarms_opsgenie" {
   protocol                        = "https"
   topic_arn                       = aws_sns_topic.alarms.arn
   confirmation_timeout_in_minutes = 15
+
+  filter_policy = jsonencode({
+    "AlarmDescription" : [{ "anything-but" : local.runbook_title }]
+  })
+
+  filter_policy_scope = "MessageBody"
 }
