@@ -48,10 +48,6 @@ resource "aws_ecs_task_definition" "tokenizer" {
         "value": "${var.ms_tokenizer_log_level}"
       },
       {
-        "name": "REST_CLIENT_LOGGER_LEVEL",
-        "value": "${var.ms_tokenizer_rest_client_log_level}"
-      },
-      {
         "name": "ENABLE_CONFIDENTIAL_FILTER",
         "value": "${var.ms_tokenizer_enable_confidential_filter}"
       },
