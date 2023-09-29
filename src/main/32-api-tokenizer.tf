@@ -189,7 +189,7 @@ module "api_tokenizer_5xx_error_alarm" {
   version = "~> 3.0"
 
   alarm_name          = "high-5xx-rate-"
-  alarm_description   = "Api tokenizer error rate has exceeded 0% ${local.runbook_link}"
+  alarm_description   = "${local.runbook_title} ${local.runbook_url} Api tokenizer error rate has exceeded 0% "
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 3
   threshold           = 0
