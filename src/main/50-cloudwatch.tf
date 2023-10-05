@@ -55,3 +55,12 @@ resource "aws_cloudwatch_query_definition" "ecs_log_by_traceid" {
   ]
   query_string = file("./cloudwatch-query/log-by-traceid.sql")
 }
+
+resource "aws_cloudwatch_query_definition" "ecs_log_by_x_amzn_traceid" {
+  name = "ECS/Log by xAmznTraceid"
+
+  log_group_names = [
+    aws_cloudwatch_log_group.ecs_tokenizer.name,
+  ]
+  query_string = file("./cloudwatch-query/log-by-x-amzn-traceid.sql")
+}
