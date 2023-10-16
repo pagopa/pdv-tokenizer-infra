@@ -191,11 +191,11 @@ module "api_tokenizer_5xx_error_alarm" {
   alarm_name          = "high-5xx-rate-"
   alarm_description   = "${local.runbook_title} ${local.runbook_url} Api tokenizer error rate has exceeded 0% "
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 3
+  evaluation_periods  = 1
   threshold           = 0
   period              = 300
   unit                = "Count"
-  datapoints_to_alarm = 2
+  datapoints_to_alarm = 1
 
   namespace   = "AWS/ApiGateway"
   metric_name = "5XXError"
