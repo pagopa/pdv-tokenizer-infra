@@ -143,7 +143,7 @@ tokenizer_plans = [
   },
   {
     key_name        = "PAGOPA"
-    burst_limit     = 20
+    burst_limit     = 150
     rate_limit      = 100
     additional_keys = []
     method_throttle = []
