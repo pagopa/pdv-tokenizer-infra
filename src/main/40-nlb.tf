@@ -55,7 +55,8 @@ data "aws_network_interface" "nlb" {
 }
 
 module "nlb" {
-  source = "terraform-aws-modules/alb/aws"
+  source  = "terraform-aws-modules/alb/aws"
+  version = "8.7.0"
 
   name = format("%s-nlb", local.project)
 

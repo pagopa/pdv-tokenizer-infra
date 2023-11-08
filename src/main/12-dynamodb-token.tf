@@ -6,7 +6,9 @@ locals {
 
 # Table Token
 module "dynamodb_table_token" {
-  source = "terraform-aws-modules/dynamodb-table/aws"
+  source  = "terraform-aws-modules/dynamodb-table/aws"
+  version = "3.3.0"
+
 
   name                           = local.dynamodb_table_token
   hash_key                       = "PK"
