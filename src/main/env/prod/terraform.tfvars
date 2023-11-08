@@ -119,6 +119,13 @@ tokenizer_plans = [{
     additional_keys = []
     method_throttle = []
   },
+   {
+    key_name        = "PAGOPA"
+    burst_limit     = 300
+    rate_limit      = 200
+    additional_keys = []
+    method_throttle = []
+  },
 ]
 
 ## Web ACL
