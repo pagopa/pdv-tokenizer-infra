@@ -148,7 +148,6 @@ tokenizer_plans = [
     additional_keys = []
     method_throttle = []
   },
-
 ]
 
 
