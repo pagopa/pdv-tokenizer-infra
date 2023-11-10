@@ -20,7 +20,7 @@ tokenizer_container_cpu    = 1024
 tokenizer_container_memory = 2048
 
 ecs_autoscaling = {
-  max_capacity       = 6
+  max_capacity       = 10
   min_capacity       = 3
   scale_in_cooldown  = 900 # 15 min  
   scale_out_cooldown = 60
@@ -143,8 +143,8 @@ tokenizer_plans = [
   },
   {
     key_name        = "RICEVUTEPPA"
-    burst_limit     = 150
-    rate_limit      = 100
+    burst_limit     = 300
+    rate_limit      = 200
     additional_keys = []
     method_throttle = []
   },

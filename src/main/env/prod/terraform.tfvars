@@ -141,7 +141,7 @@ dynamodb_point_in_time_recovery_enabled = true
 
 ## table Token
 table_token_read_capacity  = 20
-table_token_write_capacity = 50
+table_token_write_capacity = 200
 
 table_token_autoscaling_read = {
   scale_in_cooldown  = 300
@@ -154,15 +154,15 @@ table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 80
+  max_capacity       = 300
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
     read_max_capacity  = 250
     read_min_capacity  = 20
-    write_max_capacity = 50
-    write_min_capacity = 10
+    write_max_capacity = 300
+    write_min_capacity = 200
   }
 }
 
@@ -292,9 +292,6 @@ dynamodb_alarms = [{
     statistic   = "Maximum"
   },
 ]
-
-enable_sentinel_logs  = false
-sentinel_workspace_id = "a6cbd2fb-37c2-4f23-bc46-311585b62a52"
 
 tags = {
   CreatedBy   = "Terraform"
