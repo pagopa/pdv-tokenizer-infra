@@ -14,10 +14,30 @@ resource "aws_ecs_task_definition" "tokenizer" {
   container_definitions = <<DEFINITION
 [
   {
+    "name": "${local.project}-xray-daemon-container",
+    "image": "${aws_ecr_repository.main[1].repository_url}:${var.x_ray_daemon_image_version}",
+    "cpu": ${var.x_ray_daemon_container_cpu},
+    "memoryReservation": ${var.x_ray_daemon_container_memory},
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${aws_cloudwatch_log_group.ecs_tokenizer.id}",
+        "awslogs-region": "${var.aws_region}",
+        "awslogs-stream-prefix": "${local.project}"
+      }
+    },
+    "portMappings" : [
+        {
+            "containerPort": 2000,
+            "protocol": "udp"
+        }
+    ]
+  },
+  {
     "name": "${local.project}-container",
     "image": "${aws_ecr_repository.main[0].repository_url}:${var.tokenizer_image_version}",
-    "cpu": ${var.tokenizer_container_cpu},
-    "memory": ${var.tokenizer_container_memory},
+    "cpu": ${var.task_cpu - var.x_ray_daemon_container_cpu},
+    "memory": ${var.task_memory - var.x_ray_daemon_container_memory},
     "entryPoint": [],
     "essential": true,
     "logConfiguration": {
@@ -55,20 +75,35 @@ resource "aws_ecs_task_definition" "tokenizer" {
         "name": "ENABLE_SINGLE_LINE_STACK_TRACE_LOGGING",
         "value": "${var.ms_tokenizer_enable_single_line_stack_trace_logging}"
       }
-    ],
-    "networkMode": "awsvpc"
+    ]
   }
 ]
   DEFINITION
 
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = var.tokenizer_container_cpu
-  memory                   = var.tokenizer_container_memory
+  cpu                      = var.task_cpu
+  memory                   = var.task_memory
   execution_role_arn       = aws_iam_role.ecs_execution_task.arn
   task_role_arn            = aws_iam_role.ecs_execution_task.arn
 
   tags = { Name = format("%s-ecs-td", local.project) }
+}
+
+# AWS X-Ray sampling rule
+
+resource "aws_xray_sampling_rule" "xray_sampling_rule_exclude_health_check" {
+  rule_name = "exclude-health-check-path"
+  fixed_rate = 0.0
+  host = "*"
+  http_method = "*"
+  priority = 1
+  reservoir_size = 0
+  resource_arn = "*"
+  service_name = "*"
+  service_type = "*"
+  url_path = "/actuator/health"
+  version = 1
 }
 
 data "aws_ecs_task_definition" "tokenizer" {
