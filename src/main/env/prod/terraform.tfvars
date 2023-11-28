@@ -17,8 +17,8 @@ ecs_enable_execute_command = true
 replica_count              = 3
 ecs_logs_retention_days    = 90
 tokenizer_image_version    = "28fb0d05d0f1b175e7e978a007d193e88f0dc228"
-tokenizer_container_cpu    = 1024
-tokenizer_container_memory = 2048
+task_cpu    = 1024
+task_memory = 2048
 
 ms_tokenizer_enable_confidential_filter = true
 ms_tokenizer_log_level                  = "INFO"
