@@ -218,6 +218,9 @@
 | <a name="input_vpc_private_subnets_cidr"></a> [vpc\_private\_subnets\_cidr](#input\_vpc\_private\_subnets\_cidr) | Private subnets list of cidr. | `list(string)` | <pre>[<br>  "10.1.1.0/24",<br>  "10.1.2.0/24",<br>  "10.1.3.0/24"<br>]</pre> | no |
 | <a name="input_vpc_public_subnets_cidr"></a> [vpc\_public\_subnets\_cidr](#input\_vpc\_public\_subnets\_cidr) | Private subnets list of cidr. | `list(string)` | <pre>[<br>  "10.1.101.0/24",<br>  "10.1.102.0/24",<br>  "10.1.103.0/24"<br>]</pre> | no |
 | <a name="input_web_acl_visibility_config"></a> [web\_acl\_visibility\_config](#input\_web\_acl\_visibility\_config) | Cloudwatch metric eneble for web acl rules. | <pre>object({<br>    cloudwatch_metrics_enabled = bool<br>    sampled_requests_enabled   = bool<br>  })</pre> | <pre>{<br>  "cloudwatch_metrics_enabled": false,<br>  "sampled_requests_enabled": false<br>}</pre> | no |
+| <a name="input_x_ray_daemon_image_sha"></a> [x\_ray\_daemon\_image\_sha](#input\_x\_ray\_daemon\_image\_sha) | X-Ray daemon image sha | `string` | `"sha256:9f3e1362e1e986fc5e631389b499068e1db82762e6fdb572ed6b5e54b43f0744"` | no |
+| <a name="input_x_ray_daemon_image_uri"></a> [x\_ray\_daemon\_image\_uri](#input\_x\_ray\_daemon\_image\_uri) | X-Ray daemon image URI | `string` | `"public.ecr.aws/xray/aws-xray-daemon"` | no |
+| <a name="input_x_ray_daemon_image_version"></a> [x\_ray\_daemon\_image\_version](#input\_x\_ray\_daemon\_image\_version) | Image version in task definition | `string` | `"latest"` | no |
 
 ## Outputs
 
@@ -240,6 +243,7 @@
 | <a name="output_openapi_endpoint"></a> [openapi\_endpoint](#output\_openapi\_endpoint) | n/a |
 | <a name="output_public_dns_servers"></a> [public\_dns\_servers](#output\_public\_dns\_servers) | n/a |
 | <a name="output_public_dns_zone_name"></a> [public\_dns\_zone\_name](#output\_public\_dns\_zone\_name) | Dns |
+| <a name="output_publsh_dokcer_image_x-ray"></a> [publsh\_dokcer\_image\_x-ray](#output\_publsh\_dokcer\_image\_x-ray) | n/a |
 | <a name="output_sentinel_queue_url"></a> [sentinel\_queue\_url](#output\_sentinel\_queue\_url) | n/a |
 | <a name="output_sentinel_role_arn"></a> [sentinel\_role\_arn](#output\_sentinel\_role\_arn) | sentinel |
 | <a name="output_tokenizer_api_ids"></a> [tokenizer\_api\_ids](#output\_tokenizer\_api\_ids) | n/a |

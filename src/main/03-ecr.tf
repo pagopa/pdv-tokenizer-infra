@@ -1,6 +1,7 @@
 locals {
   repositories = [
-    format("%s-ecr", local.project, ), # todo rename into tokenizer
+    format("%s-ecr", local.project, ),
+    format("%s-x-ray-daemon-ecr", local.project, ),
   ]
 }
 
