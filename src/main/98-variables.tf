@@ -233,6 +233,25 @@ variable "enable_container_insights" {
   default     = false
 }
 
+# x-ray
+variable "x_ray_daemon_image_version" {
+  type        = string
+  description = "Image version in task definition"
+  default     = "latest"
+}
+
+variable "x_ray_daemon_image_uri" {
+  type        = string
+  description = "X-Ray daemon image URI"
+  default     = "public.ecr.aws/xray/aws-xray-daemon"
+}
+
+variable "x_ray_daemon_image_sha" {
+  type        = string
+  description = "X-Ray daemon image sha"
+  default     = "sha256:9f3e1362e1e986fc5e631389b499068e1db82762e6fdb572ed6b5e54b43f0744"
+}
+
 
 # Dynamodb 
 
