@@ -37,6 +37,7 @@ resource "aws_ecr_lifecycle_policy" "main" {
 }
 
 resource "null_resource" "docker_packaging" {
+  count = var.publish_x-ray_image ? 1 : 0
 
   provisioner "local-exec" {
     command = <<EOF
