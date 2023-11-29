@@ -163,7 +163,7 @@ table_token_autoscling_indexes = {
     read_max_capacity  = 100
     write_min_capacity = 200
     write_max_capacity = 400
-    
+
   }
 }
 
