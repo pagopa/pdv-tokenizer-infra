@@ -14,26 +14,6 @@ resource "aws_ecs_task_definition" "tokenizer" {
   container_definitions = <<DEFINITION
 [
   {
-    "name": "${local.project}-xray-daemon-container",
-    "image": "${aws_ecr_repository.main[1].repository_url}:${var.x_ray_daemon_image_version}",
-    "cpu": ${var.x_ray_daemon_container_cpu},
-    "memoryReservation": ${var.x_ray_daemon_container_memory},
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-group": "${aws_cloudwatch_log_group.ecs_tokenizer.id}",
-        "awslogs-region": "${var.aws_region}",
-        "awslogs-stream-prefix": "${local.project}"
-      }
-    },
-    "portMappings" : [
-        {
-            "containerPort": 2000,
-            "protocol": "udp"
-        }
-    ]
-  },
-  {
     "name": "${local.project}-container",
     "image": "${aws_ecr_repository.main[0].repository_url}:${var.tokenizer_image_version}",
     "cpu": ${var.task_cpu - var.x_ray_daemon_container_cpu},
@@ -75,6 +55,26 @@ resource "aws_ecs_task_definition" "tokenizer" {
         "name": "ENABLE_SINGLE_LINE_STACK_TRACE_LOGGING",
         "value": "${var.ms_tokenizer_enable_single_line_stack_trace_logging}"
       }
+    ]
+  },
+  {
+    "name": "${local.project}-xray-daemon-container",
+    "image": "${aws_ecr_repository.main[1].repository_url}:${var.x_ray_daemon_image_version}",
+    "cpu": ${var.x_ray_daemon_container_cpu},
+    "memoryReservation": ${var.x_ray_daemon_container_memory},
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${aws_cloudwatch_log_group.ecs_tokenizer.id}",
+        "awslogs-region": "${var.aws_region}",
+        "awslogs-stream-prefix": "${local.project}"
+      }
+    },
+    "portMappings" : [
+        {
+            "containerPort": 2000,
+            "protocol": "udp"
+        }
     ]
   }
 ]
