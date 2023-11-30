@@ -169,7 +169,7 @@ module "dynamodb_request_exceeding_throughput_alarm" {
   alarm_description   = "Alarm when my requests are exceeding provisioned throughput quotas of a table."
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
-  threshold           = 0
+  threshold           = 100
   period              = 300
   unit                = "Count"
 
