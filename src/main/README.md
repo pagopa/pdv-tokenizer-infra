@@ -11,6 +11,7 @@
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.0.0 |
 | <a name="provider_aws.eu-central-1"></a> [aws.eu-central-1](#provider\_aws.eu-central-1) | 5.0.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
 ## Modules
 
@@ -32,9 +33,9 @@
 | <a name="module_metric_alarms"></a> [metric\_alarms](#module\_metric\_alarms) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
 | <a name="module_nlb"></a> [nlb](#module\_nlb) | terraform-aws-modules/alb/aws | 8.7.0 |
 | <a name="module_nlb_unhealthy_unhealthy_targets_alarm"></a> [nlb\_unhealthy\_unhealthy\_targets\_alarm](#module\_nlb\_unhealthy\_unhealthy\_targets\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
-| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git | v1.0.1 |
+| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git?ref=v1.0.1 |  |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.0.0 |
-| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints | n/a |
+| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints |  |
 | <a name="module_webacl_count_alarm"></a> [webacl\_count\_alarm](#module\_webacl\_count\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 
 ## Resources
@@ -117,6 +118,7 @@
 | [aws_iam_role_policy_attachment.ecs_dynamodb_rw](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.ecs_execute_command_policy](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.s3_policy_attach](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.x_ray_daemon_write_access](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.dynamo_db](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/kms_alias) | resource |
 | [aws_kms_alias.dynamo_db_replica](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/kms_alias) | resource |
 | [aws_kms_key.dynamo_db](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/kms_key) | resource |
@@ -144,12 +146,15 @@
 | [aws_sqs_queue_policy.target](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/sqs_queue_policy) | resource |
 | [aws_wafv2_web_acl.main](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/wafv2_web_acl) | resource |
 | [aws_wafv2_web_acl_association.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/wafv2_web_acl_association) | resource |
+| [aws_xray_sampling_rule.xray_sampling_rule_exclude_health_check](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/resources/xray_sampling_rule) | resource |
+| [null_resource.docker_packaging](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [aws_api_gateway_export.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/api_gateway_export) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/caller_identity) | data source |
 | [aws_ecs_task_definition.tokenizer](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/ecs_task_definition) | data source |
 | [aws_iam_policy.ec2_ecr_full_access](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.power_user](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.s3_full_access](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.x_ray_daemon_write_access](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy_document.dynamodb_endpoint_policy](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ecs_tasks_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.generic_endpoint_policy](https://registry.terraform.io/providers/hashicorp/aws/5.0.0/docs/data-sources/iam_policy_document) | data source |
@@ -203,14 +208,15 @@
 | <a name="input_ms_tokenizer_enable_single_line_stack_trace_logging"></a> [ms\_tokenizer\_enable\_single\_line\_stack\_trace\_logging](#input\_ms\_tokenizer\_enable\_single\_line\_stack\_trace\_logging) | Enable logging stack trace in a single line | `bool` | `false` | no |
 | <a name="input_ms_tokenizer_log_level"></a> [ms\_tokenizer\_log\_level](#input\_ms\_tokenizer\_log\_level) | Log level micro service tokenizer | `string` | `"DEBUG"` | no |
 | <a name="input_ms_tokenizer_rest_client_log_level"></a> [ms\_tokenizer\_rest\_client\_log\_level](#input\_ms\_tokenizer\_rest\_client\_log\_level) | Rest client log level micro service tokenizer | `string` | `"FULL"` | no |
+| <a name="input_publish_x-ray_image"></a> [publish\_x-ray\_image](#input\_publish\_x-ray\_image) | Run docker command to push x-ray image | `bool` | `false` | no |
 | <a name="input_replica_count"></a> [replica\_count](#input\_replica\_count) | Number of task replica | `number` | `1` | no |
 | <a name="input_sentinel_servcie_account_id"></a> [sentinel\_servcie\_account\_id](#input\_sentinel\_servcie\_account\_id) | Microsoft Sentinel's service account ID for AWS. | `string` | `"197857026523"` | no |
 | <a name="input_sentinel_workspace_id"></a> [sentinel\_workspace\_id](#input\_sentinel\_workspace\_id) | Sentinel workspece id | `string` | `null` | no |
 | <a name="input_sqs_consumer_principals"></a> [sqs\_consumer\_principals](#input\_sqs\_consumer\_principals) | AWS iam that can read from the sqs queue. | `list(string)` | `[]` | no |
 | <a name="input_table_token_stream_enabled"></a> [table\_token\_stream\_enabled](#input\_table\_token\_stream\_enabled) | Enable Streams | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(any)` | <pre>{<br>  "CreatedBy": "Terraform"<br>}</pre> | no |
-| <a name="input_tokenizer_container_cpu"></a> [tokenizer\_container\_cpu](#input\_tokenizer\_container\_cpu) | Container cpu quota. | `number` | `256` | no |
-| <a name="input_tokenizer_container_memory"></a> [tokenizer\_container\_memory](#input\_tokenizer\_container\_memory) | Container memory quota. | `number` | `512` | no |
+| <a name="input_task_cpu"></a> [task\_cpu](#input\_task\_cpu) | Container cpu quota. | `number` | `256` | no |
+| <a name="input_task_memory"></a> [task\_memory](#input\_task\_memory) | Container memory quota. | `number` | `512` | no |
 | <a name="input_tokenizer_image_version"></a> [tokenizer\_image\_version](#input\_tokenizer\_image\_version) | Image version in task definition | `string` | `"latest"` | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | VPC cidr. | `string` | `"10.1.0.0/16"` | no |
 | <a name="input_vpc_internal_subnets_cidr"></a> [vpc\_internal\_subnets\_cidr](#input\_vpc\_internal\_subnets\_cidr) | Internal subnets list of cidr. Mainly for private endpoints | `list(string)` | <pre>[<br>  "10.1.201.0/24",<br>  "10.1.202.0/24",<br>  "10.1.203.0/24"<br>]</pre> | no |
@@ -218,6 +224,11 @@
 | <a name="input_vpc_private_subnets_cidr"></a> [vpc\_private\_subnets\_cidr](#input\_vpc\_private\_subnets\_cidr) | Private subnets list of cidr. | `list(string)` | <pre>[<br>  "10.1.1.0/24",<br>  "10.1.2.0/24",<br>  "10.1.3.0/24"<br>]</pre> | no |
 | <a name="input_vpc_public_subnets_cidr"></a> [vpc\_public\_subnets\_cidr](#input\_vpc\_public\_subnets\_cidr) | Private subnets list of cidr. | `list(string)` | <pre>[<br>  "10.1.101.0/24",<br>  "10.1.102.0/24",<br>  "10.1.103.0/24"<br>]</pre> | no |
 | <a name="input_web_acl_visibility_config"></a> [web\_acl\_visibility\_config](#input\_web\_acl\_visibility\_config) | Cloudwatch metric eneble for web acl rules. | <pre>object({<br>    cloudwatch_metrics_enabled = bool<br>    sampled_requests_enabled   = bool<br>  })</pre> | <pre>{<br>  "cloudwatch_metrics_enabled": false,<br>  "sampled_requests_enabled": false<br>}</pre> | no |
+| <a name="input_x_ray_daemon_container_cpu"></a> [x\_ray\_daemon\_container\_cpu](#input\_x\_ray\_daemon\_container\_cpu) | Container cpu quota. | `number` | `32` | no |
+| <a name="input_x_ray_daemon_container_memory"></a> [x\_ray\_daemon\_container\_memory](#input\_x\_ray\_daemon\_container\_memory) | Container memory quota. | `number` | `256` | no |
+| <a name="input_x_ray_daemon_image_sha"></a> [x\_ray\_daemon\_image\_sha](#input\_x\_ray\_daemon\_image\_sha) | X-Ray daemon image sha | `string` | `"sha256:9f3e1362e1e986fc5e631389b499068e1db82762e6fdb572ed6b5e54b43f0744"` | no |
+| <a name="input_x_ray_daemon_image_uri"></a> [x\_ray\_daemon\_image\_uri](#input\_x\_ray\_daemon\_image\_uri) | X-Ray daemon image URI | `string` | `"public.ecr.aws/xray/aws-xray-daemon"` | no |
+| <a name="input_x_ray_daemon_image_version"></a> [x\_ray\_daemon\_image\_version](#input\_x\_ray\_daemon\_image\_version) | Image version in task definition | `string` | `"latest"` | no |
 
 ## Outputs
 
@@ -240,6 +251,7 @@
 | <a name="output_openapi_endpoint"></a> [openapi\_endpoint](#output\_openapi\_endpoint) | n/a |
 | <a name="output_public_dns_servers"></a> [public\_dns\_servers](#output\_public\_dns\_servers) | n/a |
 | <a name="output_public_dns_zone_name"></a> [public\_dns\_zone\_name](#output\_public\_dns\_zone\_name) | Dns |
+| <a name="output_publsh_dokcer_image_x-ray"></a> [publsh\_dokcer\_image\_x-ray](#output\_publsh\_dokcer\_image\_x-ray) | n/a |
 | <a name="output_sentinel_queue_url"></a> [sentinel\_queue\_url](#output\_sentinel\_queue\_url) | n/a |
 | <a name="output_sentinel_role_arn"></a> [sentinel\_role\_arn](#output\_sentinel\_role\_arn) | sentinel |
 | <a name="output_tokenizer_api_ids"></a> [tokenizer\_api\_ids](#output\_tokenizer\_api\_ids) | n/a |

@@ -16,9 +16,9 @@ vpc_peering = {
 ecs_enable_execute_command = true
 replica_count              = 3
 ecs_logs_retention_days    = 90
-tokenizer_image_version    = "28fb0d05d0f1b175e7e978a007d193e88f0dc228"
-tokenizer_container_cpu    = 1024
-tokenizer_container_memory = 2048
+tokenizer_image_version    = "35d718b7e8f09fb5a86c1a9b051842c89ea203fa"
+task_cpu                   = 1024
+task_memory                = 2048
 
 ms_tokenizer_enable_confidential_filter = true
 ms_tokenizer_log_level                  = "INFO"
@@ -140,29 +140,30 @@ dynamodb_point_in_time_recovery_enabled = true
 
 
 ## table Token
-table_token_read_capacity  = 20
-table_token_write_capacity = 50
+table_token_read_capacity  = 50
+table_token_write_capacity = 300
 
 table_token_autoscaling_read = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 250
+  max_capacity       = 200
 }
 
 table_token_autoscaling_write = {
   scale_in_cooldown  = 300
   scale_out_cooldown = 40
   target_value       = 50 # target utilisation %
-  max_capacity       = 80
+  max_capacity       = 600
 }
 
 table_token_autoscling_indexes = {
   gsi_token = {
-    read_max_capacity  = 250
     read_min_capacity  = 20
-    write_max_capacity = 50
-    write_min_capacity = 10
+    read_max_capacity  = 100
+    write_min_capacity = 200
+    write_max_capacity = 400
+
   }
 }
 
@@ -292,9 +293,6 @@ dynamodb_alarms = [{
     statistic   = "Maximum"
   },
 ]
-
-enable_sentinel_logs  = false
-sentinel_workspace_id = "a6cbd2fb-37c2-4f23-bc46-311585b62a52"
 
 tags = {
   CreatedBy   = "Terraform"
