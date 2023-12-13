@@ -143,8 +143,8 @@
             "type": "metric",
             "properties": {
                 "metrics": [
-                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020" } ],
-                    [ ".", "ConsumedReadCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
+                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1" } ],
+                    [ ".", "ConsumedReadCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
                     [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
                 ],
                 "title": "Read usage (average units/second)",
@@ -157,9 +157,7 @@
                     "left": {
                         "showUnits": false
                     }
-                },
-                "start": "-PT3H",
-                "end": "P0D"
+                }
             }
         },
         {
@@ -170,10 +168,10 @@
             "type": "metric",
             "properties": {
                 "metrics": [
-                    [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "Token", "Operation", "GetItem", { "color": "#0073BB" } ],
-                    [ "...", "Scan", { "color": "#FF7F0F", "visible": false } ],
-                    [ "...", "Query", { "color": "#2DA02D" } ],
-                    [ "...", "BatchGetItem", { "color": "#9468BD", "visible": false } ]
+                    [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "Token", "Operation", "GetItem", { "color": "#0073BB", "region": "eu-south-1" } ],
+                    [ "...", "Scan", { "color": "#FF7F0F", "visible": false, "region": "eu-south-1" } ],
+                    [ "...", "Query", { "color": "#2DA02D", "region": "eu-south-1" } ],
+                    [ "...", "BatchGetItem", { "color": "#9468BD", "visible": false, "region": "eu-south-1" } ]
                 ],
                 "title": "Read throttled requests (count)",
                 "view": "timeSeries",
@@ -185,9 +183,7 @@
                     "left": {
                         "showUnits": false
                     }
-                },
-                "start": "-PT3H",
-                "end": "P0D"
+                }
             }
         },
         {
@@ -209,12 +205,10 @@
                     }
                 },
                 "metrics": [
-                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020" } ],
-                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
+                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1" } ],
+                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
                     [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
-                ],
-                "start": "-PT3H",
-                "end": "P0D"
+                ]
             }
         },
         {
@@ -376,7 +370,7 @@
             "x": 0,
             "type": "log",
             "properties": {
-                "query": "SOURCE 'API-Gateway-Execution-Logs_${tokenizer_api_id}/${tokenizer_api_state_name}' | fields @timestamp, @message\n| parse @message /Plan ID (?<plan>[^,\\.]+)[,\\.]/\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
+                "query": "SOURCE 'API-Gateway-Execution-Logs_lhtshsi81h/v1' | fields @timestamp, @message\n| parse @message /Plan ID (?<plan>[^,\\.]+)[,\\.]/\n| filter @message like 'exceeded throttle limit'\n| stats count(*) as Tot by plan",
                 "region": "eu-south-1",
                 "stacked": false,
                 "view": "table",
