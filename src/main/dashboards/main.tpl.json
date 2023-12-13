@@ -50,7 +50,7 @@
                     [ "AWS/ApiGateway", "5XXError", "ApiName", "${tokenizer_api_name}" ],
                     [ ".", "4XXError", ".", "." ]
                 ],
-                "stat": "Maximum",
+                "stat": "Sum",
                 "region": "eu-south-1"
             }
         },
