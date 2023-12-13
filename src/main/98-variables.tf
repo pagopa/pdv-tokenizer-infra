@@ -152,16 +152,28 @@ variable "tokenizer_image_version" {
   default     = "latest"
 }
 
-variable "tokenizer_container_cpu" {
+variable "task_cpu" {
   type        = number
   description = "Container cpu quota."
   default     = 256
 }
 
-variable "tokenizer_container_memory" {
+variable "task_memory" {
   type        = number
   description = "Container memory quota."
   default     = 512
+}
+
+variable "x_ray_daemon_container_cpu" {
+  type        = number
+  description = "Container cpu quota."
+  default     = 32
+}
+
+variable "x_ray_daemon_container_memory" {
+  type        = number
+  description = "Container memory quota."
+  default     = 256
 }
 
 variable "replica_count" {
@@ -234,6 +246,13 @@ variable "enable_container_insights" {
 }
 
 # x-ray
+
+variable "publish_x-ray_image" {
+  type        = bool
+  description = "Run docker command to push x-ray image"
+  default     = false
+}
+
 variable "x_ray_daemon_image_version" {
   type        = string
   description = "Image version in task definition"

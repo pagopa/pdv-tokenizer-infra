@@ -15,11 +15,13 @@ vpc_peering = {
 # Ecs
 ecs_enable_execute_command = true
 
-replica_count              = 1
-ecs_logs_retention_days    = 90
-tokenizer_image_version    = "73f9574727583ab35ed84235c578f70b28772a91"
-tokenizer_container_cpu    = 256
-tokenizer_container_memory = 512
+replica_count                 = 1
+ecs_logs_retention_days       = 90
+tokenizer_image_version       = "73f9574727583ab35ed84235c578f70b28772a91"
+task_cpu                      = 256
+task_memory                   = 512
+x_ray_daemon_container_cpu    = 32
+x_ray_daemon_container_memory = 256
 
 ecs_autoscaling = {
   max_capacity       = 10
