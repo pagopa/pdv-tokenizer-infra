@@ -16,7 +16,7 @@ vpc_peering = {
 ecs_enable_execute_command = true
 replica_count              = 3
 ecs_logs_retention_days    = 90
-tokenizer_image_version    = "28fb0d05d0f1b175e7e978a007d193e88f0dc228"
+tokenizer_image_version    = "35d718b7e8f09fb5a86c1a9b051842c89ea203fa"
 task_cpu                   = 1024
 task_memory                = 2048
 
