@@ -56,6 +56,7 @@ module "dynamo_successful_request_latency" {
 }
 
 ## Read capacity units
+/*
 module "dynamodb_read_capacity_units_limit_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
   version = "~> 3.0"
@@ -80,8 +81,10 @@ module "dynamodb_read_capacity_units_limit_alarm" {
 
   alarm_actions = [aws_sns_topic.alarms.arn]
 }
+*/
 
 ## Write capacity units
+/*
 module "dynamodb_write_capacity_units_limit_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
   version = "~> 3.0"
@@ -106,8 +109,10 @@ module "dynamodb_write_capacity_units_limit_alarm" {
 
   alarm_actions = [aws_sns_topic.alarms.arn]
 }
+*/
 
 ### Global secondary index read capacity.
+/*
 module "gsi_index_read_capacity_units_limit_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
   version = "~> 3.0"
@@ -132,8 +137,10 @@ module "gsi_index_read_capacity_units_limit_alarm" {
 
   alarm_actions = [aws_sns_topic.alarms.arn]
 }
+*/
 
 ### Global secondary write read capacity.
+/*
 module "gsi_index_write_capacity_units_limit_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
   version = "~> 3.0"
@@ -158,6 +165,7 @@ module "gsi_index_write_capacity_units_limit_alarm" {
 
   alarm_actions = [aws_sns_topic.alarms.arn]
 }
+*/
 
 #ExceedingThroughput
 module "dynamodb_request_exceeding_throughput_alarm" {

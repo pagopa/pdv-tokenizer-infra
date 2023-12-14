@@ -74,6 +74,7 @@ dynamodb_point_in_time_recovery_enabled = false
 
 
 ## table Token
+/*
 table_token_read_capacity  = 20
 table_token_write_capacity = 100
 
@@ -93,6 +94,8 @@ table_token_autoscaling_write = {
   max_capacity       = 100
 }
 
+
+
 table_token_autoscling_indexes = {
   gsi_token = {
     read_max_capacity  = 100
@@ -101,6 +104,7 @@ table_token_autoscling_indexes = {
     write_min_capacity = 20
   }
 }
+*/
 
 ## Event bridge
 create_event_bridge_pipe   = false

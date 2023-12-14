@@ -140,6 +140,7 @@ dynamodb_point_in_time_recovery_enabled = true
 
 
 ## table Token
+/*
 table_token_read_capacity  = 50
 table_token_write_capacity = 300
 
@@ -166,6 +167,7 @@ table_token_autoscling_indexes = {
 
   }
 }
+*/
 
 ## alarms
 

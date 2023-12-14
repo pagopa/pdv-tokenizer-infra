@@ -11,7 +11,7 @@
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.0.0 |
 | <a name="provider_aws.eu-central-1"></a> [aws.eu-central-1](#provider\_aws.eu-central-1) | 5.0.0 |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.2.2 |
 
 ## Modules
 
@@ -33,9 +33,9 @@
 | <a name="module_metric_alarms"></a> [metric\_alarms](#module\_metric\_alarms) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarm | ~> 3.0 |
 | <a name="module_nlb"></a> [nlb](#module\_nlb) | terraform-aws-modules/alb/aws | 8.7.0 |
 | <a name="module_nlb_unhealthy_unhealthy_targets_alarm"></a> [nlb\_unhealthy\_unhealthy\_targets\_alarm](#module\_nlb\_unhealthy\_unhealthy\_targets\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
-| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git?ref=v1.0.1 |  |
+| <a name="module_sentinel"></a> [sentinel](#module\_sentinel) | git::https://github.com/pagopa/terraform-aws-sentinel.git | v1.0.1 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.0.0 |
-| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints |  |
+| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints | n/a |
 | <a name="module_webacl_count_alarm"></a> [webacl\_count\_alarm](#module\_webacl\_count\_alarm) | terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions | ~> 3.0 |
 
 ## Resources
@@ -172,11 +172,7 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_dynamodb_alarms"></a> [dynamodb\_alarms](#input\_dynamodb\_alarms) | n/a | <pre>list(<br>    object({<br>      actions_enabled     = bool<br>      alarm_name          = string<br>      alarm_description   = string<br>      comparison_operator = string<br>      evaluation_periods  = number<br>      datapoints_to_alarm = number<br>      threshold           = number<br>      period              = number<br>      unit                = string<br>      namespace           = string<br>      metric_name         = string<br>      statistic           = string<br>  }))</pre> | n/a | yes |
 | <a name="input_public_dns_zones"></a> [public\_dns\_zones](#input\_public\_dns\_zones) | Route53 Hosted Zone | `map(any)` | n/a | yes |
-| <a name="input_table_token_autoscaling_read"></a> [table\_token\_autoscaling\_read](#input\_table\_token\_autoscaling\_read) | Read autoscaling settings table token. | <pre>object({<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>    target_value       = number<br>    max_capacity       = number<br>  })</pre> | n/a | yes |
-| <a name="input_table_token_autoscaling_write"></a> [table\_token\_autoscaling\_write](#input\_table\_token\_autoscaling\_write) | Write autoscaling settings table token. | <pre>object({<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>    target_value       = number<br>    max_capacity       = number<br>  })</pre> | n/a | yes |
 | <a name="input_table_token_autoscling_indexes"></a> [table\_token\_autoscling\_indexes](#input\_table\_token\_autoscling\_indexes) | Autoscaling gsi configurations | `any` | n/a | yes |
-| <a name="input_table_token_read_capacity"></a> [table\_token\_read\_capacity](#input\_table\_token\_read\_capacity) | Table token read capacity. | `number` | n/a | yes |
-| <a name="input_table_token_write_capacity"></a> [table\_token\_write\_capacity](#input\_table\_token\_write\_capacity) | Table token read capacity. | `number` | n/a | yes |
 | <a name="input_tokenizer_plans"></a> [tokenizer\_plans](#input\_tokenizer\_plans) | Usage plan with its api key and rate limit. | <pre>list(object({<br>    key_name        = string<br>    burst_limit     = number<br>    rate_limit      = number<br>    additional_keys = list(string)<br>    method_throttle = list(object({<br>      path        = string<br>      burst_limit = number<br>      rate_limit  = number<br>    }))<br>  }))</pre> | n/a | yes |
 | <a name="input_apigw_access_logs_enable"></a> [apigw\_access\_logs\_enable](#input\_apigw\_access\_logs\_enable) | Enable api gateway access logs | `bool` | `false` | no |
 | <a name="input_apigw_custom_domain_create"></a> [apigw\_custom\_domain\_create](#input\_apigw\_custom\_domain\_create) | Create apigw Custom Domain with its tls certificate | `bool` | `false` | no |

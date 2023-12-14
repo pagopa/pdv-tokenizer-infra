@@ -287,10 +287,12 @@ variable "dynamodb_point_in_time_recovery_enabled" {
 }
 
 ## Table Token
+/*
 variable "table_token_read_capacity" {
   type        = number
   description = "Table token read capacity."
 }
+
 
 variable "table_token_write_capacity" {
   type        = number
@@ -316,7 +318,7 @@ variable "table_token_autoscaling_write" {
   })
   description = "Write autoscaling settings table token."
 }
-
+*/
 variable "table_token_stream_enabled" {
   type        = bool
   description = "Enable Streams"
@@ -363,10 +365,12 @@ variable "tokenizer_plans" {
   description = "Usage plan with its api key and rate limit."
 }
 
+/*
 variable "table_token_autoscling_indexes" {
   type        = any
   description = "Autoscaling gsi configurations"
 }
+*/
 
 variable "create_cloudhsm" {
   type        = bool
