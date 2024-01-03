@@ -20,6 +20,10 @@ resource "aws_ecs_task_definition" "tokenizer" {
     "memory": ${var.task_memory - var.x_ray_daemon_container_memory},
     "entryPoint": [],
     "essential": true,
+    "command": [
+        "--log-level",
+        "error"
+    ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
