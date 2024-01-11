@@ -15,7 +15,7 @@ ecs_enable_execute_command = true
 
 replica_count                 = 3
 ecs_logs_retention_days       = 90
-tokenizer_image_version       = "35d718b7e8f09fb5a86c1a9b051842c89ea203fa"
+tokenizer_image_version       = "ba07cff4b1a1f84baf61e3717157fd58a9b39850"
 task_cpu                      = 1024
 task_memory                   = 2048
 x_ray_daemon_container_cpu    = 32
@@ -156,12 +156,12 @@ tokenizer_plans = [
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = false
 
+table_token_stream_enabled = true
 
 ## table Token
+/*
 table_token_read_capacity  = 20
 table_token_write_capacity = 200
-
-table_token_stream_enabled = true
 
 table_token_autoscaling_read = {
   scale_in_cooldown  = 300
@@ -185,6 +185,7 @@ table_token_autoscling_indexes = {
     write_min_capacity = 200
   }
 }
+*/
 
 ## Event bridge
 create_event_bridge_pipe   = true
