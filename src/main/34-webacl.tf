@@ -108,7 +108,7 @@ resource "aws_wafv2_web_acl" "main" {
 ## Alarm
 module "webacl_count_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "~> 3.0"
+  version = " 3.0"
 
   count = var.web_acl_visibility_config.cloudwatch_metrics_enabled ? 1 : 0
 

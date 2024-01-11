@@ -158,7 +158,7 @@ output "tokenizerinvoke_url" {
 ### 4xx
 module "api_tokenizer_4xx_error_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "~> 3.0"
+  version = " 3.0"
 
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_name          = "high-4xx-rate-"
@@ -187,7 +187,7 @@ module "api_tokenizer_4xx_error_alarm" {
 ### 5xx
 module "api_tokenizer_5xx_error_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "~> 3.0"
+  version = " 3.0"
 
   alarm_name          = "high-5xx-rate-"
   alarm_description   = "${local.runbook_title} ${local.runbook_url} Api tokenizer error rate has exceeded 0% "
@@ -215,7 +215,7 @@ module "api_tokenizer_5xx_error_alarm" {
 ### throttling (exceeded throttle limit)
 module "log_filter_throttle_limit_tokenizer" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/log-metric-filter"
-  version = "~> 3.0"
+  version = " 3.0"
 
   name = format("%s-metric-throttle-rate-limit", local.tokenizer_api_name)
 
@@ -234,7 +234,7 @@ module "log_filter_throttle_limit_tokenizer" {
 
 module "api_tokenizer_throttle_limit_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
-  version = "~> 3.0"
+  version = " 3.0"
 
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_name          = format("high-rate-limit-throttle-%s", local.tokenizer_api_name)
@@ -263,7 +263,7 @@ locals {
 
 module "api_tokenizer_low_latency_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "~> 3.0"
+  version = " 3.0"
 
   actions_enabled     = var.env_short == "p" ? true : false
   alarm_name          = "low-latency-"
