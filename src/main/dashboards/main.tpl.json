@@ -143,7 +143,7 @@
             "type": "metric",
             "properties": {
                 "metrics": [
-                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1" } ],
+                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1", "visible": false } ],
                     [ ".", "ConsumedReadCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
                     [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
                 ],
@@ -193,6 +193,11 @@
             "x": 12,
             "type": "metric",
             "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1", "visible": false } ],
+                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
+                ],
                 "title": "Write usage (average units/second)",
                 "view": "timeSeries",
                 "stacked": false,
@@ -203,12 +208,7 @@
                     "left": {
                         "showUnits": false
                     }
-                },
-                "metrics": [
-                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1" } ],
-                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
-                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "color": "#0073BB", "region": "eu-south-1" } ]
-                ]
+                }
             }
         },
         {
@@ -246,6 +246,11 @@
             "x": 0,
             "type": "metric",
             "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1", "visible": false } ],
+                    [ ".", "ConsumedReadCapacityUnits", ".", ".", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "region": "eu-south-1", "color": "#0073BB" } ]
+                ],
                 "title": "Read usage (average units/second)",
                 "view": "timeSeries",
                 "stacked": false,
@@ -257,11 +262,6 @@
                         "showUnits": false
                     }
                 },
-                "metrics": [
-                    [ "AWS/DynamoDB", "ProvisionedReadCapacityUnits", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token", { "label": "Provisioned", "color": "#E02020" } ],
-                    [ ".", "ConsumedReadCapacityUnits", ".", ".", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
-                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "region": "eu-south-1", "color": "#0073BB" } ]
-                ],
                 "start": "-PT3H",
                 "end": "P0D"
             }
@@ -308,6 +308,11 @@
             "x": 12,
             "type": "metric",
             "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token", { "label": "Provisioned", "color": "#E02020", "region": "eu-south-1", "visible": false } ],
+                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", ".", ".", { "stat": "Sum", "id": "m1", "visible": false, "region": "eu-south-1" } ],
+                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "region": "eu-south-1", "color": "#0073BB" } ]
+                ],
                 "title": "Write usage (average units/second)",
                 "view": "timeSeries",
                 "stacked": false,
@@ -319,11 +324,6 @@
                         "showUnits": false
                     }
                 },
-                "metrics": [
-                    [ "AWS/DynamoDB", "ProvisionedWriteCapacityUnits", "TableName", "Token", "GlobalSecondaryIndexName", "gsi_token", { "label": "Provisioned", "color": "#E02020" } ],
-                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", ".", ".", { "stat": "Sum", "id": "m1", "visible": false } ],
-                    [ { "expression": "m1/PERIOD(m1)", "label": "Consumed", "id": "e1", "region": "eu-south-1", "color": "#0073BB" } ]
-                ],
                 "start": "-PT3H",
                 "end": "P0D"
             }
