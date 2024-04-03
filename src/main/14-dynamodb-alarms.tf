@@ -3,7 +3,7 @@
 module "metric_alarms" {
   count   = length(var.dynamodb_alarms)
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
-  version = "3.0.0"
+  version = "3.3.0"
 
   actions_enabled     = var.dynamodb_alarms[count.index].actions_enabled
   alarm_name          = var.dynamodb_alarms[count.index].alarm_name
@@ -24,7 +24,7 @@ module "metric_alarms" {
 
 module "dynamo_successful_request_latency" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
-  version = "3.0.0"
+  version = "3.3.0"
 
   alarm_name          = "dynamodb-successful-request-latency"
   alarm_description   = "Dynamodb successful request latency"
@@ -170,7 +170,7 @@ module "gsi_index_write_capacity_units_limit_alarm" {
 #ExceedingThroughput
 module "dynamodb_request_exceeding_throughput_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "3.0.0"
+  version = "3.3.0"
 
   alarm_name          = "dynamodb-exceeding-throughput-"
   actions_enabled     = var.env_short == "p" ? true : false
