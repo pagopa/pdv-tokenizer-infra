@@ -156,7 +156,7 @@ tokenizer_plans = [
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = false
 
-table_token_stream_enabled = true
+table_token_stream_enabled = false
 
 ## table Token
 /*
@@ -188,7 +188,7 @@ table_token_autoscling_indexes = {
 */
 
 ## Event bridge
-create_event_bridge_pipe   = true
+create_event_bridge_pipe   = false
 event_bridge_desired_state = "RUNNING"
 sqs_consumer_principals    = ["arn:aws:iam::688071769384:user/nifi"]
 
