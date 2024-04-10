@@ -188,7 +188,7 @@ table_token_autoscling_indexes = {
 */
 
 ## Event bridge
-create_event_bridge_pipe   = true
+create_event_bridge_pipe   = false
 event_bridge_desired_state = "RUNNING"
 sqs_consumer_principals    = ["arn:aws:iam::688071769384:user/nifi"]
 
