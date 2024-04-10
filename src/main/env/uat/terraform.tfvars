@@ -156,7 +156,7 @@ tokenizer_plans = [
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = false
 
-table_token_stream_enabled = true
+table_token_stream_enabled = false
 
 ## table Token
 /*
