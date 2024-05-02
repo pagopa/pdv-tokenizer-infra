@@ -168,6 +168,7 @@ module "gsi_index_write_capacity_units_limit_alarm" {
 */
 
 #ExceedingThroughput
+/*
 module "dynamodb_request_exceeding_throughput_alarm" {
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
   version = "3.0.0"
@@ -202,3 +203,4 @@ module "dynamodb_request_exceeding_throughput_alarm" {
 
   alarm_actions = [aws_sns_topic.alarms.arn]
 }
+*/
