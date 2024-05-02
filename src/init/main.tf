@@ -96,13 +96,6 @@ resource "aws_iam_group_policy_attachment" "admins" {
   policy_arn = data.aws_iam_policy.admin_access.arn
 }
 
-resource "aws_iam_user" "iac" {
-  name = "iac"
-
-  tags = var.tags
-}
-
-
 data "aws_caller_identity" "current" {}
 
 # Github actions
