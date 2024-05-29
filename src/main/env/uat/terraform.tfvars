@@ -71,6 +71,13 @@ tokenizer_plans = [
     method_throttle = []
   },
   {
+    key_name        = "IO-WALLET"
+    burst_limit     = 20
+    rate_limit      = 10
+    additional_keys = []
+    method_throttle = []
+  },
+  {
     key_name        = "USERREGISTRY"
     burst_limit     = 20
     rate_limit      = 10
