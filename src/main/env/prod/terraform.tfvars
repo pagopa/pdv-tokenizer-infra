@@ -106,8 +106,8 @@ tokenizer_plans = [{
   ## App IO Autenticazione&Identità 
   {
     key_name        = "IO-AUTH"
-    burst_limit     = 300
-    rate_limit      = 200
+    burst_limit     = 2500
+    rate_limit      = 2000
     additional_keys = []
     method_throttle = []
   },
