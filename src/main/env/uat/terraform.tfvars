@@ -173,6 +173,13 @@ tokenizer_plans = [
     additional_keys = []
     method_throttle = []
   },
+  {
+    key_name        = "PAGOPA-EBOLLO20"
+    burst_limit     = 50
+    rate_limit      = 100
+    additional_keys = []
+    method_throttle = [] 
+ },
 ]
 
 
