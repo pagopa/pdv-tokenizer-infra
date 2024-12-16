@@ -134,7 +134,7 @@ tokenizer_plans = [{
     additional_keys = []
     method_throttle = []
   },
-   {
+  {
     # Also know as session wallet pagoPa.
     key_name        = "PAGOPA-WALLET"
     burst_limit     = 350
@@ -147,8 +147,8 @@ tokenizer_plans = [{
     burst_limit     = 200
     rate_limit      = 300
     additional_keys = []
-    method_throttle = [] 
- },
+    method_throttle = []
+  },
 ]
 
 ## Web ACL
