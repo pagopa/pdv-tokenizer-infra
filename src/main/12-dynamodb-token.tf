@@ -144,10 +144,10 @@ resource "aws_iam_policy" "dynamodb_backup" {
   })
 }
 
-resource "aws_iam_role_policy" "backup" {
+resource "aws_iam_role_policy" "dynamodb_backup" {
   name   = "${local.project}-aws-backup-dynamodb-role-policy" # Replace with your desired role policy name
-  role   = aws_iam_role.backup.name
-  policy = aws_iam_policy.backup.policy
+  role   = aws_iam_role.dynamodb_backup.name
+  policy = aws_iam_policy.dynamodb_backup.policy
 }
 
 
@@ -158,7 +158,7 @@ module "backup" {
 
   name = "${local.dynamodb_table_token}-backup"
 
-  iam_role_arn = aws_iam_role.example.arn
+  iam_role_arn = aws_iam_role.dynamodb_backup.arn
 
   selection_tag = {
     key   = "Backup"
