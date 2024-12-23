@@ -110,19 +110,15 @@ resource "aws_iam_policy" "dynamodb_backup" {
           Resource = "arn:aws:backup:*:*:backup-vault:*"
         },
         {
-          Effect   = "Allow",
-          Action   = "kms:DescribeKey",
-          Resource = "*"
-        },
-        {
-          Effect   = "Allow",
-          Action   = "kms:CreateGrant",
-          Resource = "*",
-          "Condition" : {
-            "Bool" : {
-              "kms:GrantIsForAWSResource" : "true"
-            }
-          }
+          Effect = "Allow",
+          Action = [
+            "kms:DescribeKey",
+            "kms:CreateGrant",
+            "kms:Decrypt",
+            "kms:DescribeKey",
+            "kms:Encrypt"
+          ]
+          Resource = "${aws_kms_alias.dynamo_db.target_key_arn}"
         },
         {
           Effect = "Allow",
