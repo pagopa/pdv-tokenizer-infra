@@ -1,3 +1,4 @@
+
 # Lambda module configuration
 module "lambda_api_usage_metrics" {
   source  = "terraform-aws-modules/lambda/aws"
@@ -8,12 +9,13 @@ module "lambda_api_usage_metrics" {
   handler       = "index.lambda_handler"
   runtime       = "python3.9"
 
-  source_path = "./lambda/api_usage_plan" # Directory containing your Python code
+  source_path = "../lambda/api_usage_plan" # Directory containing your Python code
 
 
   publish = true
 
   # Environment variables if needed
+  cloudwatch_logs_retention_in_days = 14
   environment_variables = {
     LOG_LEVEL = "INFO"
   }
@@ -36,7 +38,8 @@ module "lambda_api_usage_metrics" {
         "apigateway:OPTIONS"
       ]
       resources = [
-        "arn:aws:apigateway:*::/usageplans/*"
+        "arn:aws:apigateway:eu-south-1::/usageplans/*",
+        "arn:aws:apigateway:eu-south-1::/usageplans",
       ]
     }
   }
@@ -63,10 +66,4 @@ resource "aws_lambda_permission" "allow_eventbridge" {
   function_name = module.lambda_api_usage_metrics.lambda_function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.lambda_schedule.arn
-}
-
-
-resource "aws_cloudwatch_log_group" "lambda_logs" {
-  name              = "/aws/lambda/${module.lambda_api_usage_metrics.lambda_function_name}"
-  retention_in_days = 14
 }
