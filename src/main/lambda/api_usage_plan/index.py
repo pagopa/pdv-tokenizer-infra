@@ -127,9 +127,9 @@ def lambda_handler(event, context):
                         
                         # Also store the cumulative value for future reference
                         cloudwatch.put_metric_data(
-                            Namespace='APIGateway/Usage',
+                            Namespace='APIGateway/TestUsage',
                             MetricData=[{
-                                'MetricName': 'CumulativeRequests',
+                                'MetricName': 'Units',
                                 'Timestamp': previous_hour,
                                 'Value': float(current_usage),
                                 'Unit': 'Count',

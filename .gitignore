@@ -38,3 +38,6 @@ settings.json
 __TMP
 .metals/
 __azurite_*
+
+
+**/builds/*

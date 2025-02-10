@@ -1,1 +1,0 @@
-{"filename": "builds/735ff4b55998ea67a671cc3efcb789dae15244c1b46545f4cd59e6654221832c.zip", "runtime": "python3.9", "artifacts_dir": "builds", "build_plan": [["zip", "./lambda/api_usage_plan", null]]}
