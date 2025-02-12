@@ -2,7 +2,7 @@
 # Lambda module configuration
 module "lambda_api_usage_metrics" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "4.18"
+  version = "6.8.0"
 
   function_name = "api-usage-metrics"
   description   = "Collects API Gateway usage metrics and publishes to CloudWatch"
@@ -19,6 +19,8 @@ module "lambda_api_usage_metrics" {
   environment_variables = {
     LOG_LEVEL = "INFO"
   }
+
+  timeout = 20
 
   # Attach policies
   attach_policy_statements = true
@@ -66,4 +68,53 @@ resource "aws_lambda_permission" "allow_eventbridge" {
   function_name = module.lambda_api_usage_metrics.lambda_function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.lambda_schedule.arn
+}
+
+
+## Lambda for custom widgets ##
+
+module "lambda_api_usage_widget" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "6.8.0"
+
+  function_name = "api-usage-widget"
+  description   = "Custom widget for API Gateway usage dashboard"
+  handler       = "index.lambda_handler"
+  runtime       = "python3.9"
+
+  source_path = "../lambda/widget_api_usage_plan"
+
+  publish = true
+
+  timeout = 20
+
+  /*
+  allowed_triggers = {
+    CloudWatch = {
+      principal  = "cloudwatch.amazonaws.com"
+      source_arn = "*"
+    }
+  }
+*/
+  attach_policy_statements = true
+  policy_statements = {
+    apigateway = {
+      effect = "Allow"
+      actions = [
+        "apigateway:GET"
+      ]
+      resources = [
+        "arn:aws:apigateway:eu-south-1::/usageplans/*",
+        "arn:aws:apigateway:eu-south-1::/usageplans",
+      ]
+    }
+  }
+}
+
+
+resource "aws_lambda_permission" "allow_cloudwatch" {
+  statement_id  = "AllowCloudWatchCustomWidget"
+  action        = "lambda:InvokeFunction"
+  function_name = module.lambda_api_usage_widget.lambda_function_name
+  principal     = "cloudwatch.amazonaws.com"
 }
