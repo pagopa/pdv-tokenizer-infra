@@ -1,6 +1,7 @@
 
 # Lambda module configuration
 module "lambda_api_usage_metrics" {
+  count   = contains(["prod", "uat", var.environment]) ? 1 : 0
   source  = "terraform-aws-modules/lambda/aws"
   version = "6.8.0"
 
@@ -9,18 +10,18 @@ module "lambda_api_usage_metrics" {
   handler       = "index.lambda_handler"
   runtime       = "python3.9"
 
-  source_path = "../lambda/api_usage_plan" # Directory containing your Python code
 
-
-  publish = true
+  publish                = false
+  local_existing_package = "../lambda/hello-python/lambda.zip"
 
   # Environment variables if needed
   cloudwatch_logs_retention_in_days = 14
   environment_variables = {
-    LOG_LEVEL = "INFO"
+    LOG_LEVEL                    = "INFO"
+    APIGATEWAY_METRICS_NAMESPACE = "'ApiGateway/UsagePlans'"
   }
 
-  timeout = 20
+  timeout = 30
 
   # Attach policies
   attach_policy_statements = true
@@ -48,11 +49,10 @@ module "lambda_api_usage_metrics" {
 
 }
 
-
 resource "aws_cloudwatch_event_rule" "lambda_schedule" {
   name                = "api-usage-metrics-schedule"
   description         = "Schedule for API usage metrics collection"
-  schedule_expression = "cron(55 * * * ? *)"
+  schedule_expression = "cron(59 * * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "lambda_target" {
@@ -71,50 +71,57 @@ resource "aws_lambda_permission" "allow_eventbridge" {
 }
 
 
-## Lambda for custom widgets ##
+# Role to deploy the lambda functions with github actions
 
-module "lambda_api_usage_widget" {
-  source  = "terraform-aws-modules/lambda/aws"
-  version = "6.8.0"
-
-  function_name = "api-usage-widget"
-  description   = "Custom widget for API Gateway usage dashboard"
-  handler       = "index.lambda_handler"
-  runtime       = "python3.9"
-
-  source_path = "../lambda/widget_api_usage_plan"
-
-  publish = true
-
-  timeout = 20
-
-  /*
-  allowed_triggers = {
-    CloudWatch = {
-      principal  = "cloudwatch.amazonaws.com"
-      source_arn = "*"
-    }
-  }
-*/
-  attach_policy_statements = true
-  policy_statements = {
-    apigateway = {
-      effect = "Allow"
-      actions = [
-        "apigateway:GET"
-      ]
-      resources = [
-        "arn:aws:apigateway:eu-south-1::/usageplans/*",
-        "arn:aws:apigateway:eu-south-1::/usageplans",
-      ]
-    }
-  }
+locals {
+  assume_role_policy_github = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = "arn:aws:iam::${data.aws_caller_identity.current.id}:oidc-provider/token.actions.githubusercontent.com"
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" : [
+              "repo:pagopa/pdv-lambda-usage-plans:*"
+            ]
+          },
+          "ForAllValues:StringEquals" = {
+            "token.actions.githubusercontent.com:iss" : "https://token.actions.githubusercontent.com",
+            "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
 }
 
+resource "aws_iam_policy" "deploy_lambda" {
+  name        = format("%s-deploy-lambda", var.app_name)
+  description = "Policy to deploy Lambda functions"
 
-resource "aws_lambda_permission" "allow_cloudwatch" {
-  statement_id  = "AllowCloudWatchCustomWidget"
-  action        = "lambda:InvokeFunction"
-  function_name = module.lambda_api_usage_widget.lambda_function_name
-  principal     = "cloudwatch.amazonaws.com"
+  policy = jsonencode({
+
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionCode",
+          "lambda:UpdateFunctionConfiguration"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "github_lambda_deploy" {
+  name               = format("%s-deploy-lambda", var.app_name)
+  description        = "Role to deploy lambda functions with github actions."
+  assume_role_policy = local.assume_role_policy_github
 }
