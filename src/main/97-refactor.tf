@@ -17,3 +17,8 @@ moved {
   from = module.dynamodb_table_token.aws_dynamodb_table.autoscaled[0]
   to   = module.dynamodb_table_token.aws_dynamodb_table.this[0]
 }
+
+moved {
+  from = aws_cloutwatch_dashboard.main
+  to   = aws_cloutwatch_dashboard.ms_tokenizer
+}

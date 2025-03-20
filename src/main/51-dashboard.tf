@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_dashboard" "main" {
+resource "aws_cloudwatch_dashboard" "ms_tokenizer" {
   dashboard_name = "MS-Tokenizer"
 
   dashboard_body = templatefile("${path.module}/dashboards/main.tpl.json",
@@ -15,6 +15,23 @@ resource "aws_cloudwatch_dashboard" "main" {
       tokenizer_api_state_name = aws_api_gateway_stage.tokenizer.stage_name
       runbook_title            = local.runbook_title
       runbook_url              = local.runbook_url
+    }
+  )
+}
+
+
+resource "aws_cloudwatch_dashboard" "usage_plans" {
+  count          = contains(["prod", "uat"], var.environment) ? 1 : 0
+  dashboard_name = "Usage-Plans"
+
+  dashboard_body = templatefile("${path.module}/dashboards/usage_plans.tpl.json",
+    {
+      aws_region             = var.aws_region
+      usage_plans            = aws_api_gateway_usage_plan.tokenizer
+      api_keys_main          = aws_api_gateway_api_key.main
+      api_keys_additional    = aws_api_gateway_api_key.additional
+      tokenizer_api_plan_ids = local.tokenizer_api_plan_ids
+      additional_keys        = local.additional_keys
     }
   )
 }
