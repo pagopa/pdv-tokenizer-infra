@@ -9,17 +9,13 @@
             "properties": {
                 "metrics": [
                     %{ for key_name, usage_plan in usage_plans ~}
-                    %{ local colors = ["#fe6e73", "#2ca02c", "#1f77b4", "#ff7f0e", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"] ~}
-                    %{ local color_index = index(keys(usage_plans), key_name) % length(colors) ~}
-                    [ "'ApiGateway/UsagePlans'", "Usage", "APIKey", "${key_name}", "UsagePlan", "${usage_plan.name}", { "color": "${colors[color_index]}" }  ]%{ if key_name != element(keys(usage_plans), length(keys(usage_plans)) - 1) },%{ endif }
+                    [ "'ApiGateway/UsagePlans'", "Usage", "APIKey", "${key_name}", "UsagePlan", "${usage_plan.name}", { "color": "${plan_colors[key_name]}" }  ]%{ if key_name != element(keys(usage_plans), length(keys(usage_plans)) - 1) },%{ endif }
                     %{ endfor ~}
                     %{ for k in additional_keys ~}
-                    %{ local colors = ["#fe6e73", "#2ca02c", "#1f77b4", "#ff7f0e", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"] ~}
-                    %{ local color_index = index(additional_keys, k) % length(colors) ~}
                     %{ if k.key != element(additional_keys, length(additional_keys) - 1).key || length(usage_plans) == 0 ~}
-                    , [ "'ApiGateway/UsagePlans'", "Usage", "APIKey", "${k.key}", "UsagePlan", "${usage_plans[k.plan].name}", { "color": "${colors[color_index]}" }  ]
+                    , [ "'ApiGateway/UsagePlans'", "Usage", "APIKey", "${k.key}", "UsagePlan", "${usage_plans[k.plan].name}", { "color": "${additional_key_colors[k.key]}" }  ]
                     %{ else ~}
-                    , [ "'ApiGateway/UsagePlans'", "Usage", "APIKey", "${k.key}", "UsagePlan", "${usage_plans[k.plan].name}", { "color": "${colors[color_index]}" }  ]
+                    , [ "'ApiGateway/UsagePlans'", "Usage", "APIKey", "${k.key}", "UsagePlan", "${usage_plans[k.plan].name}", { "color": "${additional_key_colors[k.key]}" }  ]
                     %{ endif ~}
                     %{ endfor ~}
                 ],
