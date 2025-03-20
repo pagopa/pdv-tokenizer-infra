@@ -432,6 +432,18 @@ variable "github_tokenizer_repo" {
   default     = "pagopa/pdv-ms-tokenizer"
 }
 
+
+# lambda usage plan
+
+variable "lambda_usage_plan" {
+  type = object({
+    schedule_expression = string
+  })
+  default = {
+    schedule_expression = "cron(55 * * * ? *)"
+  }
+}
+
 variable "tags" {
   type = map(any)
   default = {

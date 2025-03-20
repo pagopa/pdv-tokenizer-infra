@@ -109,3 +109,7 @@ output "sentinel_queue_url" {
 output "github_ecs_deploy_role_arn" {
   value = aws_iam_role.githubecsdeploy.arn
 }
+
+output "github_lambda_deploy_role_arn" {
+  value = aws_iam_role.github_lambda_deploy[*].arn
+}
