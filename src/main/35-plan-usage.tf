@@ -1,7 +1,7 @@
 
 # Lambda module configuration
 module "lambda_api_usage_metrics" {
-  count   = contains(["prod", "uat", var.environment]) ? 1 : 0
+  count   = contains(["prod", "uat"], var.environment) ? 1 : 0
   source  = "terraform-aws-modules/lambda/aws"
   version = "6.8.0"
 
@@ -9,7 +9,6 @@ module "lambda_api_usage_metrics" {
   description   = "Collects API Gateway usage metrics and publishes to CloudWatch"
   handler       = "index.lambda_handler"
   runtime       = "python3.9"
-
 
   publish                = false
   local_existing_package = "../lambda/hello-python/lambda.zip"
@@ -50,24 +49,27 @@ module "lambda_api_usage_metrics" {
 }
 
 resource "aws_cloudwatch_event_rule" "lambda_schedule" {
+  count               = contains(["prod", "uat"], var.environment) ? 1 : 0
   name                = "api-usage-metrics-schedule"
   description         = "Schedule for API usage metrics collection"
   schedule_expression = "cron(59 * * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "lambda_target" {
-  rule      = aws_cloudwatch_event_rule.lambda_schedule.name
+  count     = contains(["prod", "uat"], var.environment) ? 1 : 0
+  rule      = aws_cloudwatch_event_rule.lambda_schedule[0].name
   target_id = "api-usage-metrics"
-  arn       = module.lambda_api_usage_metrics.lambda_function_arn
+  arn       = module.lambda_api_usage_metrics[0].lambda_function_arn
 }
 
 # Lambda permission to allow EventBridge to invoke the function
 resource "aws_lambda_permission" "allow_eventbridge" {
+  count         = contains(["prod", "uat"], var.environment) ? 1 : 0
   statement_id  = "AllowEventBridgeInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = module.lambda_api_usage_metrics.lambda_function_name
+  function_name = module.lambda_api_usage_metrics[0].lambda_function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.lambda_schedule.arn
+  source_arn    = aws_cloudwatch_event_rule.lambda_schedule[0].arn
 }
 
 
@@ -100,6 +102,7 @@ locals {
 }
 
 resource "aws_iam_policy" "deploy_lambda" {
+  count       = contains(["prod", "uat"], var.environment) ? 1 : 0
   name        = format("%s-deploy-lambda", var.app_name)
   description = "Policy to deploy Lambda functions"
 
@@ -121,6 +124,7 @@ resource "aws_iam_policy" "deploy_lambda" {
 }
 
 resource "aws_iam_role" "github_lambda_deploy" {
+  count              = contains(["prod", "uat"], var.environment) ? 1 : 0
   name               = format("%s-deploy-lambda", var.app_name)
   description        = "Role to deploy lambda functions with github actions."
   assume_role_policy = local.assume_role_policy_github
