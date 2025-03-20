@@ -28,7 +28,8 @@ module "lambda_api_usage_metrics" {
     cloudwatch = {
       effect = "Allow"
       actions = [
-        "cloudwatch:PutMetricData"
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricData",
       ]
       resources = ["*"]
     }
