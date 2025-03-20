@@ -10,7 +10,7 @@ module "lambda_api_usage_metrics" {
   handler       = "index.lambda_handler"
   runtime       = "python3.9"
 
-  publish                = false
+  create_package         = false
   local_existing_package = "../lambda/hello-python/lambda.zip"
 
   # Environment variables if needed
