@@ -129,3 +129,11 @@ resource "aws_iam_role" "github_lambda_deploy" {
   description        = "Role to deploy lambda functions with github actions."
   assume_role_policy = local.assume_role_policy_github
 }
+
+
+resource "aws_iam_role_policy_attachment" "github_lambda_deploy" {
+  count      = contains(["prod", "uat"], var.environment) ? 1 : 0
+  role       = aws_iam_role.github_lambda_deploy[count.index].name
+  policy_arn = aws_iam_policy.deploy_lambda[count.index].arn
+
+}
