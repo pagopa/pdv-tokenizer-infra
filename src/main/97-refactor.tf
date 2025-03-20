@@ -17,3 +17,13 @@ moved {
   from = module.dynamodb_table_token.aws_dynamodb_table.autoscaled[0]
   to   = module.dynamodb_table_token.aws_dynamodb_table.this[0]
 }
+
+moved {
+  from = module.lambda_api_usage_metrics.aws_iam_role.lambda
+  to   = module.lambda_api_usage_metrics[0].aws_iam_role.lambda[0]
+}
+
+moved {
+  from = module.lambda_api_usage_metrics.aws_iam_policy.additional_inline
+  to   = module.lambda_api_usage_metrics[0].aws_iam_policy.additional_inline[0]
+}
