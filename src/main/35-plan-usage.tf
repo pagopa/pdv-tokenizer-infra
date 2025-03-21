@@ -5,10 +5,11 @@ module "lambda_api_usage_metrics" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "6.8.0"
 
-  function_name = "api-usage-metrics"
-  description   = "Collects API Gateway usage metrics and publishes to CloudWatch"
-  handler       = "index.lambda_handler"
-  runtime       = "python3.9"
+  function_name           = "api-usage-metrics"
+  description             = "Collects API Gateway usage metrics and publishes to CloudWatch"
+  handler                 = "index.lambda_handler"
+  runtime                 = "python3.9"
+  ignore_source_code_hash = true
 
   create_package         = false
   local_existing_package = "../lambda/hello-python/lambda.zip"

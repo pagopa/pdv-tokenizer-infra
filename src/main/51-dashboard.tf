@@ -32,6 +32,8 @@ resource "aws_cloudwatch_dashboard" "usage_plans" {
       api_keys_additional    = aws_api_gateway_api_key.additional
       tokenizer_api_plan_ids = local.tokenizer_api_plan_ids
       additional_keys        = local.additional_keys
+      plan_colors            = local.plan_colors
+      additional_key_colors  = local.additional_key_colors
     }
   )
 }
