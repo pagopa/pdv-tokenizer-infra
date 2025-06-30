@@ -54,35 +54,35 @@ resource "aws_iam_role_policy" "source" {
   })
 }
 
-resource "aws_sqs_queue" "target" {
-  count = var.create_event_bridge_pipe ? 1 : 0
-  name  = format("queue-%s-tokens", var.env_short)
-}
+# resource "aws_sqs_queue" "target" {
+#   count = var.create_event_bridge_pipe ? 1 : 0
+#   name  = format("queue-%s-tokens", var.env_short)
+# }
 
-resource "aws_sqs_queue_policy" "target" {
-  count     = var.create_event_bridge_pipe && length(var.sqs_consumer_principals) > 0 ? 1 : 0
-  queue_url = aws_sqs_queue.target[0].id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          AWS = var.sqs_consumer_principals
-        },
-        Action = [
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage"
-        ],
-        Resource = aws_sqs_queue.target[0].arn
-      },
-    ]
-  })
-}
+# resource "aws_sqs_queue_policy" "target" {
+#   count     = var.create_event_bridge_pipe && length(var.sqs_consumer_principals) > 0 ? 1 : 0
+#   queue_url = aws_sqs_queue.target[0].id
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect = "Allow"
+#         Principal = {
+#           AWS = var.sqs_consumer_principals
+#         },
+#         Action = [
+#           "sqs:ReceiveMessage",
+#           "sqs:DeleteMessage"
+#         ],
+#         Resource = aws_sqs_queue.target[0].arn
+#       },
+#     ]
+#   })
+# }
 
 resource "aws_iam_role_policy" "target" {
   count = var.create_event_bridge_pipe ? 1 : 0
-  name  = "AllowPipeWriteSQS"
+  name  = "AllowPipeWriteFirehose"
 
   role = aws_iam_role.pipe[0].id
   policy = jsonencode({
@@ -91,12 +91,61 @@ resource "aws_iam_role_policy" "target" {
       {
         Effect = "Allow"
         Action = [
-          "sqs:SendMessage",
+          "firehose:PutRecord",
+          "firehose:PutRecordBatch"
         ],
         Resource = [
-          aws_sqs_queue.target[0].arn,
+          "${aws_kinesis_firehose_delivery_stream.firehose[0].arn}",
         ]
       },
+    ]
+  })
+}
+
+module "s3_tokens_bucket" {
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  count   = var.create_event_bridge_pipe ? 1 : 0
+  version = "3.15.2"
+
+  bucket = format("bucket-%s-tokens", var.env_short)
+  acl    = "private"
+  versioning = {
+    enabled = true
+  }
+}
+
+resource "aws_iam_role" "firehose" {
+  count = var.create_event_bridge_pipe ? 1 : 0
+  name  = "firehose-tokens-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = ["sts:AssumeRole"],
+        Principal = {
+          "Service" : "firehose.amazonaws.com"
+        },
+        Effect = "Allow"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "firehose_s3" {
+  count = var.create_event_bridge_pipe ? 1 : 0
+  name  = "AllowFirehoseWriteS3"
+  role  = aws_iam_role.firehose[0].id
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "${module.s3_tokens_bucket[0].s3_bucket_arn}/*"
+      }
     ]
   })
 }
@@ -107,28 +156,8 @@ resource "aws_pipes_pipe" "token" {
   name          = format("pipe-%s-tokens", var.env_short)
   role_arn      = aws_iam_role.pipe[0].arn
   source        = module.dynamodb_table_token.dynamodb_table_stream_arn
-  target        = aws_sqs_queue.target[0].arn
+  target        = aws_kinesis_firehose_delivery_stream.firehose[0].arn
   desired_state = var.event_bridge_desired_state
-
-  source_parameters {
-    filter_criteria {
-      filter {
-        pattern = jsonencode({
-          dynamodb = {
-            Keys = {
-              SK = {
-                S = [
-                  {
-                    anything-but = "GLOBAL"
-                  },
-                ]
-              }
-            }
-          }
-        })
-      }
-    }
-  }
 
   target_parameters {
     input_template = <<-EOT
@@ -140,5 +169,32 @@ resource "aws_pipes_pipe" "token" {
     "token": <$.dynamodb.NewImage.token.S>
 }
 EOT
+  }
+}
+
+resource "aws_kinesis_firehose_delivery_stream" "firehose" {
+  count       = var.create_event_bridge_pipe ? 1 : 0
+  name        = format("firehose-%s-tokens", var.env_short)
+  destination = "extended_s3"
+
+  extended_s3_configuration {
+    role_arn            = aws_iam_role.firehose[0].arn
+    bucket_arn          = module.s3_tokens_bucket[0].s3_bucket_arn
+    prefix              = "logs/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
+    error_output_prefix = "errors/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/!{firehose:error-output-type}/"
+
+    processing_configuration {
+      enabled = "true"
+      processors {
+        type = "Decompression"
+        parameters {
+          parameter_name  = "CompressionFormat"
+          parameter_value = "GZIP"
+        }
+      }
+      processors {
+        type = "AppendDelimiterToRecord"
+      }
+    }
   }
 }
