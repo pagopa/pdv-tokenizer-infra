@@ -180,7 +180,7 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
   extended_s3_configuration {
     role_arn            = aws_iam_role.firehose[0].arn
     bucket_arn          = module.s3_tokens_bucket[0].s3_bucket_arn
-    prefix              = "logs/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
+    prefix              = "tokens/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
     error_output_prefix = "errors/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/!{firehose:error-output-type}/"
 
     processing_configuration {
