@@ -107,8 +107,10 @@ module "s3_tokens_bucket" {
   count   = var.create_event_bridge_pipe ? 1 : 0
   version = "3.15.2"
 
-  bucket = format("bucket-%s-tokens", var.env_short)
-  acl    = "private"
+  bucket                   = format("bucket-%s-tokens", var.env_short)
+  acl                      = "private"
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
   versioning = {
     enabled = true
   }
@@ -158,6 +160,12 @@ resource "aws_pipes_pipe" "token" {
   source        = module.dynamodb_table_token.dynamodb_table_stream_arn
   target        = aws_kinesis_firehose_delivery_stream.firehose[0].arn
   desired_state = var.event_bridge_desired_state
+
+  source_parameters {
+    dynamodb_stream_parameters {
+      starting_position = "TRIM_HORIZON" # or "LATEST"
+    }
+  }
 
   target_parameters {
     input_template = <<-EOT
