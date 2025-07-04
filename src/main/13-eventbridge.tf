@@ -194,13 +194,6 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
     processing_configuration {
       enabled = "true"
       processors {
-        type = "Decompression"
-        parameters {
-          parameter_name  = "CompressionFormat"
-          parameter_value = "GZIP"
-        }
-      }
-      processors {
         type = "AppendDelimiterToRecord"
       }
     }
