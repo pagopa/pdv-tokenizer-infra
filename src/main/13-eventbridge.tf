@@ -188,14 +188,33 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
   extended_s3_configuration {
     role_arn            = aws_iam_role.firehose[0].arn
     bucket_arn          = module.s3_tokens_bucket[0].s3_bucket_arn
-    prefix              = "tokens/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
+    prefix              = "tokens/!{partitionKeyFromQuery:SK}/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
     error_output_prefix = "errors/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/!{firehose:error-output-type}/"
+
+    buffering_size = 64
 
     processing_configuration {
       enabled = "true"
       processors {
         type = "AppendDelimiterToRecord"
       }
+
+      processors {
+        type = "MetadataExtraction"
+        parameters {
+          parameter_name  = "JsonParsingEngine"
+          parameter_value = "JQ-1.6"
+        }
+        parameters {
+          parameter_name  = "MetadataExtractionQuery"
+          parameter_value = "{SK:.SK}"
+        }
+      }
+    }
+
+
+    dynamic_partitioning_configuration {
+      enabled = "true"
     }
   }
 }
