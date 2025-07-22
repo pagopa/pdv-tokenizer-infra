@@ -216,5 +216,7 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
     dynamic_partitioning_configuration {
       enabled = "true"
     }
+
+    file_extension = "json"
   }
 }
