@@ -217,6 +217,6 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
       enabled = "true"
     }
 
-    file_extension = "json"
+    file_extension = ".json"
   }
 }
