@@ -268,6 +268,7 @@ resource "aws_iam_role" "glue_tokens" {
 }
 
 data "aws_iam_policy_document" "glue_tokens_policy" {
+  count = var.create_event_bridge_pipe ? 1 : 0
   statement {
     sid       = "S3ReadAndWrite"
     effect    = "Allow"
@@ -280,7 +281,7 @@ resource "aws_iam_policy" "glue_tokens_policy" {
   count       = var.create_event_bridge_pipe ? 1 : 0
   name        = "AWSGlueServiceRoleTokensS3Policy"
   description = "S3 bucket tokens policy for glue."
-  policy      = data.aws_iam_policy_document.glue_tokens_policy.json
+  policy      = data.aws_iam_policy_document.glue_tokens_policy[0].json
 }
 
 locals {
