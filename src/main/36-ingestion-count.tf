@@ -37,7 +37,7 @@ resource "aws_iam_policy" "lambda_athena_policy" {
           "logs:CreateLogStream",
           "logs:PutLogEvents",
         ],
-        Resource = "${aws_cloudwatch_log_group.lambda.arn}:*"
+        Resource = "${aws_cloudwatch_log_group.lambda[0].arn}:*"
       },
       {
         Effect = "Allow",
