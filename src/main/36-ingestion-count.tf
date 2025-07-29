@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "lambda" {
-  count = var.create_event_bridge_pipe ? 1 : 0
+  count             = var.create_event_bridge_pipe ? 1 : 0
   name              = "/aws/lambda/${aws_lambda_function.ingestion_count[0].function_name}"
   retention_in_days = var.log_retention_days
   lifecycle {
