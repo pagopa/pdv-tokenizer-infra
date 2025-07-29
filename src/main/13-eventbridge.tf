@@ -327,5 +327,8 @@ resource "aws_glue_crawler" "tokens" {
 
   s3_target {
     path = "s3://${module.s3_tokens_bucket[0].s3_bucket_id}/tokens/"
+    exclusions = [
+      "*/count/**"
+    ]
   }
 }
