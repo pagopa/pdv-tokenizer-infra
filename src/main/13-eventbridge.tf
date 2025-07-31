@@ -309,7 +309,7 @@ resource "aws_glue_crawler" "tokens" {
   name          = "tokens_crawler"
   role          = aws_iam_role.glue_tokens[0].arn
 
-  #schedule = var.tokens_crawler_schedule
+  schedule = var.tokens_crawler_schedule
 
   description = "Crawler for the tokens bucket"
 

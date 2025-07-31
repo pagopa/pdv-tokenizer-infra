@@ -107,3 +107,27 @@ resource "aws_lambda_function" "ingestion_count" {
     }
   }
 }
+
+resource "aws_cloudwatch_event_rule" "trigger_ingestion_lambda" {
+  count       = var.create_event_bridge_pipe ? 1 : 0
+  name        = "trigger-ingestion-lambda-rule"
+  description = "Schedule for Count ingestion"
+
+  schedule_expression = var.event_rule_schedule
+}
+
+resource "aws_cloudwatch_event_target" "ingestion_lambda_target" {
+  count     = var.create_event_bridge_pipe ? 1 : 0
+  rule      = aws_cloudwatch_event_rule.trigger_ingestion_lambda[0].name
+  target_id = "SendToLambda"
+  arn       = aws_lambda_function.ingestion_count[0].arn
+}
+
+resource "aws_lambda_permission" "allow_eventbridge_ingestion" {
+  count         = var.create_event_bridge_pipe ? 1 : 0
+  statement_id  = "AllowExecutionFromEventBridge"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.ingestion_count[0].function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.trigger_ingestion_lambda[0].arn
+}
