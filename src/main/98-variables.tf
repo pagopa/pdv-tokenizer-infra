@@ -467,6 +467,6 @@ variable "event_rule_schedule" {
 }
 
 variable "excluded_namespaces" {
-  type = list(string)
+  type    = list(string)
   default = [""]
 }
