@@ -1,6 +1,9 @@
 env_short   = "u"
 environment = "uat"
 
+#EventBridge
+excluded_namespaces = ["SELFCARE-DEV", "SELFCARE-UAT"]
+
 # Network
 enable_nat_gateway = false
 

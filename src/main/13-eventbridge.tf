@@ -164,6 +164,24 @@ resource "aws_pipes_pipe" "token" {
   source_parameters {
     dynamodb_stream_parameters {
       starting_position = "TRIM_HORIZON" # or "LATEST"
+      maximum_record_age_in_seconds = -1
+    }
+    filter_criteria {
+      filter {
+        pattern = jsonencode({
+          dynamodb = {
+            Keys = {
+              SK = {
+                S = [
+                  {
+                    anything-but = var.excluded_namespaces
+                  },
+                ]
+              }
+            }
+          }
+        })
+      }
     }
   }
 
