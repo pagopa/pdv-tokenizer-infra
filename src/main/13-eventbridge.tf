@@ -172,11 +172,7 @@ resource "aws_pipes_pipe" "token" {
           dynamodb = {
             Keys = {
               SK = {
-                S = [
-                  {
-                    anything-but = var.excluded_namespaces
-                  },
-                ]
+                S = var.whitelisted_namespaces
               }
             }
           }

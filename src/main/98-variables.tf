@@ -466,7 +466,7 @@ variable "event_rule_schedule" {
   default = "cron(0 7 * * ? *)"
 }
 
-variable "excluded_namespaces" {
+variable "whitelisted_namespaces" {
   type    = list(string)
   default = [""]
 }

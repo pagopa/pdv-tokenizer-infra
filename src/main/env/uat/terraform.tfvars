@@ -2,7 +2,24 @@ env_short   = "u"
 environment = "uat"
 
 #EventBridge
-excluded_namespaces = ["SELFCARE-DEV", "SELFCARE-UAT"]
+whitelisted_namespaces = [
+  "IDPAY-DEV",
+  "IDPAY-UAT",
+  "IO-AUTH",
+  "IOSIGN",
+  "IO-WALLET",
+  "PAGOPA-EBOLLO20",
+  "PAGOPA-WALLET",
+  "PNPF-DEV",
+  "PNPF-UAT",
+  "PNPG",
+  "PPAECOM",
+  "RICEVUTEPPA",
+  "INTEROP-DEV",
+  "INTEROP-UAT",
+  "PNPF-CERT",
+  "GLOBAL"
+]
 
 # Network
 enable_nat_gateway = false
