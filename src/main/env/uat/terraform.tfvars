@@ -188,8 +188,8 @@ tokenizer_plans = [
   {
     # Also know as session wallet pagoPa.
     key_name        = "PAGOPA-WALLET"
-    burst_limit     = 3500
-    rate_limit      = 2500
+    burst_limit     = 2000
+    rate_limit      = 1000
     additional_keys = []
     method_throttle = []
   },
