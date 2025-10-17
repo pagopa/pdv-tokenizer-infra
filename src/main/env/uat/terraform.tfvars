@@ -165,8 +165,8 @@ tokenizer_plans = [
   ## PagoPa Ecommerce
   {
     key_name        = "PPAECOM"
-    burst_limit     = 200
-    rate_limit      = 100
+    burst_limit     = 3500
+    rate_limit      = 2500
     additional_keys = []
     method_throttle = []
   },
@@ -188,8 +188,8 @@ tokenizer_plans = [
   {
     # Also know as session wallet pagoPa.
     key_name        = "PAGOPA-WALLET"
-    burst_limit     = 350
-    rate_limit      = 250
+    burst_limit     = 3500
+    rate_limit      = 2500
     additional_keys = []
     method_throttle = []
   },
