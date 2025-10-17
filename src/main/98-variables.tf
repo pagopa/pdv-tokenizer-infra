@@ -450,3 +450,23 @@ variable "tags" {
     CreatedBy = "Terraform"
   }
 }
+
+variable "log_retention_days" {
+  type    = number
+  default = 7
+}
+
+variable "tokens_crawler_schedule" {
+  type    = string
+  default = "cron(0 6 * * ? *)"
+}
+
+variable "event_rule_schedule" {
+  type    = string
+  default = "cron(0 7 * * ? *)"
+}
+
+variable "whitelisted_namespaces" {
+  type    = list(string)
+  default = [""]
+}

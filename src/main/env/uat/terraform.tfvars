@@ -1,6 +1,26 @@
 env_short   = "u"
 environment = "uat"
 
+#EventBridge
+whitelisted_namespaces = [
+  "IDPAY-DEV",
+  "IDPAY-UAT",
+  "IO-AUTH",
+  "IOSIGN",
+  "IO-WALLET",
+  "PAGOPA-EBOLLO20",
+  "PAGOPA-WALLET",
+  "PNPF-DEV",
+  "PNPF-UAT",
+  "PNPG",
+  "PPAECOM",
+  "RICEVUTEPPA",
+  "INTEROP-DEV",
+  "INTEROP-UAT",
+  "PNPF-CERT",
+  "GLOBAL"
+]
+
 # Network
 enable_nat_gateway = false
 
@@ -186,7 +206,7 @@ tokenizer_plans = [
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = false
 
-table_token_stream_enabled = false
+table_token_stream_enabled = true
 
 ## table Token
 /*
@@ -218,9 +238,9 @@ table_token_autoscling_indexes = {
 */
 
 ## Event bridge
-create_event_bridge_pipe   = false
+create_event_bridge_pipe   = true
 event_bridge_desired_state = "RUNNING"
-sqs_consumer_principals    = ["arn:aws:iam::688071769384:user/nifi"]
+#sqs_consumer_principals    = ["arn:aws:iam::688071769384:user/nifi"]
 
 ## alarms
 dynamodb_alarms = [{
