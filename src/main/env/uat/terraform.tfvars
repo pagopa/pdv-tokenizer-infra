@@ -78,8 +78,8 @@ tokenizer_plans = [
   },
   {
     key_name        = "SELFCARE-DEV"
-    burst_limit     = 20
-    rate_limit      = 10
+    burst_limit     = 400
+    rate_limit      = 200
     additional_keys = ["INTEROP-DEV"]
     method_throttle = []
   },
@@ -114,8 +114,8 @@ tokenizer_plans = [
   },
   {
     key_name        = "SELFCARE-UAT"
-    burst_limit     = 20
-    rate_limit      = 10
+    burst_limit     = 400
+    rate_limit      = 200
     additional_keys = ["INTEROP-UAT"]
     method_throttle = []
   },
@@ -165,8 +165,8 @@ tokenizer_plans = [
   ## PagoPa Ecommerce
   {
     key_name        = "PPAECOM"
-    burst_limit     = 200
-    rate_limit      = 100
+    burst_limit     = 2000
+    rate_limit      = 1000
     additional_keys = []
     method_throttle = []
   },
@@ -188,8 +188,8 @@ tokenizer_plans = [
   {
     # Also know as session wallet pagoPa.
     key_name        = "PAGOPA-WALLET"
-    burst_limit     = 350
-    rate_limit      = 250
+    burst_limit     = 2000
+    rate_limit      = 1000
     additional_keys = []
     method_throttle = []
   },
