@@ -76,8 +76,8 @@ tokenizer_plans = [{
   {
     # Piattaforma notifiche
     key_name        = "PNPF"
-    burst_limit     = 600
-    rate_limit      = 300
+    burst_limit     = 5000
+    rate_limit      = 4000
     additional_keys = []
     method_throttle = []
   },
