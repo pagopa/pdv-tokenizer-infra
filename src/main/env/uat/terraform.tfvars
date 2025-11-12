@@ -204,7 +204,7 @@ tokenizer_plans = [
 
 
 # dynamodb
-dynamodb_point_in_time_recovery_enabled = false
+dynamodb_point_in_time_recovery_enabled = true #Enabled to test export to S3
 
 table_token_stream_enabled = true
 
