@@ -14,7 +14,7 @@ vpc_peering = {
 
 # Ecs
 ecs_enable_execute_command = true
-replica_count              = 10
+replica_count              = 3
 ecs_logs_retention_days    = 90
 tokenizer_image_version    = "ba07cff4b1a1f84baf61e3717157fd58a9b39850"
 task_cpu                   = 1024
@@ -24,8 +24,8 @@ ms_tokenizer_enable_confidential_filter = true
 ms_tokenizer_log_level                  = "INFO"
 
 ecs_autoscaling = {
-  max_capacity       = 100
-  min_capacity       = 10
+  max_capacity       = 10
+  min_capacity       = 3
   scale_in_cooldown  = 900
   scale_out_cooldown = 60
 }
