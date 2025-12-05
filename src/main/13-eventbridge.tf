@@ -314,11 +314,11 @@ locals {
 }
 
 resource "aws_iam_role_policy_attachment" "glue_s3_tokens_policy" {
-  count      = var.create_event_bridge_pipe ? length(local.glue_tokens_policy_arns) : 0
-  
+  count = var.create_event_bridge_pipe ? length(local.glue_tokens_policy_arns) : 0
+
   role       = aws_iam_role.glue_tokens[0].name
   policy_arn = local.glue_tokens_policy_arns[count.index]
-  
+
   depends_on = [aws_iam_policy.glue_tokens_policy]
 }
 
