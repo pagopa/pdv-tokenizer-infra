@@ -13,6 +13,7 @@ whitelisted_namespaces = [
 
 create_event_bridge_pipe   = true
 event_bridge_desired_state = "RUNNING"
+table_token_stream_enabled = true
 # Network
 enable_nat_gateway = false
 
