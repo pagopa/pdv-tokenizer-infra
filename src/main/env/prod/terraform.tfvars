@@ -8,7 +8,10 @@ whitelisted_namespaces = [
   "PNPF",
   "PNPG",
   "PPAECOM",
-  "GLOBAL"
+  "GLOBAL",
+  "RICEVUTEPPA",
+  "PAGOPA-WALLET",
+  "PAGOPA-EBOLLO20",
 ]
 
 create_event_bridge_pipe   = true
