@@ -299,16 +299,20 @@ resource "aws_iam_policy" "glue_tokens_policy" {
 }
 
 locals {
-  glue_tokens_policy = compact([
-    "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole",
-    var.create_event_bridge_pipe ? aws_iam_policy.glue_tokens_policy[0].arn : null
-  ])
+  glue_base_policy = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
 
-resource "aws_iam_role_policy_attachment" "glue_s3_tokens_policy" {
-  count      = var.create_event_bridge_pipe ? length(local.glue_tokens_policy) : 0
+resource "aws_iam_role_policy_attachment" "glue_base_policy" {
+  count      = var.create_event_bridge_pipe ? 1 : 0
   role       = aws_iam_role.glue_tokens[0].name
-  policy_arn = local.glue_tokens_policy[count.index]
+  policy_arn = local.glue_base_policy
+}
+
+resource "aws_iam_role_policy_attachment" "glue_tokens_extra" {
+  count      = var.create_event_bridge_pipe ? 1 : 0
+  role       = aws_iam_role.glue_tokens[0].name
+  policy_arn = aws_iam_policy.glue_tokens_policy[0].arn
+
   depends_on = [aws_iam_policy.glue_tokens_policy]
 }
 
