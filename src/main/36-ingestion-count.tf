@@ -92,7 +92,7 @@ resource "aws_lambda_function" "ingestion_count" {
   function_name = "ingestion-count"
   role          = aws_iam_role.lambda_exec[0].arn
   handler       = "index.lambda_handler"
-  runtime       = "python3.9"
+  runtime       = "python3.12"
   timeout       = 60
 
   filename         = data.archive_file.lambda_zip[0].output_path
