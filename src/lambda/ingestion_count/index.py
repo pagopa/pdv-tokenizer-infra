@@ -67,7 +67,7 @@ def lambda_handler(event, context):
         # Store in S3 under results/{namespace}/result.json
         s3.put_object(
             Bucket=tokens_bucket,
-            Key=f"tokens/{namespace}/count/{prev_day.strftime('%Y%m%d')}/{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.json",
+            Key=f"tokens/{namespace}/count/{prev_day.strftime('%Y%m%d')}/{prev_day.strftime('%Y%m%d')}.json",
             Body=json.dumps(output_json),
             ContentType='application/json'
         )
