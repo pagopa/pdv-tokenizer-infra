@@ -19,6 +19,7 @@ resource "aws_sns_topic_subscription" "alarms_email" {
   topic_arn              = aws_sns_topic.alarms.arn
 }
 
+# Update Opsgenie endpoint
 resource "aws_sns_topic_subscription" "alarms_opsgenie" {
   count = var.enable_opsgenie ? 1 : 0
 
