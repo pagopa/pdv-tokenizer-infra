@@ -8,6 +8,7 @@ whitelisted_namespaces = [
   "IO-AUTH",
   "IOSIGN",
   "IO-WALLET",
+  "GPD",
   "PAGOPA-EBOLLO20",
   "PAGOPA-WALLET",
   "PNPF-DEV",
@@ -196,6 +197,13 @@ tokenizer_plans = [
   {
     key_name        = "PAGOPA-EBOLLO20"
     burst_limit     = 50
+    rate_limit      = 100
+    additional_keys = []
+    method_throttle = []
+  },
+  {
+    key_name        = "GPD"
+    burst_limit     = 150
     rate_limit      = 100
     additional_keys = []
     method_throttle = []

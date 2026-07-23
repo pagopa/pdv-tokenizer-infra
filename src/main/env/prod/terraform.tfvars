@@ -5,6 +5,7 @@ environment = "prod"
 whitelisted_namespaces = [
   "IO-AUTH",
   "IOSIGN",
+  "GPD",
   "PNPF",
   "PNPG",
   "PPAECOM",
@@ -161,6 +162,13 @@ tokenizer_plans = [{
     key_name        = "PAGOPA-EBOLLO20"
     burst_limit     = 200
     rate_limit      = 300
+    additional_keys = []
+    method_throttle = []
+  },
+  {
+    key_name        = "GPD"
+    burst_limit     = 500
+    rate_limit      = 350
     additional_keys = []
     method_throttle = []
   },
