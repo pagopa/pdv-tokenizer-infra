@@ -203,8 +203,8 @@ tokenizer_plans = [
   },
   {
     key_name        = "GPD"
-    burst_limit     = 150
-    rate_limit      = 100
+    burst_limit     = 450
+    rate_limit      = 300
     additional_keys = []
     method_throttle = []
   },
