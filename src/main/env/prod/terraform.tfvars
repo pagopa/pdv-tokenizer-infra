@@ -183,6 +183,7 @@ web_acl_visibility_config = {
 
 # dynamodb
 dynamodb_point_in_time_recovery_enabled = true
+dynamodb_deletion_protection_enabled    = true
 
 
 ## table Token
