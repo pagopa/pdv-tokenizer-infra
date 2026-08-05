@@ -16,6 +16,7 @@ module "dynamodb_table_token" {
   stream_enabled                 = var.table_token_stream_enabled
   stream_view_type               = var.table_token_stream_enabled ? "NEW_IMAGE" : null
   point_in_time_recovery_enabled = var.dynamodb_point_in_time_recovery_enabled
+  deletion_protection_enabled    = var.dynamodb_deletion_protection_enabled
   billing_mode                   = "PAY_PER_REQUEST"
 
   attributes = [

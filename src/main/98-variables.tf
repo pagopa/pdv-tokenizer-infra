@@ -286,6 +286,12 @@ variable "dynamodb_point_in_time_recovery_enabled" {
   default     = false
 }
 
+variable "dynamodb_deletion_protection_enabled" { 
+  type        = bool
+  description = "Enable dynamodb deletion protection"
+  default     = false
+}
+
 ## Table Token
 /*
 variable "table_token_read_capacity" {
