@@ -1,5 +1,6 @@
-env_short   = "u"
-environment = "uat"
+env_short                    = "u"
+environment                  = "uat"
+tokens_bucket_policy_enabled = true
 
 #EventBridge
 whitelisted_namespaces = [

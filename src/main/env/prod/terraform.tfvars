@@ -14,9 +14,10 @@ whitelisted_namespaces = [
   "PAGOPA-WALLET"
 ]
 
-create_event_bridge_pipe   = true
-event_bridge_desired_state = "RUNNING"
-table_token_stream_enabled = true
+create_event_bridge_pipe     = true
+event_bridge_desired_state   = "RUNNING"
+tokens_bucket_policy_enabled = true
+table_token_stream_enabled   = true
 # Network
 enable_nat_gateway = false
 

@@ -116,6 +116,28 @@ module "s3_tokens_bucket" {
   }
 }
 
+resource "aws_s3_bucket_policy" "tokens" {
+  count  = var.create_event_bridge_pipe && var.tokens_bucket_policy_enabled ? 1 : 0
+  bucket = module.s3_tokens_bucket[0].s3_bucket_id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::707258693442:role/dl-dladmin-role"
+        }
+        Action = "s3:*"
+        Resource = [
+          "${module.s3_tokens_bucket[0].s3_bucket_arn}/tokens/*",
+          module.s3_tokens_bucket[0].s3_bucket_arn
+        ]
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role" "firehose" {
   count = var.create_event_bridge_pipe ? 1 : 0
   name  = "firehose-tokens-role"
