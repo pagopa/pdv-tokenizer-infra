@@ -339,6 +339,12 @@ variable "create_event_bridge_pipe" {
   default     = false
 }
 
+variable "tokens_bucket_policy_enabled" {
+  type        = bool
+  description = "Enable the cross-account policy for the tokens S3 bucket."
+  default     = false
+}
+
 variable "event_bridge_desired_state" {
   type        = string
   description = "Event bridge pipe desired state."
