@@ -126,7 +126,7 @@ resource "aws_s3_bucket_policy" "tokens" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::707258693442:role/dl-dladmin-role"
+          AWS = "arn:aws:iam::688071769384:role/cdp_pagopa_dl_pdv_rw"
         }
         Action = "s3:*"
         Resource = [
