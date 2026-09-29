@@ -24,7 +24,11 @@ provider "aws" {
   region = "eu-central-1"
 
   default_tags {
-    tags = var.tags
+    tags = merge(
+      var.tags,
+      {
+        "awsApplication" = aws_servicecatalog_application.myapplication.applicationTag
+    })
   }
 
 }
@@ -34,3 +38,7 @@ locals {
 }
 
 data "aws_caller_identity" "current" {}
+
+resource "aws_servicecatalog_application" "myapplication" {
+  name = local.project
+}
