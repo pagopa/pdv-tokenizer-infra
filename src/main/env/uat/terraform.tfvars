@@ -20,7 +20,8 @@ whitelisted_namespaces = [
   "INTEROP-DEV",
   "INTEROP-UAT",
   "PNPF-CERT",
-  "GLOBAL"
+  "GLOBAL",
+  "RTP"
 ]
 
 # Network
@@ -209,6 +210,13 @@ tokenizer_plans = [
     additional_keys = []
     method_throttle = []
   },
+  {
+    key_name        = "RTP"
+    burst_limit     = 200
+    rate_limit      = 100
+    additional_keys = []
+    method_throttle = []
+  }
 ]
 
 
