@@ -491,6 +491,6 @@ variable "datalake_s3_tokens_roles" {
 
 variable "datalake_allowed_source_ips" {
   type        = list(string)
-  description = "List of allowed source IPs for accessing the S3 tokens bucket in the datalake."
+  description = "Optional source IP allowlist for the S3 tokens bucket; an empty list disables the IP condition."
   default     = []
 }
