@@ -18,6 +18,18 @@ create_event_bridge_pipe     = true
 event_bridge_desired_state   = "RUNNING"
 tokens_bucket_policy_enabled = true
 table_token_stream_enabled   = true
+
+datalake_s3_tokens_roles = [
+  "arn:aws:iam::688071769384:role/cdp_pagopa_dl_pdv_rw",
+  "arn:aws:iam::707258693442:role/dl-dladmin-role"
+]
+
+datalake_allowed_source_ips = [
+  "63.184.191.90/32",
+  "63.184.95.69/32",
+  "93.189.21.104/32"
+]
+
 # Network
 enable_nat_gateway = false
 

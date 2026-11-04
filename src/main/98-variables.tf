@@ -482,3 +482,15 @@ variable "whitelisted_namespaces" {
   type    = list(string)
   default = [""]
 }
+
+variable "datalake_s3_tokens_roles" {
+  type        = list(string)
+  description = "List of IAM roles allowed to access the S3 tokens bucket in the datalake."
+  default     = []
+}
+
+variable "datalake_allowed_source_ips" {
+  type        = list(string)
+  description = "List of allowed source IPs for accessing the S3 tokens bucket in the datalake."
+  default     = []
+}

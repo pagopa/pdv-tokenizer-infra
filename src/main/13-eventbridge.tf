@@ -126,13 +126,18 @@ resource "aws_s3_bucket_policy" "tokens" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::688071769384:role/cdp_pagopa_dl_pdv_rw"
+          AWS = var.datalake_s3_tokens_roles
         }
         Action = "s3:*"
         Resource = [
           "${module.s3_tokens_bucket[0].s3_bucket_arn}/tokens/*",
           module.s3_tokens_bucket[0].s3_bucket_arn
         ]
+        Condition = {
+          IpAddress = {
+            "aws:SourceIp" = var.datalake_allowed_source_ips
+          }
+        }
       }
     ]
   })
