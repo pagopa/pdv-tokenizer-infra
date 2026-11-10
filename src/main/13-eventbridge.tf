@@ -123,17 +123,26 @@ resource "aws_s3_bucket_policy" "tokens" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          AWS = "arn:aws:iam::688071769384:role/cdp_pagopa_dl_pdv_rw"
-        }
-        Action = "s3:*"
-        Resource = [
-          "${module.s3_tokens_bucket[0].s3_bucket_arn}/tokens/*",
-          module.s3_tokens_bucket[0].s3_bucket_arn
-        ]
-      }
+      merge(
+        {
+          Effect = "Allow"
+          Principal = {
+            AWS = var.datalake_s3_tokens_roles
+          }
+          Action = "s3:*"
+          Resource = [
+            "${module.s3_tokens_bucket[0].s3_bucket_arn}/tokens/*",
+            module.s3_tokens_bucket[0].s3_bucket_arn
+          ]
+        },
+        length(var.datalake_allowed_source_ips) > 0 ? {
+          Condition = {
+            IpAddress = {
+              "aws:SourceIp" = var.datalake_allowed_source_ips
+            }
+          }
+        } : {}
+      )
     ]
   })
 }
